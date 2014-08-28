@@ -1,19 +1,23 @@
 ﻿
-using System;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml;
-using Microsoft.Azure.Management.StorSimple;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Commands.Utilities.Common;
-using Microsoft.WindowsAzure.Management.Scheduler;
-using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
 // TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
+
+using System.Runtime.Caching;
+
 namespace Micro.Azure.Commands.StorSimple
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Xml;
+    using Microsoft.Azure.Management.StorSimple;
+    using Microsoft.WindowsAzure;
+    using Microsoft.WindowsAzure.Commands.Utilities.Common;
+    using Microsoft.WindowsAzure.Management.Scheduler;
+    using Microsoft.WindowsAzure.Management.Scheduler.Models;
+
     public partial class PSStorSimpleClient
     {
         private CloudServiceManagementClient cloudServicesClient;
@@ -21,13 +25,23 @@ namespace Micro.Azure.Commands.StorSimple
         private X509Certificate2 certificate;
         private Uri serviceEndPoint;
         private string resourceId;
+        private string stampId;
+        private string cloudServiceName;
+        private string resourceProviderNameSpace;
+        private string resourceType;
+        private string resourceName;
 
+        private ObjectCache Resourcecache = MemoryCache.Default;
+
+        private CacheItemPolicy ResourceCachetimeoutPolicy = new CacheItemPolicy();
+        
         public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
         {
             this.cloudServicesClient = currentSubscription.CreateClient<CloudServiceManagementClient>();
             this.subscriptionId = currentSubscription.SubscriptionId;
             this.serviceEndPoint = currentSubscription.ServiceEndpoint;
             this.certificate = currentSubscription.Certificate;
+            ResourceCachetimeoutPolicy.AbsoluteExpiration = DateTimeOffset.Now.AddHours(1.0d);
         }
 
         public CloudServiceListResponse GetAzureCloudServicesSyncInt()
