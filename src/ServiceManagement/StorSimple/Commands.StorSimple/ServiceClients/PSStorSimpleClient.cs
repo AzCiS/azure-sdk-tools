@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using Microsoft.Azure.Management.StorSimple;
+using Microsoft.Azure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Microsoft.WindowsAzure.Management.Scheduler;
@@ -61,8 +62,7 @@ namespace Micro.Azure.Commands.StorSimple
 
             var storSimpleClient = new StorSimpleManagementClient("CisProdResSEA01", "CisProdResSEA01", stampId,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
-
-
+            
             if (storSimpleClient == null)
             {
                 throw  new InvalidOperationException();
@@ -98,6 +98,16 @@ namespace Micro.Azure.Commands.StorSimple
 
             throw new InvalidOperationException(
                 string.Format(error.Message,"\n",error.HttpCode,"\n",error.ExtendedCode));
+        }
+
+        private CustomRequestHeaders GetCustomeRequestHeaders()
+        {
+            return new CustomRequestHeaders()
+            {
+                // ClientRequestId is a unique ID for every request to StorSimple .
+                // It is useful when diagnosing failures in API calls.
+                ClientRequestId = Guid.NewGuid().ToString("D") + "_PS"
+            };
         }
         
     }
