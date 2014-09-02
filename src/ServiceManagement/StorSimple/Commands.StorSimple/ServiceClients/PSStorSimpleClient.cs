@@ -1,4 +1,11 @@
 ﻿
+
+// TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
+
+using System.Runtime.Caching;
+
+namespace Micro.Azure.Commands.StorSimple
+{
 using System;
 using System.IO;
 using System.Linq;
@@ -12,9 +19,6 @@ using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Microsoft.WindowsAzure.Management.Scheduler;
 using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
-// TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
-namespace Micro.Azure.Commands.StorSimple
-{
     public partial class PSStorSimpleClient
     {
         private CloudServiceManagementClient cloudServicesClient;
@@ -22,6 +26,15 @@ namespace Micro.Azure.Commands.StorSimple
         private X509Certificate2 certificate;
         private Uri serviceEndPoint;
         private string resourceId;
+        private string stampId;
+        private string cloudServiceName;
+        private string resourceProviderNameSpace;
+        private string resourceType;
+        private string resourceName;
+
+        private ObjectCache Resourcecache = MemoryCache.Default;
+
+        private CacheItemPolicy ResourceCachetimeoutPolicy = new CacheItemPolicy();
 
         public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
         {
@@ -29,6 +42,7 @@ namespace Micro.Azure.Commands.StorSimple
             this.subscriptionId = currentSubscription.SubscriptionId;
             this.serviceEndPoint = currentSubscription.ServiceEndpoint;
             this.certificate = currentSubscription.Certificate;
+            ResourceCachetimeoutPolicy.AbsoluteExpiration = DateTimeOffset.Now.AddHours(1.0d);
         }
 
         public CloudServiceListResponse GetAzureCloudServicesSyncInt()
@@ -62,7 +76,7 @@ namespace Micro.Azure.Commands.StorSimple
 
             var storSimpleClient = new StorSimpleManagementClient("CisProdResSEA01", "CisProdResSEA01", stampId,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
-            
+
             if (storSimpleClient == null)
             {
                 throw  new InvalidOperationException();
@@ -99,7 +113,7 @@ namespace Micro.Azure.Commands.StorSimple
             throw new InvalidOperationException(
                 string.Format(error.Message,"\n",error.HttpCode,"\n",error.ExtendedCode));
         }
-
+        
         private CustomRequestHeaders GetCustomeRequestHeaders()
         {
             return new CustomRequestHeaders()
