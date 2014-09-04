@@ -54,17 +54,17 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
         {
             var services = this.cloudServicesClient.CloudServices.List();
 
-            var selectedService = services.First(s => s.Name.Equals("CisProdCSEA01"));
+            var selectedService = services.First(s => s.Name.Equals("CisProdCSSEA01"));
 
             var selectedResource = selectedService.Resources.First(
                                                         r => r.Namespace.Equals("WACiS", StringComparison.InvariantCultureIgnoreCase)
-                                                             && r.Name.Equals("CisProdResEA01"));
+                                                             && r.Name.Equals("CisProdResSEA01"));
 
             var stampId = string.Empty;
 
             foreach (var item in selectedResource.OutputItems)
             {
-                if (item.Key.Equals("StampId"))
+                if (item.Key.Equals("BackendStampId"))
                 {
                     stampId = item.Value;
                 }
@@ -74,8 +74,8 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
                 }
             }
 
-            var storSimpleClient = new StorSimpleManagementClient("CisProdResSEA01", "CisProdResSEA01", stampId,
-                new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
+            var storSimpleClient = new StorSimpleManagementClient("CisProdCSSEA01", "CisProdResSEA01", resourceId,
+                stampId, new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
 
             if (storSimpleClient == null)
             {
