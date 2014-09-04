@@ -11,7 +11,7 @@ namespace Micro.Azure.Commands.StorSimple
     {
         public IEnumerable<DeviceInfo> GetAllDevices()
         {
-            return this.GetStorSimpleClient().Devices.List(StorSimpleContext.ResourceId, this.GetCustomeRequestHeaders());
+            return this.GetStorSimpleClient().Devices.List(this.GetCustomeRequestHeaders());
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿
-// TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
-
 using System.Runtime.Caching;
 using Microsoft.Azure.Commands.StorSimple;
 
@@ -66,7 +64,7 @@ namespace Micro.Azure.Commands.StorSimple
         {
             var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName, StorSimpleContext.ResourceName, StorSimpleContext.StampId,StorSimpleContext.ResourceId,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
-            
+
             if (storSimpleClient == null)
             {
                 throw  new InvalidOperationException();
