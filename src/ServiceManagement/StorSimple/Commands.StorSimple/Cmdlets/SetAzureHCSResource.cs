@@ -8,7 +8,6 @@ namespace Micro.Azure.Commands.StorSimple.Cmdlets
     public class SetAzureHCSResource : StorSimpleCmdletBase
     {
         private string resourceName;
-
         /// <summary>
         /// Gets or sets Protection to set, either enable or disable.
         /// </summary>
@@ -25,19 +24,10 @@ namespace Micro.Azure.Commands.StorSimple.Cmdlets
         /// </summary>
         public override void ExecuteCmdlet()
         {
-            try
-            {
-                var status = StorSimpleClient.SetResourceContext(resourceName);
-                this.WriteObject(status);
-
-                var currentContext = StorSimpleClient.GetResourceContext();
-                this.WriteObject(currentContext);
-
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
+            var status = StorSimpleClient.SetResourceContext(resourceName);
+            this.WriteObject(status);
+            var currentContext = StorSimpleClient.GetResourceContext();
+            this.WriteObject(currentContext);
         }         
     }
 }
