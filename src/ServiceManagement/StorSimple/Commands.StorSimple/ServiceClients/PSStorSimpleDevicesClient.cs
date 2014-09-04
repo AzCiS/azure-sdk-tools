@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Azure;
+using Microsoft.Azure.Commands.StorSimple;
 using Microsoft.Azure.Management.StorSimple.Models;
 
 namespace Micro.Azure.Commands.StorSimple
@@ -10,7 +11,7 @@ namespace Micro.Azure.Commands.StorSimple
     {
         public IEnumerable<DeviceInfo> GetAllDevices()
         {
-            return this.GetStorSimpleClient().Devices.List(resourceId, this.GetCustomeRequestHeaders());
+            return this.GetStorSimpleClient().Devices.List(StorSimpleContext.ResourceId, this.GetCustomeRequestHeaders());
         }
     }
 }
