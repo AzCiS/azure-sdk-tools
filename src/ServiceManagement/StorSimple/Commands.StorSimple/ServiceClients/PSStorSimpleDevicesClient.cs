@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Azure;
+using Microsoft.Azure.Commands.StorSimple;
 using Microsoft.Azure.Management.StorSimple.Models;
 
 namespace Micro.Azure.Commands.StorSimple

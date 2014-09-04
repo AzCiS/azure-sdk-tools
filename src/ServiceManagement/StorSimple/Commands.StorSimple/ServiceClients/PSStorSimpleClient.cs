@@ -3,6 +3,7 @@
 // TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
 
 using System.Runtime.Caching;
+using Microsoft.Azure.Commands.StorSimple;
 
 namespace Micro.Azure.Commands.StorSimple
 {
@@ -25,12 +26,6 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
         private string subscriptionId;
         private X509Certificate2 certificate;
         private Uri serviceEndPoint;
-        private string resourceId;
-        private string stampId;
-        private string cloudServiceName;
-        private string resourceProviderNameSpace;
-        private string resourceType;
-        private string resourceName;
 
         private ObjectCache Resourcecache = MemoryCache.Default;
 
@@ -52,30 +47,8 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
         private StorSimpleManagementClient GetStorSimpleClient()
         {
-            var services = this.cloudServicesClient.CloudServices.List();
-
-            var selectedService = services.First(s => s.Name.Equals("CisProdCSSEA01"));
-
-            var selectedResource = selectedService.Resources.First(
-                                                        r => r.Namespace.Equals("WACiS", StringComparison.InvariantCultureIgnoreCase)
-                                                             && r.Name.Equals("CisProdResSEA01"));
-
-            var stampId = string.Empty;
-
-            foreach (var item in selectedResource.OutputItems)
-            {
-                if (item.Key.Equals("BackendStampId"))
-                {
-                    stampId = item.Value;
-                }
-                else if (item.Key.Equals("ResourceId"))
-                {
-                    resourceId = item.Value;
-                }
-            }
-
-            var storSimpleClient = new StorSimpleManagementClient("CisProdCSSEA01", "CisProdResSEA01", resourceId,
-                stampId, new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
+            var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName, StorSimpleContext.ResourceName, StorSimpleContext.StampId,StorSimpleContext.ResourceId,
+                new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
 
             if (storSimpleClient == null)
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.WindowsAzure;
 using System.Collections.Generic;
 using Microsoft.Azure.Commands.StorSimple;
@@ -47,22 +48,8 @@ namespace Micro.Azure.Commands.StorSimple
 
         public ResourceCredentials GetResourceDetails(string resourceName)
         {
-            IEnumerable<ResourceCredentials> resCredList = ((IEnumerable<ResourceCredentials>)Resourcecache.Get("resourceObject"));
-            if (resCredList == null)
-            {
-                resCredList = GetAllResources();
-                
-            }
-
-            foreach(ResourceCredentials resCred in resCredList)
-            {
-                if (!resCred.ResourceName.Equals(resourceName,StringComparison.CurrentCultureIgnoreCase))
-                {
-                    continue;
-                }
-                return resCred;
-            }
-            return null;
+            var resCredList = GetAllResources();
+            return resCredList.FirstOrDefault(resCred => resCred.ResourceName.Equals(resourceName, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public string SetResourceContext(string resourceName)
@@ -73,19 +60,27 @@ namespace Micro.Azure.Commands.StorSimple
                 return "No resource found for the given resource name. Please check the name again.";
             }
 
-            this.resourceId = resCred.ResourceId;
+
+            StorSimpleContext.ResourceId = resCred.ResourceId;
+            StorSimpleContext.StampId = resCred.BackendStampId;
+            StorSimpleContext.CloudServiceName = resCred.CloudServiceName;
+            StorSimpleContext.ResourceType = resCred.ResourceType;
+            StorSimpleContext.ResourceName = resCred.ResourceName;
+            StorSimpleContext.ResourceProviderNameSpace = resCred.ResourceNameSpace;
+
+            /*this.resourceId = resCred.ResourceId;
             this.stampId = resCred.StampId;
             this.cloudServiceName = resCred.CloudServiceName;
             this.resourceType = resCred.ResourceType;
             this.resourceName = resCred.ResourceName;
-            this.resourceProviderNameSpace = resCred.ResourceNameSpace;
+            this.resourceProviderNameSpace = resCred.ResourceNameSpace;*/
 
             return "Context set successfully for the given resource name.";
         }
 
         public string GetResourceContext()
         {
-            return this.resourceName + " :: " + this.resourceId + " :: " + this.cloudServiceName + " :: " + this.resourceType + " :: " + this.resourceProviderNameSpace + " :: " + this.stampId; 
+            return StorSimpleContext.ResourceName + " :: " + StorSimpleContext.ResourceId + " :: " + StorSimpleContext.CloudServiceName + " :: " + StorSimpleContext.ResourceType + " :: " + StorSimpleContext.ResourceProviderNameSpace + " :: " + StorSimpleContext.StampId; 
         }
     }
 }
