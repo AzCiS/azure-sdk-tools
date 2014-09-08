@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 
-namespace Micro.Azure.Commands.StorSimple
+namespace Microsoft.Azure.Commands.StorSimple
 {
     public class StorSimpleCmdletBase : CmdletWithSubscriptionBase
     {

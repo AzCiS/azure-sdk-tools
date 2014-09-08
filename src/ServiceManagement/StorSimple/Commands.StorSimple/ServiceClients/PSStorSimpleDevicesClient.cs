@@ -5,7 +5,7 @@ using Microsoft.Azure;
 using Microsoft.Azure.Commands.StorSimple;
 using Microsoft.Azure.Management.StorSimple.Models;
 
-namespace Micro.Azure.Commands.StorSimple
+namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
