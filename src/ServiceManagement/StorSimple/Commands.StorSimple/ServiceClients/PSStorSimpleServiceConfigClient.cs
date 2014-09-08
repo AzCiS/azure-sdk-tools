@@ -21,7 +21,7 @@ namespace Microsoft.Azure.Commands.StorSimple
                 InstanceId = null,
                 VolumeCount = 0,
             };
-            var acrChangeList = new ChangeList();
+            var acrChangeList = new AcrChangeList();
             acrChangeList.Added.Add(acr1);
             serviceConfiguration.AcrChangeList = acrChangeList;
             
