@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Azure;
 using Microsoft.Azure.Management.StorSimple.Models;
 
-namespace Micro.Azure.Commands.StorSimple
+namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
@@ -12,19 +12,20 @@ namespace Micro.Azure.Commands.StorSimple
         {
             var serviceConfiguration = new ServiceConfiguration();
             //var acr1 = new AccessControlRecord {InitiatorName = "ACR101IntiatorName"};
-
+            serviceConfiguration.CredentialChangeList = new SacChangeList();
             var acr1 = new AccessControlRecord
             {
                 Name = acrName,
-                InitiatorName = iqn
+                InitiatorName = iqn,
+                GlobalId = null,
+                InstanceId = null,
+                VolumeCount = 0,
             };
-            var acrChangeList = new AcrChangeList();
+            var acrChangeList = new ChangeList();
             acrChangeList.Added.Add(acr1);
             serviceConfiguration.AcrChangeList = acrChangeList;
-            //serviceConfiguration.AcrChangeList.Added.Add(acr1);
-            //var emptySacList = new List<StorageAccountCredential>();
-            //serviceConfiguration.CredentialChangeList.Added = emptySacList;
-            //serviceConfiguration.CredentialChangeList.Added.Add(new StorageAccountCredential());
+            
+            
 
             //JobResponse x = GetStorSimpleClient().ServiceConfig.BeginCreatingAsync(serviceConfiguration).Result;
 

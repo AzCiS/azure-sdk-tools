@@ -1,8 +1,7 @@
-﻿using System;
+﻿
 using System.Management.Automation;
-using Micro.Azure.Commands.StorSimple;
 
-namespace Micro.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
     [Cmdlet(VerbsCommon.Set, "AzureHCSResource")]
     public class SetAzureHCSResource : StorSimpleCmdletBase

@@ -2,14 +2,13 @@
 
 // TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
 
+using System.Net;
 using System.Runtime.Caching;
-using Microsoft.Azure.Commands.StorSimple;
 
-namespace Micro.Azure.Commands.StorSimple
+namespace Microsoft.Azure.Commands.StorSimple
 {
 using System;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
@@ -33,6 +32,8 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
         public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
         {
+            // Temp code.
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             this.cloudServicesClient = currentSubscription.CreateClient<CloudServiceManagementClient>();
             this.subscriptionId = currentSubscription.SubscriptionId;
             this.serviceEndPoint = currentSubscription.ServiceEndpoint;
@@ -47,9 +48,11 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
         private StorSimpleManagementClient GetStorSimpleClient()
         {
-            var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName, StorSimpleContext.ResourceName, StorSimpleContext.StampId,StorSimpleContext.ResourceId,
+            var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName,
+                StorSimpleContext.ResourceName, StorSimpleContext.ResourceId, StorSimpleContext.StampId,
+                StorSimpleContext.ResourceProviderNameSpace,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
-
+            
             if (storSimpleClient == null)
             {
                 throw  new InvalidOperationException();

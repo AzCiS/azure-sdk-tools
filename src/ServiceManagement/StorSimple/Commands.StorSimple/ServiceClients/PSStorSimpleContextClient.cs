@@ -4,7 +4,7 @@ using Microsoft.WindowsAzure;
 using System.Collections.Generic;
 using Microsoft.Azure.Commands.StorSimple;
 
-namespace Micro.Azure.Commands.StorSimple
+namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
@@ -24,7 +24,7 @@ namespace Micro.Azure.Commands.StorSimple
                 }
                 foreach (var resource in service.Resources)
                 {
-                    if (!(resource.Type.Equals("CiSVault", StringComparison.CurrentCultureIgnoreCase)) || !(resource.Namespace.Equals("WACiS", StringComparison.CurrentCultureIgnoreCase)))
+                    if (!(resource.Type.Equals("CiSVault", StringComparison.CurrentCultureIgnoreCase)))
                     {
                         continue;
                     }
