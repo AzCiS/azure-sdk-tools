@@ -64,8 +64,8 @@ namespace Micro.Azure.Commands.StorSimple
         private StorSimpleManagementClient GetStorSimpleClient()
         {
             var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName,
-                StorSimpleContext.ResourceName, StorSimpleContext.ResourceId, StorSimpleContext.StampId,
-                StorSimpleContext.ResourceProviderNameSpace,
+                StorSimpleContext.ResourceName, StorSimpleContext.ResourceId,
+                StorSimpleContext.ResourceProviderNameSpace, StorSimpleContext.StampId,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
             
             if (storSimpleClient == null)
