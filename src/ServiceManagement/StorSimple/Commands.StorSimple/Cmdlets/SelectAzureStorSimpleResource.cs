@@ -3,8 +3,8 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "AzureHCSResource")]
-    public class SetAzureHCSResource : StorSimpleCmdletBase
+    [Cmdlet(VerbsCommon.Select, "AzureStorSimpleResource")]
+    public class SelectAzureStorSimpleResource : StorSimpleCmdletBase
     {
         private string resourceName;
         /// <summary>

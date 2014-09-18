@@ -4,8 +4,8 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "AzureHCSDevice")]
-    public class GetAzureHCSDevice : StorSimpleCmdletBase
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDevice")]
+    public class GetAzureStorSimpleDevice : StorSimpleCmdletBase
     {
         public override void ExecuteCmdlet()
         {
