@@ -79,11 +79,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlets\GetAzureHCSDevice.cs" />
-    <Compile Include="Cmdlets\GetAzureHCSResource.cs" />
+    <Compile Include="Cmdlets\GetAzureStorSimpleDevice.cs" />
+    <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\NewAzureStorSimpleAccessControlRecord.cs" />
-    <Compile Include="Cmdlets\SetAzureHCSResource.cs" />
+    <Compile Include="Cmdlets\SelectAzureStorSimpleResource.cs" />
     <Compile Include="Models\PSContracts.cs" />
     <Compile Include="ServiceClients\PSStorSimpleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
