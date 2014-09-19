@@ -79,15 +79,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Cmdlets\GetAzureStorSimpleDevice.cs" />
-    <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
-=======
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
-    <Compile Include="Cmdlets\GetAzureHCSDevice.cs" />
-    <Compile Include="Cmdlets\GetAzureHCSResource.cs" />
->>>>>>> Get and create Commandlets for data container
+    <Compile Include="Cmdlets\GetAzureStorSimpleDevice.cs" />
+    <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\Job\GetAzureStorSimpleJob.cs" />
     <Compile Include="Cmdlets\NewAzureStorSimpleAccessControlRecord.cs" />
