@@ -56,7 +56,7 @@
     </Reference>
     <Reference Include="StorSimple.Tests, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\StorSimple.Tests.dll</HintPath>
+      <HintPath>\\avirupch-msft\d$\GitHub\hydra-specs-pr\StorSimple\StorSimple.Tests\bin\Debug\StorSimple.Tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
