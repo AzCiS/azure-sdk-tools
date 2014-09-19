@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Commands.StorSimple
 
             //JobResponse x = GetStorSimpleClient().ServiceConfig.BeginCreatingAsync(serviceConfiguration).Result;
 
-            JobStatusInfo x = GetStorSimpleClient().ServiceConfig.CreateAsync(serviceConfiguration).Result;
+            JobStatusInfo x = GetStorSimpleClient().ServiceConfig.CreateAsync(serviceConfiguration,GetCustomeRequestHeaders()).Result;
 
         }
     }

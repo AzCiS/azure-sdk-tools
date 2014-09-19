@@ -28,17 +28,26 @@ namespace Microsoft.Azure.Commands.StorSimple
                     {
                         continue;
                     }
-                    var resCredentials = new ResourceCredentials();
-                    resCredentials.CloudServiceName = service.Name;
-                    resCredentials.ResourceType = resource.Type;
-                    resCredentials.BackendStampId = resource.OutputItems["BackendStampId"];
-                    resCredentials.ResourceId = resource.OutputItems["ResourceId"];
-                    resCredentials.ResourceName = resource.Name;
-                    resCredentials.ResourceNameSpace = resource.Namespace;
-                    resCredentials.StampId = resource.OutputItems["StampId"];
-                    resCredentials.ResourceState = resource.State;
+                    try
+                    {
+                        var resCredentials = new ResourceCredentials
+                        {
+                            CloudServiceName = service.Name,
+                            ResourceType = resource.Type,
+                            BackendStampId = resource.OutputItems["BackendStampId"],
+                            ResourceId = resource.OutputItems["ResourceId"],
+                            ResourceName = resource.Name,
+                            ResourceNameSpace = resource.Namespace,
+                            StampId = resource.OutputItems["StampId"],
+                            ResourceState = resource.State
+                        };
 
-                    toReturn.Add(resCredentials);
+                        toReturn.Add(resCredentials);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    
                 }
                 
             }
