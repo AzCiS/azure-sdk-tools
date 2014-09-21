@@ -21,9 +21,9 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         public string DcName { get; set; }
 
         [Alias("StorageAccount")]
-        [Parameter(Position = 2, Mandatory = true, HelpMessage = "The sac.")]
+        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = "The sac.")]
         [ValidateNotNullOrEmptyAttribute]
-        public StorageAccountCredential sacToUse { get; set; }
+        public StorageAccountCredential PrimaryStorageAccountCredential { get; set; }
 
         [Alias("CloudBandwidth")]
         [Parameter(Position = 3, Mandatory = true, HelpMessage = "The cloud bandwidth setting.")]
@@ -58,7 +58,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     Name = DcName,
                     BandwidthRate = BandWidthRate,
                     IsEncryptionEnabled = false,
-                    PrimaryStorageAccountCredential = sacToUse
+                    PrimaryStorageAccountCredential = PrimaryStorageAccountCredential
                 };
 
                 if (WaitForComplete.IsPresent)

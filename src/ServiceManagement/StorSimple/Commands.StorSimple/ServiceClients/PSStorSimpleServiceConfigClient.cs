@@ -32,5 +32,12 @@ namespace Microsoft.Azure.Commands.StorSimple
             JobStatusInfo x = GetStorSimpleClient().ServiceConfig.CreateAsync(serviceConfiguration,GetCustomeRequestHeaders()).Result;
 
         }
+
+        public IList<AccessControlRecord> GetAccessControlRecord()
+        {
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            //sc.AcrChangeList.Added.
+            return sc.AcrChangeList.Updated;
+        }
     }
 }

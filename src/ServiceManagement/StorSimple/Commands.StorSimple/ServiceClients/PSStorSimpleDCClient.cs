@@ -35,5 +35,15 @@ namespace Microsoft.Azure.Commands.StorSimple
         {
             return GetStorSimpleClient().DataContainer.Get(deviceId, Name, GetCustomeRequestHeaders());
         }
+
+        public JobResponse DeleteDataContainerAsync(string deviceid, string dcid)
+        {
+            return GetStorSimpleClient().DataContainer.BeginDeleting(deviceid, dcid, GetCustomeRequestHeaders());
+        }
+
+        public JobStatusInfo DeleteDataContainer(string deviceid, string dcid)
+        {
+            return GetStorSimpleClient().DataContainer.Delete(deviceid, dcid, GetCustomeRequestHeaders());
+        }
     }
 }
