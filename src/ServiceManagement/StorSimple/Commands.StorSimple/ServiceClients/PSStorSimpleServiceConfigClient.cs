@@ -3,34 +3,55 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Azure;
 using Microsoft.Azure.Management.StorSimple.Models;
+using System;
+using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public void CreateAccessControlRecord(string acrName, string iqn)
+        public JobStatusInfo CreateAccessControlRecord(string acrName, string iqn, SwitchParameter waitForComplete)
         {
-            var serviceConfiguration = new ServiceConfiguration();
-            //var acr1 = new AccessControlRecord {InitiatorName = "ACR101IntiatorName"};
-            serviceConfiguration.CredentialChangeList = new SacChangeList();
-            var acr1 = new AccessControlRecord
+            var client = GetStorSimpleClient();
+
+            var serviceConfig = new ServiceConfiguration()
             {
-                Name = acrName,
-                InitiatorName = iqn,
-                GlobalId = null,
-                InstanceId = null,
-                VolumeCount = 0,
+                AcrChangeList = new AcrChangeList()
+                {
+                    Added = new[]
+                        {
+                            new AccessControlRecord()
+                            {
+                                GlobalId = null,
+                                InitiatorName = iqn,
+                                InstanceId = null,
+                                Name = acrName,
+                                VolumeCount = 0
+                            },
+                        },
+                    Deleted = new List<string>(),
+                    Updated = new List<AccessControlRecord>()
+                },
+                CredentialChangeList = new SacChangeList(),
             };
-            var acrChangeList = new AcrChangeList();
-            acrChangeList.Added.Add(acr1);
-            serviceConfiguration.AcrChangeList = acrChangeList;
-            
-            
 
-            //JobResponse x = GetStorSimpleClient().ServiceConfig.BeginCreatingAsync(serviceConfiguration).Result;
+            CustomRequestHeaders hdrs = new CustomRequestHeaders();
+            hdrs.ClientRequestId = Guid.NewGuid().ToString();
+            hdrs.Language = "en-us";
 
-            JobStatusInfo x = GetStorSimpleClient().ServiceConfig.CreateAsync(serviceConfiguration).Result;
+            JobStatusInfo jobStatus = new JobStatusInfo();
 
+            if (waitForComplete.IsPresent)
+            {
+                jobStatus = client.ServiceConfig.Create(serviceConfig, hdrs);
+            }
+
+            else
+            {
+                jobStatus = client.ServiceConfig.CreateAsync(serviceConfig, hdrs).Result;
+            }
+
+            return jobStatus;
         }
     }
 }
