@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Management.Automation;
 using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
     [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolumeContainer")]
     public class RemoveAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
-        [Alias("DeviceToUse")]
+        [Alias("DN")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Alias("DataContainer")]
+        [Alias("DC")]
         [Parameter(Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = "The volume container name which needs to be removed.")]
         [ValidateNotNullOrEmptyAttribute]
         public DataContainer VolumeContainer { get; set; }
 
-        [Alias("WaitForCompletion")]
+        [Alias("Wait")]
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for remov task complete")]
         public SwitchParameter WaitForComplete { get; set; }
 
@@ -25,15 +26,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         {
             try
             {
-                string deviceid = null;
-                var deviceInfos = StorSimpleClient.GetAllDevices();
-                foreach (var deviceInfo in deviceInfos)
-                {
-                    if (deviceInfo.FriendlyName.Equals(DeviceName, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        deviceid = deviceInfo.DeviceId;
-                    }
-                }
+                var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
                 if (deviceid == null) return;
                 if (WaitForComplete.IsPresent)
@@ -44,13 +37,15 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobresult = StorSimpleClient.DeleteDataContainerAsync(deviceid, VolumeContainer.InstanceId);
-                    WriteObject(jobresult);
+                    var msg =
+                            "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
+                            jobresult.JobId + " for tracking the job status";
+                        WriteObject(msg);
                 }
             }
-            catch (Exception)
+            catch (CloudException cloudException)
             {
-                
-                throw;
+                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
             }
         }
     }

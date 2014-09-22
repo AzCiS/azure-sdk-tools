@@ -1,69 +1,68 @@
 ﻿using System;
 using System.Management.Automation;
+using System.Net;
 using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
 {
     [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolume")]
     public class NewAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
-        [Alias("Device Name")]
+        [Alias("DName")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Alias("Data Conatiner Name")]
+        [Alias("DC")]
         [Parameter(Position = 1, Mandatory = true, HelpMessage = "The name of data container to use.")]
         [ValidateNotNullOrEmpty]
         public DataContainer Container { get; set; }
         
-        [Alias("Volume Name")]
+        [Alias("VName")]
         [Parameter(Position = 2, Mandatory = true, HelpMessage = "The name of volume.")]
         [ValidateNotNullOrEmpty]
-        public string Name { get; set; }
+        public string VolumeName { get; set; }
 
-        [Alias("Size of the volume")]
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("Size")]
+        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The size of volume in bytes.")]
         [ValidateNotNullOrEmpty]
-        public Int64 Size { get; set; }
+        public Int64 VolumeSize { get; set; }
 
-        [Alias("Access control Records")]
-        [Parameter(Position = 4, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("ACRList")]
+        [Parameter(Position = 4, Mandatory = true, HelpMessage = "List of access control records.")]
         [ValidateNotNullOrEmpty]
         public AccessControlRecord[] AccessControlRecords { get; set; }
 
-        [Alias("App type")]
-        [Parameter(Position = 5, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("AppType")]
+        [Parameter(Position = 5, Mandatory = true, HelpMessage = "The app type.")]
         [ValidateNotNullOrEmpty]
-        public AppType AppType { get; set; }
+        public AppType VolumeAppType { get; set; }
 
-        [Alias("Online tyep")]
-        [Parameter(Position = 6, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("VOnline")]
+        [Parameter(Position = 6, Mandatory = true, HelpMessage = "Is volume online.")]
         [ValidateNotNullOrEmpty]
         public bool Online { get; set; }
 
-        [Alias("Enable default backup")]
-        [Parameter(Position = 7, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("DefaultBackup")]
+        [Parameter(Position = 7, Mandatory = true, HelpMessage = "Flag for enabling default backup.")]
         [ValidateNotNullOrEmpty]
         public bool EnableDefaultBackup { get; set; }
 
-        [Alias("Enable monitoring")]
-        [Parameter(Position = 8, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Alias("Monitoring")]
+        [Parameter(Position = 8, Mandatory = true, HelpMessage = "Flag for enabling monitoring.")]
         [ValidateNotNullOrEmpty]
         public bool EnableMonitoring { get; set; }
+
+        [Alias("Wait")]
+        [Parameter(Position = 9, Mandatory = false, HelpMessage = "Wait for remov task complete")]
+        public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
             try
             {
                 string deviceid = null;
-                var deviceInfos = StorSimpleClient.GetAllDevices();
-                foreach (var deviceInfo in deviceInfos)
-                {
-                    if (deviceInfo.FriendlyName.Equals(DeviceName, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        deviceid = deviceInfo.DeviceId;
-                    }
-                }
+                deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
                 if (deviceid == null)
                 {
@@ -73,24 +72,41 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
                 //Virtual disk create request object
                 var virtualDiskToCreate = new VirtualDiskRequest()
                 {
-                    Name = Name,
+                    Name = VolumeName,
                     AccessType = AccessType.ReadWrite,
                     AcrList = AccessControlRecords,
-                    AppType = AppType,
+                    AppType = VolumeAppType,
                     IsDefaultBackupEnabled = EnableDefaultBackup,
-                    SizeInBytes = Size,
+                    SizeInBytes = VolumeSize,
                     DataContainer = Container,
                     Online = Online,
                     IsMonitoringEnabled = EnableMonitoring
                 };
 
-                var jobStatusInfo = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate);
+                //var jobStatusInfo = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate);
+                //WriteObject(jobStatusInfo);
 
-                WriteObject(jobStatusInfo);
+                if (WaitForComplete.IsPresent)
+                {
+                    var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
+                    WriteObject(jobstatus);
+                }
+
+                else
+                {
+                    var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
+                    
+                    var msg =
+                        "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
+                        jobstatus.JobId + "for tracking the job status";
+                    WriteObject(msg);
+
+                }
+                
             }
-            catch(Exception ex)
+            catch (CloudException cloudException)
             {
-
+                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
             }
         }
     }

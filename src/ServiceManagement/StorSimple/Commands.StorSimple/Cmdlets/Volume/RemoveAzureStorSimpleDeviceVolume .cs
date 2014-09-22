@@ -1,0 +1,87 @@
+﻿using System;
+using System.Management.Automation;
+using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure;
+
+namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+{
+    [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolume")]
+    public class RemoveAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
+    {
+        [Alias("DName")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [ValidateNotNullOrEmpty]
+        public string DeviceName { get; set; }
+
+        [Alias("VName")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeName", HelpMessage = "The name of volume.")]
+        [ValidateNotNullOrEmpty]
+        public string VolumeName { get; set; }
+
+        [Alias("Id")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeId", HelpMessage = "The device name.")]
+        [ValidateNotNullOrEmptyAttribute]
+        public string VolumeId { get; set; }
+
+        [Alias("Wait")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for remov task complete")]
+        public SwitchParameter WaitForComplete { get; set; }
+
+        public override void ExecuteCmdlet()
+        {
+            try
+            {
+                var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
+                if (deviceid == null) return;
+                if (WaitForComplete.IsPresent)
+                {
+                    JobStatusInfo jobstatus;
+                    switch (ParameterSetName)
+                    {
+                        case "VolumeId":
+                            jobstatus = StorSimpleClient.RemoveVolume(deviceid, VolumeId);
+                            WriteObject(jobstatus);
+                            break;
+                        case "VolumeName":
+                            var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
+                            if (volumeInfo != null)
+                            {
+                                jobstatus = StorSimpleClient.RemoveVolume(deviceid, volumeInfo.VirtualDiskInfo.InstanceId);
+                                WriteObject(jobstatus);
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    GuidJobResponse jobresult = null;
+                    switch (ParameterSetName)
+                    {
+                        case "VolumeId":
+                            jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, VolumeId);
+                            //WriteObject(jobstatus);
+                            break;
+                        case "VolumeName":
+                            var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
+                            if (volumeInfo != null)
+                            {
+                                jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, volumeInfo.VirtualDiskInfo.InstanceId);
+                                //WriteObject(jobstatus);
+                            }
+                            break;
+                    }
+                    if (jobresult == null) return;
+                    var msg =
+                        "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
+                        jobresult.JobId + " for tracking the job status";
+                    WriteObject(msg);
+                }
+            }
+            catch (CloudException cloudException)
+            {
+                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+            }
+            
+        }
+    }
+}
