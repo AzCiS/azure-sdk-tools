@@ -3,6 +3,7 @@
 // TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
 
 using System.Net;
+using System.Net.Security;
 using System.Runtime.Caching;
 
 namespace Microsoft.Azure.Commands.StorSimple
@@ -33,7 +34,7 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
         public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
         {
             // Temp code.
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };//IgnoreCertificateErrorHandler;//delegate { return true; };
             this.cloudServicesClient = currentSubscription.CreateClient<CloudServiceManagementClient>();
             this.subscriptionId = currentSubscription.SubscriptionId;
             this.serviceEndPoint = currentSubscription.ServiceEndpoint;
@@ -48,6 +49,8 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
         private StorSimpleManagementClient GetStorSimpleClient()
         {
+           // ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateErrorHandler;//delegate { return true; };
+            
             var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName,
                 StorSimpleContext.ResourceName, StorSimpleContext.ResourceId,
                 StorSimpleContext.ResourceProviderNameSpace, StorSimpleContext.StampId,
@@ -98,6 +101,15 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
                 // It is useful when diagnosing failures in API calls.
                 ClientRequestId = Guid.NewGuid().ToString("D") + "_PS"
             };
+        }
+
+        private static bool IgnoreCertificateErrorHandler
+           (object sender,
+           System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+           System.Security.Cryptography.X509Certificates.X509Chain chain,
+           SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
         
     }

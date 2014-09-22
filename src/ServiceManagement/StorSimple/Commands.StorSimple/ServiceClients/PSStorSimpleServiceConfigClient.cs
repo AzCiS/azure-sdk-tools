@@ -22,9 +22,9 @@ namespace Microsoft.Azure.Commands.StorSimple
                         {
                             new AccessControlRecord()
                             {
-                                GlobalId = null,
+                GlobalId = null,
                                 InitiatorName = iqn,
-                                InstanceId = null,
+                InstanceId = null,
                                 Name = acrName,
                                 VolumeCount = 0
                             },
@@ -34,11 +34,11 @@ namespace Microsoft.Azure.Commands.StorSimple
                 },
                 CredentialChangeList = new SacChangeList(),
             };
-
+            
             CustomRequestHeaders hdrs = new CustomRequestHeaders();
             hdrs.ClientRequestId = Guid.NewGuid().ToString();
             hdrs.Language = "en-us";
-
+            
             JobStatusInfo jobStatus = new JobStatusInfo();
 
             if (waitForComplete.IsPresent)
@@ -52,6 +52,13 @@ namespace Microsoft.Azure.Commands.StorSimple
             }
 
             return jobStatus;
+        }
+
+        public IList<AccessControlRecord> GetAccessControlRecord()
+        {
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            //sc.AcrChangeList.Added.
+            return sc.AcrChangeList.Updated;
         }
     }
 }
