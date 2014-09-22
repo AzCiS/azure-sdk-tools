@@ -7,14 +7,14 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class GetAzureStorSimpleJob : StorSimpleCmdletBase
     {
 
-        [Alias("InstanceId")]
+        [Alias("JobId")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The job instance id.")]
         [ValidateNotNullOrEmptyAttribute]
-        public string JobId { get; set; }
+        public string InstanceId { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            var jobStatus = StorSimpleClient.GetJobStatus(JobId);
+            var jobStatus = StorSimpleClient.GetJobStatus(InstanceId);
             this.WriteObject(jobStatus);
         }
     }

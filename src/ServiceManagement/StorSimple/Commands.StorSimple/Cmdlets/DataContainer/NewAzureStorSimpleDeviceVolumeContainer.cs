@@ -10,52 +10,44 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class NewAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
 
-        [Alias("DeviceName")]
+        [Alias("DN")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
         [ValidateNotNullOrEmptyAttribute]
-        public string DeviceToUse { get; set; }
+        public string DeviceName { get; set; }
 
-        [Alias("Name")]
+        [Alias("DCName")]
         [Parameter(Position = 1, Mandatory = true, HelpMessage = "The name of data container.")]
         [ValidateNotNullOrEmptyAttribute]
-        public string DcName { get; set; }
+        public string DataContainerName { get; set; }
 
         [Alias("StorageAccount")]
         [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = "The sac.")]
         [ValidateNotNullOrEmptyAttribute]
         public StorageAccountCredential PrimaryStorageAccountCredential { get; set; }
 
-        [Alias("CloudBandwidth")]
+        [Alias("BW")]
         [Parameter(Position = 3, Mandatory = true, HelpMessage = "The cloud bandwidth setting.")]
         [ValidateNotNullOrEmptyAttribute]
         public int BandWidthRate { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 4, Mandatory = false, HelpMessage = "Wait for copy task complete")]
+        [Alias("Wait")]
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = "Wait for create task to complete")]
         public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
             try
             {
                 string deviceid = null;
-                var deviceInfos = StorSimpleClient.GetAllDevices();
-                foreach (var deviceInfo in deviceInfos)
-                {
-                    if (deviceInfo.FriendlyName.Equals(DeviceToUse, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        deviceid = deviceInfo.DeviceId;
-                    }
-                }
-
+                deviceid = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceid == null)
                 {
-                    WriteObject("device with name " + DeviceToUse + "not found");
+                    WriteObject("device with name " + DeviceName + "not found");
                 }
 
                 var dc = new DataContainerRequest
                 {
                     IsDefault = false,
-                    Name = DcName,
+                    Name = DataContainerName,
                     BandwidthRate = BandWidthRate,
                     IsEncryptionEnabled = false,
                     PrimaryStorageAccountCredential = PrimaryStorageAccountCredential
@@ -70,13 +62,10 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid,dc);
-                    if (jobstatus.StatusCode != HttpStatusCode.Accepted)
-                    {
-                        
-                    }
+                    
                     var msg =
                         "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
-                        jobstatus.JobId + "for tracking the job status";
+                        jobstatus.JobId + " for tracking the job status";
                     WriteObject(msg);
                     
                 }
