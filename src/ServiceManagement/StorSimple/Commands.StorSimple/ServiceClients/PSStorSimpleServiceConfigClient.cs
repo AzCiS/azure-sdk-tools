@@ -5,53 +5,20 @@ using Microsoft.Azure;
 using Microsoft.Azure.Management.StorSimple.Models;
 using System;
 using System.Management.Automation;
+using Microsoft.Azure.Management.StorSimple.Models;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public JobStatusInfo CreateAccessControlRecord(string acrName, string iqn, SwitchParameter waitForComplete)
+        public JobStatusInfo CreateAccessControlRecord(ServiceConfiguration serviceConfig)
         {
-            var client = GetStorSimpleClient();
+            return GetStorSimpleClient().ServiceConfig.Create(serviceConfig, GetCustomeRequestHeaders());
+        }
 
-            var serviceConfig = new ServiceConfiguration()
-            {
-                AcrChangeList = new AcrChangeList()
-                {
-                    Added = new[]
-                        {
-                            new AccessControlRecord()
-                            {
-                GlobalId = null,
-                                InitiatorName = iqn,
-                InstanceId = null,
-                                Name = acrName,
-                                VolumeCount = 0
-                            },
-                        },
-                    Deleted = new List<string>(),
-                    Updated = new List<AccessControlRecord>()
-                },
-                CredentialChangeList = new SacChangeList(),
-            };
-            
-            CustomRequestHeaders hdrs = new CustomRequestHeaders();
-            hdrs.ClientRequestId = Guid.NewGuid().ToString();
-            hdrs.Language = "en-us";
-            
-            JobStatusInfo jobStatus = new JobStatusInfo();
-
-            if (waitForComplete.IsPresent)
-            {
-                jobStatus = client.ServiceConfig.Create(serviceConfig, hdrs);
-            }
-
-            else
-            {
-                jobStatus = client.ServiceConfig.CreateAsync(serviceConfig, hdrs).Result;
-            }
-
-            return jobStatus;
+        public JobResponse CreateAccessControlRecordAsync(ServiceConfiguration serviceConfig)
+        {
+            return GetStorSimpleClient().ServiceConfig.BeginCreating(serviceConfig, GetCustomeRequestHeaders());
         }
 
         public IList<AccessControlRecord> GetAccessControlRecord()
