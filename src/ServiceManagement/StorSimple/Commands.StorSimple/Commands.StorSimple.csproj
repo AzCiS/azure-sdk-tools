@@ -79,6 +79,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\BackupPolicy\GetAzureStorSimpleDeviceBackupPolicy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Cmdlets\BackupSet\GetAzureStorSimpleBackup.cs" />
+    <Compile Include="Cmdlets\BackupSet\RemoveAzureStorSimpleBackup.cs" />
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\RemoveAzureStorSimpleDeviceVolumeContainer.cs" />
@@ -93,6 +98,8 @@
     <Compile Include="Cmdlets\Volume\GetAzureStorSimpleDeviceVolume .cs" />
     <Compile Include="Cmdlets\Volume\NewAzureStorSimpleDeviceVolume.cs" />
     <Compile Include="Models\PSContracts.cs" />
+    <Compile Include="ServiceClients\PSStoreSimpleBackupPolicyClient.cs" />
+    <Compile Include="ServiceClients\PSStorSimpleBackupSetClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceClients\PSStorSimpleContextClient.cs" />
