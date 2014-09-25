@@ -11,21 +11,34 @@ namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public JobStatusInfo CreateAccessControlRecord(ServiceConfiguration serviceConfig)
+        public JobStatusInfo ConfigureService(ServiceConfiguration serviceConfig)
         {
             return GetStorSimpleClient().ServiceConfig.Create(serviceConfig, GetCustomeRequestHeaders());
         }
 
-        public JobResponse CreateAccessControlRecordAsync(ServiceConfiguration serviceConfig)
+        public JobResponse ConfigureServiceAsync(ServiceConfiguration serviceConfig)
         {
             return GetStorSimpleClient().ServiceConfig.BeginCreating(serviceConfig, GetCustomeRequestHeaders());
         }
 
-        public IList<AccessControlRecord> GetAccessControlRecord()
+        public IList<AccessControlRecord> GetAllAccessControlRecords()
         {
             var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
-            //sc.AcrChangeList.Added.
+            if (sc == null || sc.AcrChangeList == null)
+            {
+                return null;
+            }
             return sc.AcrChangeList.Updated;
+        }
+
+        public IList<StorageAccountCredential> GetAllStorageAccountCredentials()
+        {
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            if (sc == null || sc.CredentialChangeList == null)
+            {
+                return null;
+            }
+            return sc.CredentialChangeList.Updated;
         }
     }
 }

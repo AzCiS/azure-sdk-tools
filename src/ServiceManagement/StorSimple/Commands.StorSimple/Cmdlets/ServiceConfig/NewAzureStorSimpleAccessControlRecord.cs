@@ -9,7 +9,7 @@ using System.Net;
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
     /// <summary>
-    /// Creates a new ACR
+    /// Add New Access Control Record to the StorSimple Manager Service Configuration
     /// </summary>
     [Cmdlet(VerbsCommon.New, "AzureStorSimpleAccessControlRecord")]
 
@@ -18,11 +18,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         [Alias("Name")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The access control record name.")]
         [ValidateNotNullOrEmpty]
-        public string AccessControlRecordName { get; set; }
+        public string ACRName { get; set; }
 
+        [Alias("IQN")]
         [Parameter(Position = 1, Mandatory = true, HelpMessage = "The IQN.")]
         [ValidateNotNullOrEmpty]
-        public string IQN { get; set; }
+        public string IQNInitiatorName { get; set; }
 
         [Alias("WaitForCompletion")]
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for the task to complete")]
@@ -41,9 +42,9 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                             new AccessControlRecord()
                             {
                                 GlobalId = null,
-                                InitiatorName = IQN,
+                                InitiatorName = IQNInitiatorName,
                                 InstanceId = null,
-                                Name = AccessControlRecordName,
+                                Name = ACRName,
                                 VolumeCount = 0
                             },
                         },
@@ -55,12 +56,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 
                 if (WaitForComplete.IsPresent)
                 {
-                    var jobStatus = StorSimpleClient.CreateAccessControlRecord(serviceConfig);
+                    var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
                     WriteObject(jobStatus);
                 }
                 else
                 {
-                    var jobResponse = StorSimpleClient.CreateAccessControlRecordAsync(serviceConfig);
+                    var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
                     WriteObject(ToAsyncJobMessage(jobResponse));
                 }
             }
