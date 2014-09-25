@@ -27,7 +27,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 }
                 else
                 {
-                    var acr = allACRs.Where(x => x.Name.Equals(ACRName)).FirstOrDefault();
+                    var acr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                     if (acr == null)
                     {
                         WriteObject("Access control record with the given name doesn't exist");

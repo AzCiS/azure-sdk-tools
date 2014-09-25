@@ -27,7 +27,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 }
                 else
                 {
-                    var sac = allSACs.Where(x => x.Name.Equals(StorageAccountName)).FirstOrDefault();
+                    var sac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                     if (sac == null)
                     {
                         WriteObject("Storage Account with the given name doesn't exist");

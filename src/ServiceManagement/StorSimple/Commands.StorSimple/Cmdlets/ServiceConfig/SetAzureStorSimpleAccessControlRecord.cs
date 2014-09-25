@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
             {
 
                 var allACRs = StorSimpleClient.GetAllAccessControlRecords();
-                var existingAcr = allACRs.Where(x => x.Name.Equals(ACRName)).FirstOrDefault();
+                var existingAcr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (existingAcr == null)
                 {
                     WriteObject("Access Control Record with the given Name doesn't exist.");

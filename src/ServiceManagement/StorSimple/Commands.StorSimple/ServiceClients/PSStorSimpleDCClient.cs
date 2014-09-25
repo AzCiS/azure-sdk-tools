@@ -12,7 +12,7 @@ namespace Microsoft.Azure.Commands.StorSimple
     {
         public DataContainerListResponse GetAllDataContainers(string deviceId)
         {
-            return this.GetStorSimpleClient().DataContainer.List(deviceId, this.GetCustomeRequestHeaders());
+            return this.GetStorSimpleClient().DataContainer.List(deviceId, this.GetCustomRequestHeaders());
         }
 
         public JobStatusInfo GetJobStatus(string jobId)
@@ -21,29 +21,29 @@ namespace Microsoft.Azure.Commands.StorSimple
         }
         public JobStatusInfo CreateDataContainer(string deviceId,DataContainerRequest dc)
         {
-                return GetStorSimpleClient().DataContainer.Create(deviceId, dc, GetCustomeRequestHeaders());
+                return GetStorSimpleClient().DataContainer.Create(deviceId, dc, GetCustomRequestHeaders());
            
         }
 
         public JobResponse CreateDataContainerAsync(string deviceId, DataContainerRequest dc)
         {
-            return GetStorSimpleClient().DataContainer.BeginCreating(deviceId, dc, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().DataContainer.BeginCreating(deviceId, dc, GetCustomRequestHeaders());
         }
 
 
         public DataContainerGetResponse GetDataContainer(string deviceId, string Name)
         {
-            return GetStorSimpleClient().DataContainer.Get(deviceId, Name, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().DataContainer.Get(deviceId, Name, GetCustomRequestHeaders());
         }
 
         public JobResponse DeleteDataContainerAsync(string deviceid, string dcid)
         {
-            return GetStorSimpleClient().DataContainer.BeginDeleting(deviceid, dcid, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().DataContainer.BeginDeleting(deviceid, dcid, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo DeleteDataContainer(string deviceid, string dcid)
         {
-            return GetStorSimpleClient().DataContainer.Delete(deviceid, dcid, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().DataContainer.Delete(deviceid, dcid, GetCustomRequestHeaders());
         }
     }
 }

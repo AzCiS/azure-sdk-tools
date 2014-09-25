@@ -17,11 +17,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class RemoveAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByName", HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The access control record name.")]
         [ValidateNotNullOrEmpty]
         public string ACRName { get; set; }
 
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByObject", ValueFromPipeline = true, HelpMessage = "The ACR object.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = "The ACR object.")]
         [ValidateNotNullOrEmpty]
         public AccessControlRecord ACR { get; set; }
 
@@ -36,11 +36,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 AccessControlRecord existingAcr = null;
                 switch(ParameterSetName)
                 {
-                    case "IdentifyByName":
+                    case StorSimpleCmdletParameterSet.IdentifyByName:
                         var allACRs = StorSimpleClient.GetAllAccessControlRecords();
-                        existingAcr = allACRs.Where(x => x.Name.Equals(ACRName)).FirstOrDefault();
+                        existingAcr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                         break;
-                    case "IdentifyByObject":
+                    case StorSimpleCmdletParameterSet.IdentifyByObject:
                         existingAcr = ACR;
                         break;
                 }

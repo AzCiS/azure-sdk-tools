@@ -14,17 +14,17 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         public string DeviceName { get; set; }
 
         [Alias("DCId")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "DataContainerId", HelpMessage = "The volume container id.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByDataContainerId, HelpMessage = "The volume container id.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeContainerId { get; set; }
 
         [Alias("VId")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeId", HelpMessage = "The volume id.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The volume id.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeId { get; set; }
 
         [Alias("VName")]
-        [Parameter(Position = 1, Mandatory = false, ParameterSetName = "VolumeName", HelpMessage = "The volume name.")]
+        [Parameter(Position = 1, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The volume name.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeName { get; set; }
         public override void ExecuteCmdlet()
@@ -36,15 +36,15 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 VirtualDiskGetResponse volumeInfo;
                 switch (ParameterSetName)
                 {
-                    case "DataContainerId":
+                    case StorSimpleCmdletParameterSet.IdentifyByDataContainerId:
                         var volumeInfoList = StorSimpleClient.GetAllVolumesFordataContainer(deviceId, VolumeContainerId);
                         WriteObject(volumeInfoList);
                         break;
-                    case "VolumeId" :
+                    case StorSimpleCmdletParameterSet.IdentifyById :
                         volumeInfo = StorSimpleClient.GetVolumeById(deviceId, VolumeId);
                         WriteObject(volumeInfo);
                         break;
-                    case "VolumeName" :
+                    case StorSimpleCmdletParameterSet.IdentifyByName :
                         volumeInfo = StorSimpleClient.GetVolumeByName(deviceId, VolumeName);
                         WriteObject(volumeInfo);
                         break;

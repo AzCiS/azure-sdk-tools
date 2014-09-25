@@ -93,7 +93,7 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
                 string.Format(error.Message,"\n",error.HttpCode,"\n",error.ExtendedCode));
         }
         
-        private CustomRequestHeaders GetCustomeRequestHeaders()
+        private CustomRequestHeaders GetCustomRequestHeaders()
         {
             return new CustomRequestHeaders()
             {

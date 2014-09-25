@@ -17,11 +17,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class RemoveAzureStorSimpleStorageAccountCredential : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByName", HelpMessage = "The storage account name.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The storage account name.")]
         [ValidateNotNullOrEmpty]
         public string StorageAccountName { get; set; }
 
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByObject", ValueFromPipeline = true, HelpMessage = "The SAC object.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = "The SAC object.")]
         [ValidateNotNullOrEmpty]
         public StorageAccountCredential SAC { get; set; }
 
@@ -36,11 +36,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 StorageAccountCredential existingSac = null;
                 switch(ParameterSetName)
                 {
-                    case "IdentifyByName":
+                    case StorSimpleCmdletParameterSet.IdentifyByName:
                         var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
-                        existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName)).FirstOrDefault();
+                        existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                         break;
-                    case "IdentifyByObject":
+                    case StorSimpleCmdletParameterSet.IdentifyByObject:
                         existingSac = SAC;
                         break;
                 }

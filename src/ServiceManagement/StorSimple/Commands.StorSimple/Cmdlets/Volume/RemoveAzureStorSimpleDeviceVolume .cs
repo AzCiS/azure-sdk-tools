@@ -14,12 +14,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         public string DeviceName { get; set; }
 
         [Alias("VName")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeName", HelpMessage = "The name of volume.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The name of volume.")]
         [ValidateNotNullOrEmpty]
         public string VolumeName { get; set; }
 
         [Alias("Id")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeId", HelpMessage = "The device name.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The device name.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeId { get; set; }
 
@@ -38,11 +38,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     JobStatusInfo jobstatus;
                     switch (ParameterSetName)
                     {
-                        case "VolumeId":
+                        case StorSimpleCmdletParameterSet.IdentifyById:
                             jobstatus = StorSimpleClient.RemoveVolume(deviceid, VolumeId);
                             WriteObject(jobstatus);
                             break;
-                        case "VolumeName":
+                        case StorSimpleCmdletParameterSet.IdentifyByName:
                             var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
                             if (volumeInfo != null)
                             {
@@ -57,11 +57,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     GuidJobResponse jobresult = null;
                     switch (ParameterSetName)
                     {
-                        case "VolumeId":
+                        case StorSimpleCmdletParameterSet.IdentifyById:
                             jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, VolumeId);
                             //WriteObject(jobstatus);
                             break;
-                        case "VolumeName":
+                        case StorSimpleCmdletParameterSet.IdentifyByName:
                             var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
                             if (volumeInfo != null)
                             {

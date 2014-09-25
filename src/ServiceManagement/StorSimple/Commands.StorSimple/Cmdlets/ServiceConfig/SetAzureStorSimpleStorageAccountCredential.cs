@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
             {
 
                 var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
-                var existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName)).FirstOrDefault();
+                var existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (existingSac == null)
                 {
                     WriteObject("Storage account with the given Name doesn't exist.");
