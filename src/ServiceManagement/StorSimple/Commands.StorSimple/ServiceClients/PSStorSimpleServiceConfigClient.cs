@@ -3,41 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Azure;
 using Microsoft.Azure.Management.StorSimple.Models;
+using System;
+using System.Management.Automation;
+using Microsoft.Azure.Management.StorSimple.Models;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public void CreateAccessControlRecord(string acrName, string iqn)
+        public JobStatusInfo ConfigureService(ServiceConfiguration serviceConfig)
         {
-            var serviceConfiguration = new ServiceConfiguration();
-            //var acr1 = new AccessControlRecord {InitiatorName = "ACR101IntiatorName"};
-            serviceConfiguration.CredentialChangeList = new SacChangeList();
-            var acr1 = new AccessControlRecord
-            {
-                Name = acrName,
-                InitiatorName = iqn,
-                GlobalId = null,
-                InstanceId = null,
-                VolumeCount = 0,
-            };
-            var acrChangeList = new AcrChangeList();
-            acrChangeList.Added.Add(acr1);
-            serviceConfiguration.AcrChangeList = acrChangeList;
-            
-            
-
-            //JobResponse x = GetStorSimpleClient().ServiceConfig.BeginCreatingAsync(serviceConfiguration).Result;
-
-            JobStatusInfo x = GetStorSimpleClient().ServiceConfig.CreateAsync(serviceConfiguration,GetCustomeRequestHeaders()).Result;
-
+            return GetStorSimpleClient().ServiceConfig.Create(serviceConfig, GetCustomeRequestHeaders());
         }
 
-        public IList<AccessControlRecord> GetAccessControlRecord()
+        public JobResponse ConfigureServiceAsync(ServiceConfiguration serviceConfig)
+        {
+            return GetStorSimpleClient().ServiceConfig.BeginCreating(serviceConfig, GetCustomeRequestHeaders());
+        }
+
+        public IList<AccessControlRecord> GetAllAccessControlRecords()
         {
             var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
-            //sc.AcrChangeList.Added.
+            if (sc == null || sc.AcrChangeList == null)
+            {
+                return null;
+            }
             return sc.AcrChangeList.Updated;
+        }
+
+        public IList<StorageAccountCredential> GetAllStorageAccountCredentials()
+        {
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            if (sc == null || sc.CredentialChangeList == null)
+            {
+                return null;
+            }
+            return sc.CredentialChangeList.Updated;
         }
     }
 }

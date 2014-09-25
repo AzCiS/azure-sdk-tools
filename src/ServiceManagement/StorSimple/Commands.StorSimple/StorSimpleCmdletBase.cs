@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.Azure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
+using System.Net;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
@@ -18,6 +20,19 @@ namespace Microsoft.Azure.Commands.StorSimple
 
                 return this.storSimpleClient;
             }
+        }
+
+        internal virtual string ToAsyncJobMessage(JobResponse jobResponse)
+        {
+            string msg = string.Empty;
+            if (jobResponse.StatusCode != HttpStatusCode.Accepted && jobResponse.StatusCode != HttpStatusCode.OK)
+            {
+                msg = "Job failed to submit.";
+            }
+            msg = string.Format(
+                "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {0} for tracking the job status",
+                jobResponse.JobId);
+            return msg;
         }
     }
 }

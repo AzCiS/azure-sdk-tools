@@ -32,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.11.10918.1222\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms">
+      <HintPath>..\..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.11.10918.1222\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -56,7 +63,7 @@
     </Reference>
     <Reference Include="StorSimple.Tests, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Downloads\Dlls\StorSimple.Tests.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\StorSimple.Tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,11 +99,19 @@
     <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\Job\GetAzureStorSimpleJob.cs" />
-    <Compile Include="Cmdlets\NewAzureStorSimpleAccessControlRecord.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\GetAzureStorSimpleStorageAccountCredential.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\NewAzureStorSimpleAccessControlRecord.cs" />
     <Compile Include="Cmdlets\SelectAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\ServiceConfig\GetAzureStorSimpleAccessControlRecord.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\NewAzureStorSimpleStorageAccountCredential.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\RemoveAzureStorSimpleAccessControlRecord.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\RemoveAzureStorSimpleStorageAccountCredential.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\SetAzureStorSimpleAccessControlRecord.cs" />
+    <Compile Include="Cmdlets\ServiceConfig\SetAzureStorSimpleStorageAccountCredential.cs" />
     <Compile Include="Cmdlets\Volume\GetAzureStorSimpleDeviceVolume .cs" />
     <Compile Include="Cmdlets\Volume\NewAzureStorSimpleDeviceVolume.cs" />
+    <Compile Include="Cmdlets\Volume\RemoveAzureStorSimpleDeviceVolume .cs" />
+    <Compile Include="Cmdlets\Volume\SetAzureStorSimpleDeviceVolume.cs" />
     <Compile Include="Models\PSContracts.cs" />
     <Compile Include="ServiceClients\PSStoreSimpleBackupPolicyClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleBackupSetClient.cs" />

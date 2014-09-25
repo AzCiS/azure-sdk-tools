@@ -9,36 +9,29 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolumeContainer"),OutputType(typeof(DataContainerGetResponse))]
     public class GetAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
-        [Alias("DeviceName")]
+        [Alias("DN")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
         [ValidateNotNullOrEmptyAttribute]
-        public string DeviceToUse { get; set; }
+        public string DeviceName { get; set; }
 
         [Alias("Name")]
         [Parameter(Position = 1, Mandatory = false, HelpMessage = "The name of data container.")]
         [ValidateNotNullOrEmptyAttribute]
-        public string DcName { get; set; }
+        public string DataContainerName { get; set; }
 
         public override void ExecuteCmdlet()
         {
             try
             {
                 string deviceid = null;
-                var deviceInfos = StorSimpleClient.GetAllDevices();
-                foreach (var deviceInfo in deviceInfos)
-                {
-                    if (deviceInfo.FriendlyName.Equals(DeviceToUse, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        deviceid = deviceInfo.DeviceId;
-                    }
-                }
+                deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
                 if (deviceid == null)
                 {
-                    WriteObject("device with name " + DeviceToUse + "not found");
+                    WriteObject("device with name " + DeviceName + "not found");
                 }
 
-                if (DcName == null)
+                if (DataContainerName == null)
                 {
                     var dataContainerList = StorSimpleClient.GetAllDataContainers(deviceid);
                     if (dataContainerList.Any())
@@ -49,9 +42,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                         }
                     }
                 }
-                var dataContainer = StorSimpleClient.GetDataContainer(deviceid, DcName);
+                else
+                {
+                    var dataContainer = StorSimpleClient.GetDataContainer(deviceid, DataContainerName);
 
-                WriteObject(dataContainer.DataContainerInfo);
+                    WriteObject(dataContainer.DataContainerInfo);
+                }
             }
             catch (CloudException cloudException)
             {
