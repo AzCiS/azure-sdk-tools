@@ -15,12 +15,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         public string DeviceName { get; set; }
 
         [Alias("VName")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeName", HelpMessage = "The name of volume.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The name of volume.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeName { get; set; }
 
         [Alias("Id")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeId", HelpMessage = "The volume Id.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The volume Id.")]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeId { get; set; }
 
@@ -61,10 +61,10 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 
                 switch (ParameterSetName)
                 {
-                    case "VolumeId":
+                    case StorSimpleCmdletParameterSet.IdentifyById:
                         diskDetails = StorSimpleClient.GetVolumeById(deviceId, VolumeId).VirtualDiskInfo;
                         break;
-                    case "VolumeName":
+                    case StorSimpleCmdletParameterSet.IdentifyByName:
                         diskDetails = StorSimpleClient.GetVolumeByName(deviceId, VolumeName).VirtualDiskInfo;
                         break;
                 }

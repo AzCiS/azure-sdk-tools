@@ -1,4 +1,7 @@
 ﻿
+
+// TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
+
 using System.Net;
 using System.Net.Security;
 using System.Runtime.Caching;
@@ -16,24 +19,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Microsoft.WindowsAzure.Management.Scheduler;
 using Microsoft.WindowsAzure.Management.Scheduler.Models;
-
-// TODO :- Revisit this File again. THe person who starts work on PSScripts needs to review and change
-
-using System.Runtime.Caching;
-
-namespace Micro.Azure.Commands.StorSimple
-{
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.Serialization;
-    using System.Security.Cryptography.X509Certificates;
-    using System.Xml;
-    using Microsoft.Azure.Management.StorSimple;
-    using Microsoft.WindowsAzure;
-    using Microsoft.WindowsAzure.Commands.Utilities.Common;
-    using Microsoft.WindowsAzure.Management.Scheduler;
-    using Microsoft.WindowsAzure.Management.Scheduler.Models;
+    using Microsoft.WindowsAzure.Commands.Common;
 
     public partial class PSStorSimpleClient
     {
@@ -45,7 +31,7 @@ namespace Micro.Azure.Commands.StorSimple
         private ObjectCache Resourcecache = MemoryCache.Default;
 
         private CacheItemPolicy ResourceCachetimeoutPolicy = new CacheItemPolicy();
-        
+
         public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
         {
             // Temp code.
@@ -64,16 +50,14 @@ namespace Micro.Azure.Commands.StorSimple
 
         private StorSimpleManagementClient GetStorSimpleClient()
         {
-           // ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateErrorHandler;//delegate { return true; };
-            
             var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName,
                 StorSimpleContext.ResourceName, StorSimpleContext.ResourceId,
                 StorSimpleContext.ResourceProviderNameSpace, StorSimpleContext.StampId,
                 new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
-            
+
             if (storSimpleClient == null)
             {
-                throw  new InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             return storSimpleClient;
@@ -107,8 +91,8 @@ namespace Micro.Azure.Commands.StorSimple
             throw new InvalidOperationException(
                 string.Format(error.Message,"\n",error.HttpCode,"\n",error.ExtendedCode));
         }
-
-        private CustomRequestHeaders GetCustomeRequestHeaders()
+        
+        private CustomRequestHeaders GetCustomRequestHeaders()
         {
             return new CustomRequestHeaders()
             {
