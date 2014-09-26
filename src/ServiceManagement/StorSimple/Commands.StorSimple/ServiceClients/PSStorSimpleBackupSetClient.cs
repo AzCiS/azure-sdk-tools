@@ -14,17 +14,17 @@ namespace Microsoft.Azure.Commands.StorSimple
             string skip, string top)
         {
             return this.GetStorSimpleClient()
-                .Backup.Get(deviceId, filterType, isAllSelected, filterValue, startDateTime, endDateTime, skip, top, GetCustomeRequestHeaders());
+                .Backup.Get(deviceId, filterType, isAllSelected, filterValue, startDateTime, endDateTime, skip, top, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo DeleteBackup(string deviceid, string backupSetId)
         {
-            return GetStorSimpleClient().Backup.Delete(deviceid, backupSetId, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.Delete(deviceid, backupSetId, GetCustomRequestHeaders());
         }
 
         public JobResponse DeleteBackupAsync(string deviceid, string backupSetId)
         {
-            return GetStorSimpleClient().Backup.BeginDeleting(deviceid, backupSetId, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.BeginDeleting(deviceid, backupSetId, GetCustomRequestHeaders());
         }
     }
 }
