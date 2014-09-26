@@ -9,6 +9,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Removes the Storage Account Cred specified from the StorSimple Service Config
     /// </summary>
@@ -29,54 +31,64 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         [Parameter(Position = 1, Mandatory = false, HelpMessage = "Wait for the task to complete")]
         public SwitchParameter WaitForComplete { get; set; }
 
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Do not confirm deletion")]
+        public SwitchParameter Force { get; set; }
+
         public override void ExecuteCmdlet()
         {
-            try
-            {
-                StorageAccountCredential existingSac = null;
-                switch(ParameterSetName)
-                {
-                    case StorSimpleCmdletParameterSet.IdentifyByName:
-                        var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
-                        existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
-                        break;
-                    case StorSimpleCmdletParameterSet.IdentifyByObject:
-                        existingSac = SAC;
-                        break;
-                }
-                if (existingSac == null)
-                {
-                    WriteObject("Specified Storage Account doesn't exist.");
-                }
-                else
-                {
-                    var serviceConfig = new ServiceConfiguration()
-                    {
-                        AcrChangeList = new AcrChangeList(),
-                        CredentialChangeList = new SacChangeList()
-                        {
-                            Added = new List<StorageAccountCredential>(),
-                            Deleted = new[] { existingSac.InstanceId },
-                            Updated = new List<StorageAccountCredential>()
-                        }
-                    };
+            ConfirmAction(Force.IsPresent,
+                          Resources.RemoveStorSimpleAcrWarning,
+                          Resources.RemoveStorSimpleAcrConfirmation,
+                          string.Empty,
+                          () =>
+                          {
+                              try
+                              {
+                                  StorageAccountCredential existingSac = null;
+                                  switch (ParameterSetName)
+                                  {
+                                      case StorSimpleCmdletParameterSet.IdentifyByName:
+                                          var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
+                                          existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                                          break;
+                                      case StorSimpleCmdletParameterSet.IdentifyByObject:
+                                          existingSac = SAC;
+                                          break;
+                                  }
+                                  if (existingSac == null)
+                                  {
+                                      WriteObject("Specified Storage Account doesn't exist.");
+                                  }
+                                  else
+                                  {
+                                      var serviceConfig = new ServiceConfiguration()
+                                      {
+                                          AcrChangeList = new AcrChangeList(),
+                                          CredentialChangeList = new SacChangeList()
+                                          {
+                                              Added = new List<StorageAccountCredential>(),
+                                              Deleted = new[] { existingSac.InstanceId },
+                                              Updated = new List<StorageAccountCredential>()
+                                          }
+                                      };
 
-                    if (WaitForComplete.IsPresent)
-                    {
-                        var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                        WriteObject(jobStatus);
-                    }
-                    else
-                    {
-                        var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse));
-                    }
-                }
-            }
-            catch (CloudException cloudException)
-            {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
-            }
+                                      if (WaitForComplete.IsPresent)
+                                      {
+                                          var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
+                                          WriteObject(jobStatus);
+                                      }
+                                      else
+                                      {
+                                          var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
+                                          WriteObject(ToAsyncJobMessage(jobResponse));
+                                      }
+                                  }
+                              }
+                              catch (CloudException cloudException)
+                              {
+                                  StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                              }
+                          });
         }
     }
 }

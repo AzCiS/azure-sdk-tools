@@ -123,4 +123,22 @@
   <data name="RemoveStorSimpleAcrWarning" xml:space="preserve">
     <value>Are you sure you want to remove the access control record?</value>
   </data>
+  <data name="RemoveStorSimpleDataContainerConfirmation" xml:space="preserve">
+    <value>Removing volume container...</value>
+  </data>
+  <data name="RemoveStorSimpleDataContainerWarning" xml:space="preserve">
+    <value>Are you sure you want to remove the volume container?</value>
+  </data>
+  <data name="RemoveStorSimpleSacConfirmation" xml:space="preserve">
+    <value>Removing storage account...</value>
+  </data>
+  <data name="RemoveStorSimpleSacWarning" xml:space="preserve">
+    <value>Are you sure you want to remove the storage account?</value>
+  </data>
+  <data name="RemoveStorSimpleVolumeConfirmation" xml:space="preserve">
+    <value>Removing volume...</value>
+  </data>
+  <data name="RemoveStorSimpleVolumeWarning" xml:space="preserve">
+    <value>Are you sure you want to remove the volume?</value>
+  </data>
 </root>
