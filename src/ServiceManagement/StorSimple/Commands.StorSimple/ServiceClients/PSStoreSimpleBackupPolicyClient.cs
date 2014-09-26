@@ -13,12 +13,12 @@ namespace Microsoft.Azure.Commands.StorSimple
     {
         public BackupPolicyListResponse GetAllBackupPolicies(string deviceId)
         {
-            return this.GetStorSimpleClient().BackupPolicy.List(deviceId, GetCustomeRequestHeaders());
+            return this.GetStorSimpleClient().BackupPolicy.List(deviceId, GetCustomRequestHeaders());
         }
 
         public GetBackupPolicyDetailsResponse GetBackupPolicyByName(string deviceId, string backupPolicyName)
         {
-            return this.GetStorSimpleClient().BackupPolicy.GetBackupPolicyDetailsByName(deviceId, backupPolicyName, GetCustomeRequestHeaders());
+            return this.GetStorSimpleClient().BackupPolicy.GetBackupPolicyDetailsByName(deviceId, backupPolicyName, GetCustomRequestHeaders());
         }
     }
 }
