@@ -77,5 +77,59 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
                 return ResourceManager.GetString("RemoveStorSimpleAcrWarning", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing volume container....
+        /// </summary>
+        internal static string RemoveStorSimpleDataContainerConfirmation {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleDataContainerConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the volume container?.
+        /// </summary>
+        internal static string RemoveStorSimpleDataContainerWarning {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleDataContainerWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing storage account....
+        /// </summary>
+        internal static string RemoveStorSimpleSacConfirmation {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleSacConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the storage account?.
+        /// </summary>
+        internal static string RemoveStorSimpleSacWarning {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleSacWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing volume....
+        /// </summary>
+        internal static string RemoveStorSimpleVolumeConfirmation {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleVolumeConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the volume?.
+        /// </summary>
+        internal static string RemoveStorSimpleVolumeWarning {
+            get {
+                return ResourceManager.GetString("RemoveStorSimpleVolumeWarning", resourceCulture);
+            }
+        }
     }
 }

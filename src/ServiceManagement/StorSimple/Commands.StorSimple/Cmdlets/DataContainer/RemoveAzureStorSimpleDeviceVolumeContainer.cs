@@ -5,6 +5,8 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolumeContainer")]
     public class RemoveAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
@@ -22,31 +24,41 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for remov task complete")]
         public SwitchParameter WaitForComplete { get; set; }
 
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = "Do not confirm deletion")]
+        public SwitchParameter Force { get; set; }
+
         public override void ExecuteCmdlet()
         {
-            try
-            {
-                var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
+            ConfirmAction(Force.IsPresent,
+                          Resources.RemoveStorSimpleVolumeWarning,
+                          Resources.RemoveStorSimpleVolumeConfirmation,
+                          string.Empty,
+                          () =>
+                          {
+                              try
+                              {
+                                  var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
-                if (deviceid == null) return;
-                if (WaitForComplete.IsPresent)
-                {
-                    var jobstatusInfo = StorSimpleClient.DeleteDataContainer(deviceid, VolumeContainer.InstanceId);
-                    WriteObject(jobstatusInfo);
-                }
-                else
-                {
-                    var jobresult = StorSimpleClient.DeleteDataContainerAsync(deviceid, VolumeContainer.InstanceId);
-                    var msg =
-                            "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
-                            jobresult.JobId + " for tracking the job status";
-                        WriteObject(msg);
-                }
-            }
-            catch (CloudException cloudException)
-            {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
-            }
+                                  if (deviceid == null) return;
+                                  if (WaitForComplete.IsPresent)
+                                  {
+                                      var jobstatusInfo = StorSimpleClient.DeleteDataContainer(deviceid, VolumeContainer.InstanceId);
+                                      WriteObject(jobstatusInfo);
+                                  }
+                                  else
+                                  {
+                                      var jobresult = StorSimpleClient.DeleteDataContainerAsync(deviceid, VolumeContainer.InstanceId);
+                                      var msg =
+                                              "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
+                                              jobresult.JobId + " for tracking the job status";
+                                      WriteObject(msg);
+                                  }
+                              }
+                              catch (CloudException cloudException)
+                              {
+                                  StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                              }
+                          });
         }
     }
 }
