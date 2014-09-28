@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
-    public class StorSimpleCmdletBase : CmdletWithSubscriptionBase
+    public class StorSimpleCmdletBase : AzurePSCmdlet
     {
         private PSStorSimpleClient storSimpleClient;
 
@@ -15,7 +15,7 @@ namespace Microsoft.Azure.Commands.StorSimple
             {
                 if (this.storSimpleClient == null)
                 {
-                    this.storSimpleClient = new PSStorSimpleClient(CurrentSubscription);
+                    this.storSimpleClient = new PSStorSimpleClient(CurrentContext.Subscription);
                 }
 
                 return this.storSimpleClient;

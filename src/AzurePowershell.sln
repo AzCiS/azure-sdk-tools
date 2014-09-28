@@ -122,6 +122,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.RedisCache", "ResourceManager\RedisCache\Commands.RedisCache\Commands.RedisCache.csproj", "{C972E3EF-4461-4758-BA31-93E0947B1253}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.RedisCache.Test", "ResourceManager\RedisCache\Commands.RedisCache.Test\Commands.RedisCache.Test.csproj", "{4AE5705F-62CF-461D-B72E-DD9DCD9B3609}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.StorSimple", "ServiceManagement\StorSimple\Commands.StorSimple\Commands.StorSimple.csproj", "{11524D98-6C40-4091-A8E1-86463FEE607C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.StorSimple.Test", "ServiceManagement\StorSimple\Commands.StorSimple.Test\Commands.StorSimple.Test.csproj", "{0FA676D5-1349-4086-B33F-65EC2CB7DA41}"
