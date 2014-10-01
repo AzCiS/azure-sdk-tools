@@ -9,6 +9,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Sets the Host IQN of the ACR in the StorSimple Manager Service Configuration
     /// </summary>
@@ -17,17 +19,16 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class SetAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRName)]
         [ValidateNotNullOrEmpty]
         public string ACRName { get; set; }
 
         [Alias("IQN")]
-        [Parameter(Position = 1, Mandatory = true, HelpMessage = "The IQN.")]
+        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageIQNforACR)]
         [ValidateNotNullOrEmpty]
         public string IQNInitiatorName { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for the task to complete")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
         public override void ExecuteCmdlet()
@@ -39,7 +40,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 var existingAcr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (existingAcr == null)
                 {
-                    WriteObject("Access Control Record with the given Name doesn't exist.");
+                    WriteObject(Resources.NotFoundMessageACR);
                 }
                 else
                 {
@@ -72,7 +73,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     else
                     {
                         var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse));
+                        WriteObject(ToAsyncJobMessage(jobResponse, "update"));
                     }
                 }
             }

@@ -10,33 +10,31 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolume")]
     public class RemoveAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
-        [Alias("DName")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
-        [Alias("VName")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The name of volume.")]
+        [Alias("Name")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
         [ValidateNotNullOrEmpty]
         public string VolumeName { get; set; }
 
-        [Alias("Id")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The device name.")]
+        [Alias("ID")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeId)]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeId { get; set; }
 
-        [Alias("Wait")]
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for remov task complete")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
-        [Parameter(Position = 3, Mandatory = false, HelpMessage = "Do not confirm deletion")]
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageForce)]
         public SwitchParameter Force { get; set; }
 
         public override void ExecuteCmdlet()
         {
             ConfirmAction(Force.IsPresent,
-                          Resources.RemoveStorSimpleVolumeWarning,
-                          Resources.RemoveStorSimpleVolumeConfirmation,
+                          Resources.RemoveWarningVolume,
+                          Resources.RemoveConfirmationVolume,
                           string.Empty,
                           () =>
                           {
@@ -82,10 +80,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                                               break;
                                       }
                                       if (jobresult == null) return;
-                                      var msg =
-                                          "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
-                                          jobresult.JobId + " for tracking the job status";
-                                      WriteObject(msg);
+                                      WriteObject(ToAsyncJobMessage(jobresult, "delete"));
                                   }
                               }
                               catch (CloudException cloudException)

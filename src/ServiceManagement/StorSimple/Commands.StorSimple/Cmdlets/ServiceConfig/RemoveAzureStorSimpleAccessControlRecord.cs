@@ -19,26 +19,25 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class RemoveAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRName)]
         [ValidateNotNullOrEmpty]
         public string ACRName { get; set; }
 
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = "The ACR object.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRObject)]
         [ValidateNotNullOrEmpty]
         public AccessControlRecord ACR { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 1, Mandatory = false, HelpMessage = "Wait for the task to complete")]
+        [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Do not confirm deletion")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageForce)]
         public SwitchParameter Force { get; set; }
 
         public override void ExecuteCmdlet()
         {
             ConfirmAction(Force.IsPresent,
-                          Resources.RemoveStorSimpleAcrWarning,
-                          Resources.RemoveStorSimpleAcrConfirmation,
+                          Resources.RemoveWarningACR,
+                          Resources.RemoveConfirmationACR,
                           string.Empty,
                           () =>
                           {
@@ -57,7 +56,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                                   }
                                   if (existingAcr == null)
                                   {
-                                      WriteObject("Specified Access Control Record doesn't exist.");
+                                      WriteObject(Resources.NotFoundMessageACR);
                                   }
                                   else
                                   {
@@ -80,7 +79,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                                       else
                                       {
                                           var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                                          WriteObject(ToAsyncJobMessage(jobResponse));
+                                          WriteObject(ToAsyncJobMessage(jobResponse, "delete"));
                                       }
                                   }
                               }

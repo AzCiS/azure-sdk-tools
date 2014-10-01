@@ -2,9 +2,12 @@
 using Microsoft.Azure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using System.Net;
+using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
+    using Properties;
+
     public class StorSimpleCmdletBase : AzurePSCmdlet
     {
         private PSStorSimpleClient storSimpleClient;
@@ -22,16 +25,28 @@ namespace Microsoft.Azure.Commands.StorSimple
             }
         }
 
-        internal virtual string ToAsyncJobMessage(JobResponse jobResponse)
+        internal virtual string ToAsyncJobMessage(OperationResponse opResponse, string operationName)
         {
             string msg = string.Empty;
-            if (jobResponse.StatusCode != HttpStatusCode.Accepted && jobResponse.StatusCode != HttpStatusCode.OK)
+            if (opResponse.StatusCode != HttpStatusCode.Accepted && opResponse.StatusCode != HttpStatusCode.OK)
             {
-                msg = "Job failed to submit.";
+                msg = string.Format(Resources.FailureMessageSubmitJob, operationName);
             }
-            msg = string.Format(
-                "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {0} for tracking the job status",
-                jobResponse.JobId);
+
+            else
+            {
+                if (opResponse.GetType().Equals(typeof(JobResponse)))
+                {
+                    var jobResponse = opResponse as JobResponse;
+                    msg = string.Format(Resources.SuccessMessageSubmitJob, operationName, jobResponse.JobId);
+                }
+
+                else if (opResponse.GetType().Equals(typeof(GuidJobResponse)))
+                {
+                    var guidJobResponse = opResponse as GuidJobResponse;
+                    msg = string.Format(Resources.SuccessMessageSubmitJob, operationName, guidJobResponse.JobId);
+                }
+            }
             return msg;
         }
     }

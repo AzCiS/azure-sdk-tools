@@ -8,6 +8,8 @@ using System.Net;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Add New Access Control Record to the StorSimple Manager Service Configuration
     /// </summary>
@@ -16,17 +18,16 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class NewAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRName)]
         [ValidateNotNullOrEmpty]
         public string ACRName { get; set; }
 
         [Alias("IQN")]
-        [Parameter(Position = 1, Mandatory = true, HelpMessage = "The IQN.")]
+        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageIQNforACR)]
         [ValidateNotNullOrEmpty]
         public string IQNInitiatorName { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Wait for the task to complete")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
         public override void ExecuteCmdlet()
@@ -62,7 +63,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                    WriteObject(ToAsyncJobMessage(jobResponse));
+                    WriteObject(ToAsyncJobMessage(jobResponse, "create"));
                 }
             }
             catch (CloudException cloudException)

@@ -6,16 +6,17 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolumeContainer"),OutputType(typeof(DataContainerGetResponse))]
     public class GetAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
-        [Alias("DN")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
         [Alias("Name")]
-        [Parameter(Position = 1, Mandatory = false, HelpMessage = "The name of data container.")]
+        [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DataContainerName { get; set; }
 
@@ -28,7 +29,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 
                 if (deviceid == null)
                 {
-                    WriteObject("device with name " + DeviceName + "not found");
+                    WriteObject(Resources.NotFoundMessageDevice);
                 }
 
                 if (DataContainerName == null)

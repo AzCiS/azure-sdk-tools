@@ -12,6 +12,6 @@ namespace Microsoft.Azure.Commands.StorSimple
         public const string IdentifyById = "IdentifyById";
         public const string IdentifyByName = "IdentifyByName";
         public const string IdentifyByObject = "IdentifyByObject";
-        public const string IdentifyByDataContainerId = "IdentifyByDataContainerId";
+        public const string IdentifyByParentObject = "IdentifyByParentObject";
     }
 }

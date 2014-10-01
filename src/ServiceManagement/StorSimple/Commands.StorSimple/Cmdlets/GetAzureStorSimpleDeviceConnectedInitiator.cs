@@ -7,17 +7,19 @@ using System.Collections.Generic;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Lists all the connected ISCSI initiators
     /// </summary>
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceConnectedInitiator")]
     public class GetAzureStorSimpleDeviceConnectedInitiator : StorSimpleCmdletBase
     {
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The device identifier.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceId)]
         [ValidateNotNullOrEmpty]
         public string DeviceId { get; set; }
 
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
@@ -32,7 +34,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                         var deviceToUse = StorSimpleClient.GetAllDevices().Where(x => x.FriendlyName.Equals(DeviceName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                         if (deviceToUse == null)
                         {
-                            WriteObject("Device with the given name does not exist");
+                            WriteObject(Resources.NotFoundMessageDevice);
                         }
                         else
                         {

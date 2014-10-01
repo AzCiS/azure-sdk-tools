@@ -61,74 +61,137 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removing access control record....
+        ///   Looks up a localized string similar to The {0} job failed to submit. .
         /// </summary>
-        internal static string RemoveStorSimpleAcrConfirmation {
+        internal static string FailureMessageSubmitJob {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleAcrConfirmation", resourceCulture);
+                return ResourceManager.GetString("FailureMessageSubmitJob", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove the access control record?.
+        ///   Looks up a localized string similar to The specified access control record does not exist..
         /// </summary>
-        internal static string RemoveStorSimpleAcrWarning {
+        internal static string NotFoundMessageACR {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleAcrWarning", resourceCulture);
+                return ResourceManager.GetString("NotFoundMessageACR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device with the given name or identifier does not exist..
+        /// </summary>
+        internal static string NotFoundMessageDevice {
+            get {
+                return ResourceManager.GetString("NotFoundMessageDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No resource found for the given resource name. Please check the name again..
+        /// </summary>
+        internal static string NotFoundMessageResource {
+            get {
+                return ResourceManager.GetString("NotFoundMessageResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified storage account does not exist..
+        /// </summary>
+        internal static string NotFoundMessageStorageAccount {
+            get {
+                return ResourceManager.GetString("NotFoundMessageStorageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing access control record....
+        /// </summary>
+        internal static string RemoveConfirmationACR {
+            get {
+                return ResourceManager.GetString("RemoveConfirmationACR", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Removing volume container....
         /// </summary>
-        internal static string RemoveStorSimpleDataContainerConfirmation {
+        internal static string RemoveConfirmationDataContainer {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleDataContainerConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove the volume container?.
-        /// </summary>
-        internal static string RemoveStorSimpleDataContainerWarning {
-            get {
-                return ResourceManager.GetString("RemoveStorSimpleDataContainerWarning", resourceCulture);
+                return ResourceManager.GetString("RemoveConfirmationDataContainer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Removing storage account....
         /// </summary>
-        internal static string RemoveStorSimpleSacConfirmation {
+        internal static string RemoveConfirmationSAC {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleSacConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove the storage account?.
-        /// </summary>
-        internal static string RemoveStorSimpleSacWarning {
-            get {
-                return ResourceManager.GetString("RemoveStorSimpleSacWarning", resourceCulture);
+                return ResourceManager.GetString("RemoveConfirmationSAC", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Removing volume....
         /// </summary>
-        internal static string RemoveStorSimpleVolumeConfirmation {
+        internal static string RemoveConfirmationVolume {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleVolumeConfirmation", resourceCulture);
+                return ResourceManager.GetString("RemoveConfirmationVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the access control record?.
+        /// </summary>
+        internal static string RemoveWarningACR {
+            get {
+                return ResourceManager.GetString("RemoveWarningACR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the volume container?.
+        /// </summary>
+        internal static string RemoveWarningDataContainer {
+            get {
+                return ResourceManager.GetString("RemoveWarningDataContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the storage account?.
+        /// </summary>
+        internal static string RemoveWarningSAC {
+            get {
+                return ResourceManager.GetString("RemoveWarningSAC", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove the volume?.
         /// </summary>
-        internal static string RemoveStorSimpleVolumeWarning {
+        internal static string RemoveWarningVolume {
             get {
-                return ResourceManager.GetString("RemoveStorSimpleVolumeWarning", resourceCulture);
+                return ResourceManager.GetString("RemoveWarningVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context set successfully for the given resource name..
+        /// </summary>
+        internal static string SuccessMessageSetResourceContext {
+            get {
+                return ResourceManager.GetString("SuccessMessageSetResourceContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status.
+        /// </summary>
+        internal static string SuccessMessageSubmitJob {
+            get {
+                return ResourceManager.GetString("SuccessMessageSubmitJob", resourceCulture);
             }
         }
     }

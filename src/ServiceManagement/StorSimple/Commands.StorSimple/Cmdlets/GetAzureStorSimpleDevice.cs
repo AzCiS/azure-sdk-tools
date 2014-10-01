@@ -6,28 +6,30 @@ using System;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDevice", DefaultParameterSetName = StorSimpleCmdletParameterSet.Empty)]
     public class GetAzureStorSimpleDevice : StorSimpleCmdletBase
     {
         [Alias("ID")]
-        [Parameter(Position = 0, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = "The device identifier.")]
+        [Parameter(Position = 0, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceId)]
         [ValidateNotNullOrEmpty]
         public string DeviceId { get; set; }
 
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
-        [Parameter(Position = 1, Mandatory = false, HelpMessage = "StorSimple device type.")]
+        [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceType)]
         [ValidateNotNullOrEmpty]
         public string Type { get; set; }
 
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "StorSimple device Model Id.")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceModel)]
         [ValidateNotNullOrEmpty]
         public string ModelID { get; set; }
 
-        [Parameter(Position = 3, Mandatory = false, HelpMessage = "Configuration details about the device")]
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceConfigRequired)]
         public SwitchParameter Detailed { get; set; }
 
         public override void ExecuteCmdlet()

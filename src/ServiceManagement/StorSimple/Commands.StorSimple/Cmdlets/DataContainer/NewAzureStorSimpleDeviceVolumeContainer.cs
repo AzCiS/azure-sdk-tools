@@ -6,32 +6,32 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolumeContainer")]
     public class NewAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
 
-        [Alias("DN")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Alias("DCName")]
-        [Parameter(Position = 1, Mandatory = true, HelpMessage = "The name of data container.")]
+        [Alias("Name")]
+        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DataContainerName { get; set; }
 
         [Alias("StorageAccount")]
-        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = "The sac.")]
+        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageSACObject)]
         [ValidateNotNullOrEmptyAttribute]
         public StorageAccountCredential PrimaryStorageAccountCredential { get; set; }
 
-        [Alias("BW")]
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The cloud bandwidth setting.")]
+        [Alias("CloudBandwidth")]
+        [Parameter(Position = 3, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerBandwidth)]
         [ValidateNotNullOrEmptyAttribute]
         public int BandWidthRate { get; set; }
 
-        [Alias("Wait")]
-        [Parameter(Position = 4, Mandatory = false, HelpMessage = "Wait for create task to complete")]
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 deviceid = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceid == null)
                 {
-                    WriteObject("device with name " + DeviceName + "not found");
+                    WriteObject(Resources.NotFoundMessageDevice);
                 }
 
                 var dc = new DataContainerRequest
@@ -62,11 +62,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid,dc);
-                    
-                    var msg =
-                        "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
-                        jobstatus.JobId + " for tracking the job status";
-                    WriteObject(msg);
+                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
                     
                 }
                 

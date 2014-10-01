@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Get a list of Storage accounts from the StorSimple Service config or retrieves a specified Storage Account Cred
     /// </summary>
@@ -13,7 +15,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class GetAzureStorSimpleStorageAccountCredential : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = false, HelpMessage = "The storage account name.")]
+        [Parameter(Position = 0, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageStorageAccountName)]
         public string StorageAccountName { get; set; }
 
         public override void ExecuteCmdlet()
@@ -30,7 +32,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     var sac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                     if (sac == null)
                     {
-                        WriteObject("Storage Account with the given name doesn't exist");
+                        WriteObject(Resources.NotFoundMessageStorageAccount);
                     }
                     else
                     {

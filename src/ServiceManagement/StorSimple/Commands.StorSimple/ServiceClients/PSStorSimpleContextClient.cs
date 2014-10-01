@@ -6,6 +6,8 @@ using Microsoft.Azure.Commands.StorSimple;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
+    using Properties;
+
     public partial class PSStorSimpleClient
     {
         
@@ -66,7 +68,7 @@ namespace Microsoft.Azure.Commands.StorSimple
             var resCred = GetResourceDetails(resourceName);
             if (resCred == null)
             {
-                return "No resource found for the given resource name. Please check the name again.";
+                return Resources.NotFoundMessageResource;
             }
 
 
@@ -77,14 +79,7 @@ namespace Microsoft.Azure.Commands.StorSimple
             StorSimpleContext.ResourceName = resCred.ResourceName;
             StorSimpleContext.ResourceProviderNameSpace = resCred.ResourceNameSpace;
 
-            /*this.resourceId = resCred.ResourceId;
-            this.stampId = resCred.StampId;
-            this.cloudServiceName = resCred.CloudServiceName;
-            this.resourceType = resCred.ResourceType;
-            this.resourceName = resCred.ResourceName;
-            this.resourceProviderNameSpace = resCred.ResourceNameSpace;*/
-
-            return "Context set successfully for the given resource name.";
+            return Resources.SuccessMessageSetResourceContext;
         }
 
         public string GetResourceContext()

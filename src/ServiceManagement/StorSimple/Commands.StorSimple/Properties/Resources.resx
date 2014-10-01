@@ -117,28 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RemoveStorSimpleAcrConfirmation" xml:space="preserve">
+  <data name="FailureMessageSubmitJob" xml:space="preserve">
+    <value>The {0} job failed to submit. </value>
+  </data>
+  <data name="NotFoundMessageACR" xml:space="preserve">
+    <value>The specified access control record does not exist.</value>
+  </data>
+  <data name="NotFoundMessageDevice" xml:space="preserve">
+    <value>Device with the given name or identifier does not exist.</value>
+  </data>
+  <data name="NotFoundMessageResource" xml:space="preserve">
+    <value>No resource found for the given resource name. Please check the name again.</value>
+  </data>
+  <data name="NotFoundMessageStorageAccount" xml:space="preserve">
+    <value>The specified storage account does not exist.</value>
+  </data>
+  <data name="RemoveConfirmationACR" xml:space="preserve">
     <value>Removing access control record...</value>
   </data>
-  <data name="RemoveStorSimpleAcrWarning" xml:space="preserve">
-    <value>Are you sure you want to remove the access control record?</value>
-  </data>
-  <data name="RemoveStorSimpleDataContainerConfirmation" xml:space="preserve">
+  <data name="RemoveConfirmationDataContainer" xml:space="preserve">
     <value>Removing volume container...</value>
   </data>
-  <data name="RemoveStorSimpleDataContainerWarning" xml:space="preserve">
-    <value>Are you sure you want to remove the volume container?</value>
-  </data>
-  <data name="RemoveStorSimpleSacConfirmation" xml:space="preserve">
+  <data name="RemoveConfirmationSAC" xml:space="preserve">
     <value>Removing storage account...</value>
   </data>
-  <data name="RemoveStorSimpleSacWarning" xml:space="preserve">
-    <value>Are you sure you want to remove the storage account?</value>
-  </data>
-  <data name="RemoveStorSimpleVolumeConfirmation" xml:space="preserve">
+  <data name="RemoveConfirmationVolume" xml:space="preserve">
     <value>Removing volume...</value>
   </data>
-  <data name="RemoveStorSimpleVolumeWarning" xml:space="preserve">
+  <data name="RemoveWarningACR" xml:space="preserve">
+    <value>Are you sure you want to remove the access control record?</value>
+  </data>
+  <data name="RemoveWarningDataContainer" xml:space="preserve">
+    <value>Are you sure you want to remove the volume container?</value>
+  </data>
+  <data name="RemoveWarningSAC" xml:space="preserve">
+    <value>Are you sure you want to remove the storage account?</value>
+  </data>
+  <data name="RemoveWarningVolume" xml:space="preserve">
     <value>Are you sure you want to remove the volume?</value>
+  </data>
+  <data name="SuccessMessageSetResourceContext" xml:space="preserve">
+    <value>Context set successfully for the given resource name.</value>
+  </data>
+  <data name="SuccessMessageSubmitJob" xml:space="preserve">
+    <value>The {0} job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status</value>
   </data>
 </root>

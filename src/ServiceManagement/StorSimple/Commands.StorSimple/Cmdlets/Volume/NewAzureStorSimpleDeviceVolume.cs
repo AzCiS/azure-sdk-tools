@@ -6,56 +6,51 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolume")]
     public class NewAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
-        [Alias("DName")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Alias("DC")]
-        [Parameter(Position = 1, Mandatory = true, HelpMessage = "The name of data container to use.")]
+        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
         [ValidateNotNullOrEmpty]
         public DataContainer Container { get; set; }
         
-        [Alias("VName")]
-        [Parameter(Position = 2, Mandatory = true, HelpMessage = "The name of volume.")]
+        [Alias("Name")]
+        [Parameter(Position = 2, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
         [ValidateNotNullOrEmpty]
         public string VolumeName { get; set; }
 
         [Alias("Size")]
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The size of volume in bytes.")]
+        [Parameter(Position = 3, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeSize)]
         [ValidateNotNullOrEmpty]
         public Int64 VolumeSize { get; set; }
 
-        [Alias("ACRList")]
-        [Parameter(Position = 4, Mandatory = true, HelpMessage = "List of access control records.")]
+        [Parameter(Position = 4, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
         [ValidateNotNullOrEmpty]
         public AccessControlRecord[] AccessControlRecords { get; set; }
 
         [Alias("AppType")]
-        [Parameter(Position = 5, Mandatory = true, HelpMessage = "The app type.")]
+        [Parameter(Position = 5, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAppType)]
         [ValidateNotNullOrEmpty]
         public AppType VolumeAppType { get; set; }
 
-        [Alias("VOnline")]
-        [Parameter(Position = 6, Mandatory = true, HelpMessage = "Is volume online.")]
+        [Parameter(Position = 6, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeOnline)]
         [ValidateNotNullOrEmpty]
         public bool Online { get; set; }
 
-        [Alias("DefaultBackup")]
-        [Parameter(Position = 7, Mandatory = true, HelpMessage = "Flag for enabling default backup.")]
+        [Parameter(Position = 7, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeDefaultBackup)]
         [ValidateNotNullOrEmpty]
         public bool EnableDefaultBackup { get; set; }
 
-        [Alias("Monitoring")]
-        [Parameter(Position = 8, Mandatory = true, HelpMessage = "Flag for enabling monitoring.")]
+        [Parameter(Position = 8, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeMonitoring)]
         [ValidateNotNullOrEmpty]
         public bool EnableMonitoring { get; set; }
 
-        [Alias("Wait")]
-        [Parameter(Position = 9, Mandatory = false, HelpMessage = "Wait for remov task complete")]
+        [Parameter(Position = 9, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
@@ -66,7 +61,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
 
                 if (deviceid == null)
                 {
-                    WriteObject("device with name " + DeviceName + "not found");
+                    WriteObject(Resources.NotFoundMessageDevice);
                 }
 
                 //Virtual disk create request object
@@ -96,10 +91,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
                 {
                     var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
                     
-                    var msg =
-                        "Job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId " +
-                        jobstatus.JobId + "for tracking the job status";
-                    WriteObject(msg);
+                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
 
                 }
                 

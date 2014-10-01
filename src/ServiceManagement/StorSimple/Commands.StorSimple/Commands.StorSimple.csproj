@@ -94,7 +94,6 @@
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\RemoveAzureStorSimpleDeviceVolumeContainer.cs" />
-    <Compile Include="Cmdlets\DataContainer\UpdateAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleDevice.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleDeviceConnectedInitiator.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
@@ -129,6 +128,7 @@
     <Compile Include="ServiceClients\PSStorSimpleServiceConfigClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleVolumeClient.cs" />
     <Compile Include="StorSimpleCmdletBase.cs" />
+    <Compile Include="StorSimpleCmdletHelpMessage.cs" />
     <Compile Include="StorSimpleCmdletParameterSet.cs" />
     <Compile Include="StorSimpleContext.cs" />
   </ItemGroup>
