@@ -5,6 +5,7 @@
 using System.Net;
 using System.Net.Security;
 using System.Runtime.Caching;
+using Microsoft.WindowsAzure.Commands.Common.Models;
 
 namespace Microsoft.Azure.Commands.StorSimple
 {
@@ -19,26 +20,23 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Microsoft.WindowsAzure.Management.Scheduler;
 using Microsoft.WindowsAzure.Management.Scheduler.Models;
+    using Microsoft.WindowsAzure.Commands.Common;
 
     public partial class PSStorSimpleClient
     {
         private CloudServiceManagementClient cloudServicesClient;
-        private string subscriptionId;
-        private X509Certificate2 certificate;
-        private Uri serviceEndPoint;
-
+        
         private ObjectCache Resourcecache = MemoryCache.Default;
 
         private CacheItemPolicy ResourceCachetimeoutPolicy = new CacheItemPolicy();
 
-        public PSStorSimpleClient(WindowsAzureSubscription currentSubscription)
+        public PSStorSimpleClient(AzureSubscription currentSubscription)
         {
-            // Temp code.
+            // Temp code to be able to test internal env.
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };//IgnoreCertificateErrorHandler;//delegate { return true; };
-            this.cloudServicesClient = currentSubscription.CreateClient<CloudServiceManagementClient>();
-            this.subscriptionId = currentSubscription.SubscriptionId;
-            this.serviceEndPoint = currentSubscription.ServiceEndpoint;
-            this.certificate = currentSubscription.Certificate;
+            
+            this.cloudServicesClient = AzureSession.ClientFactory.CreateClient<CloudServiceManagementClient>(currentSubscription, AzureEnvironment.Endpoint.ServiceManagement);
+            
             ResourceCachetimeoutPolicy.AbsoluteExpiration = DateTimeOffset.Now.AddHours(1.0d);
         }
 
@@ -49,16 +47,17 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
 
         private StorSimpleManagementClient GetStorSimpleClient()
         {
-           // ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateErrorHandler;//delegate { return true; };
-            
-            var storSimpleClient = new StorSimpleManagementClient(StorSimpleContext.CloudServiceName,
-                StorSimpleContext.ResourceName, StorSimpleContext.ResourceId,
-                StorSimpleContext.ResourceProviderNameSpace, StorSimpleContext.StampId,
-                new CertificateCloudCredentials(this.subscriptionId, this.certificate), this.serviceEndPoint);
+            var storSimpleClient =
+                AzureSession.ClientFactory.CreateCustomClient<StorSimpleManagementClient>(
+                    StorSimpleContext.CloudServiceName,
+                    StorSimpleContext.ResourceName, StorSimpleContext.ResourceId,
+                    StorSimpleContext.ResourceProviderNameSpace, StorSimpleContext.StampId,
+                    this.cloudServicesClient.Credentials,
+                    AzureSession.CurrentContext.Environment.GetEndpointAsUri(AzureEnvironment.Endpoint.ServiceManagement));
             
             if (storSimpleClient == null)
             {
-                throw  new InvalidOperationException();
+                throw new InvalidOperationException();
             }
 
             return storSimpleClient;
@@ -93,13 +92,14 @@ using Microsoft.WindowsAzure.Management.Scheduler.Models;
                 string.Format(error.Message,"\n",error.HttpCode,"\n",error.ExtendedCode));
         }
         
-        private CustomRequestHeaders GetCustomeRequestHeaders()
+        private CustomRequestHeaders GetCustomRequestHeaders()
         {
             return new CustomRequestHeaders()
             {
                 // ClientRequestId is a unique ID for every request to StorSimple .
                 // It is useful when diagnosing failures in API calls.
-                ClientRequestId = Guid.NewGuid().ToString("D") + "_PS"
+                ClientRequestId = Guid.NewGuid().ToString("D") + "_PS",
+                Language = "en-US"
             };
         }
 

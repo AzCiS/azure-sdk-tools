@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
             {
                 context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
                 //SetupManagementClients();
-                //helper.SetupEnvironment(AzureModule.AzureServiceManagement);
+                helper.SetupEnvironment(AzureModule.AzureServiceManagement);
                 helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
                 helper.RunPowerShellTest(scripts);
             }

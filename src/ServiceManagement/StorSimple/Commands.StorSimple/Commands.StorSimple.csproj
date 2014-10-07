@@ -102,8 +102,8 @@
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\RemoveAzureStorSimpleDeviceVolumeContainer.cs" />
-    <Compile Include="Cmdlets\DataContainer\UpdateAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleDevice.cs" />
+    <Compile Include="Cmdlets\GetAzureStorSimpleDeviceConnectedInitiator.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\Job\GetAzureStorSimpleJob.cs" />
@@ -122,7 +122,11 @@
     <Compile Include="Cmdlets\Volume\RemoveAzureStorSimpleDeviceVolume .cs" />
     <Compile Include="Cmdlets\Volume\SetAzureStorSimpleDeviceVolume.cs" />
     <Compile Include="Models\PSContracts.cs" />
+<<<<<<< HEAD
     <Compile Include="Resources.Designer.cs">
+=======
+    <Compile Include="Properties\Resources.Designer.cs">
+>>>>>>> origin/dev
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -137,6 +141,8 @@
     <Compile Include="ServiceClients\PSStorSimpleServiceConfigClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleVolumeClient.cs" />
     <Compile Include="StorSimpleCmdletBase.cs" />
+    <Compile Include="StorSimpleCmdletHelpMessage.cs" />
+    <Compile Include="StorSimpleCmdletParameterSet.cs" />
     <Compile Include="StorSimpleContext.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,10 +160,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

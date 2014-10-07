@@ -12,46 +12,45 @@ namespace Microsoft.Azure.Commands.StorSimple
     {
         public VirtualDiskListResponse GetAllVolumesFordataContainer(string deviceid,string datacontainerid)
         {
-            return GetStorSimpleClient().VirtualDisk.List(deviceid, datacontainerid, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.List(deviceid, datacontainerid, GetCustomRequestHeaders());
         }
 
         public VirtualDiskGetResponse GetVolumeByName(string deviceid, string diskName)
         {
-            return GetStorSimpleClient().VirtualDisk.GetByName(deviceid, diskName, GetCustomeRequestHeaders());
-            return null;
+            return GetStorSimpleClient().VirtualDisk.GetByName(deviceid, diskName, GetCustomRequestHeaders());
         }
 
         public VirtualDiskGetResponse GetVolumeById(string deviceid, string diskId)
         {
-            return GetStorSimpleClient().VirtualDisk.Get(deviceid, diskId, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.Get(deviceid, diskId, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo CreateVolume(string deviceid, VirtualDiskRequest diskDetails)
         {
-            return GetStorSimpleClient().VirtualDisk.Create(deviceid, diskDetails, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.Create(deviceid, diskDetails, GetCustomRequestHeaders());
         }
 
         public GuidJobResponse CreateVolumeAsync(string deviceid, VirtualDiskRequest diskDetails)
         {
-            return GetStorSimpleClient().VirtualDisk.BeginCreating(deviceid, diskDetails, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.BeginCreating(deviceid, diskDetails, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo RemoveVolume(string deviceid, string diskid)
         {
-            return GetStorSimpleClient().VirtualDisk.Delete(deviceid, diskid, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.Delete(deviceid, diskid, GetCustomRequestHeaders());
         }
         public GuidJobResponse RemoveVolumeAsync(string deviceid, string diskid)
         {
-            return GetStorSimpleClient().VirtualDisk.BeginDeleting(deviceid, diskid, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.BeginDeleting(deviceid, diskid, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo UpdateVolume(string deviceid, string diskid, VirtualDisk diskDetails)
         {
-            return GetStorSimpleClient().VirtualDisk.Update(deviceid, diskid, diskDetails, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.Update(deviceid, diskid, diskDetails, GetCustomRequestHeaders());
         }
         public GuidJobResponse UpdateVolumeAsync(string deviceid, string diskid, VirtualDisk diskDetails)
         {
-            return GetStorSimpleClient().VirtualDisk.BeginUpdating(deviceid, diskid, diskDetails,GetCustomeRequestHeaders());
+            return GetStorSimpleClient().VirtualDisk.BeginUpdating(deviceid, diskid, diskDetails,GetCustomRequestHeaders());
         }
     }
 }

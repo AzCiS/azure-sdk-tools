@@ -9,6 +9,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Edit the Storage Account Cred
     /// </summary>
@@ -17,21 +19,20 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class SetAzureStorSimpleStorageAccountCredential : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The storage account name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageStorageAccountName)]
         [ValidateNotNullOrEmpty]
         public string StorageAccountName { get; set; }
 
         [Alias("Key")]
-        [Parameter(Position = 1, Mandatory = false, HelpMessage = "The Key.")]
+        [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageStorageAccountKey)]
         [ValidateNotNullOrEmpty]
         public string StorageAccountKey { get; set; }
 
-        [Parameter(Position = 2, Mandatory = false, HelpMessage = "Whether to use SSL")]
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageUseSSL)]
         [ValidateNotNullOrEmpty]
         public bool? UseSSL { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 3, Mandatory = false, HelpMessage = "Wait for the task to complete")]
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
         public override void ExecuteCmdlet()
@@ -40,10 +41,10 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
             {
 
                 var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
-                var existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName)).FirstOrDefault();
+                var existingSac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (existingSac == null)
                 {
-                    WriteObject("Storage account with the given Name doesn't exist.");
+                    WriteObject(Resources.NotFoundMessageStorageAccount);
                 }
                 else
                 {
@@ -79,7 +80,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                     else
                     {
                         var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse));
+                        WriteObject(ToAsyncJobMessage(jobResponse, "update"));
                     }
                 }
             }

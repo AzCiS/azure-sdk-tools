@@ -9,6 +9,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Removes a ACR from the StorSimple Manager Service Configuration
     /// </summary>
@@ -17,66 +19,75 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class RemoveAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByName", HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRName)]
         [ValidateNotNullOrEmpty]
         public string ACRName { get; set; }
 
-        [Parameter(Position = 0, Mandatory = true, ParameterSetName = "IdentifyByObject", ValueFromPipeline = true, HelpMessage = "The ACR object.")]
+        [Parameter(Position = 0, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRObject)]
         [ValidateNotNullOrEmpty]
         public AccessControlRecord ACR { get; set; }
 
-        [Alias("WaitForCompletion")]
-        [Parameter(Position = 1, Mandatory = false, HelpMessage = "Wait for the task to complete")]
+        [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
+
+        [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageForce)]
+        public SwitchParameter Force { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            try
-            {
-                AccessControlRecord existingAcr = null;
-                switch(ParameterSetName)
-                {
-                    case "IdentifyByName":
-                        var allACRs = StorSimpleClient.GetAllAccessControlRecords();
-                        existingAcr = allACRs.Where(x => x.Name.Equals(ACRName)).FirstOrDefault();
-                        break;
-                    case "IdentifyByObject":
-                        existingAcr = ACR;
-                        break;
-                }
-                if (existingAcr == null)
-                {
-                    WriteObject("Specified Access Control Record doesn't exist.");
-                }
-                else
-                {
-                    var serviceConfig = new ServiceConfiguration()
-                    {
-                        AcrChangeList = new AcrChangeList()
-                        {
-                            Added = new List<AccessControlRecord>(),
-                            Deleted = new [] {existingAcr.InstanceId},
-                            Updated = new List<AccessControlRecord>()
-                        },
-                        CredentialChangeList = new SacChangeList(),
-                    };
+            ConfirmAction(Force.IsPresent,
+                          Resources.RemoveWarningACR,
+                          Resources.RemoveConfirmationACR,
+                          string.Empty,
+                          () =>
+                          {
+                              try
+                              {
+                                  AccessControlRecord existingAcr = null;
+                                  switch (ParameterSetName)
+                                  {
+                                      case StorSimpleCmdletParameterSet.IdentifyByName:
+                                          var allACRs = StorSimpleClient.GetAllAccessControlRecords();
+                                          existingAcr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                                          break;
+                                      case StorSimpleCmdletParameterSet.IdentifyByObject:
+                                          existingAcr = ACR;
+                                          break;
+                                  }
+                                  if (existingAcr == null)
+                                  {
+                                      WriteObject(Resources.NotFoundMessageACR);
+                                  }
+                                  else
+                                  {
+                                      var serviceConfig = new ServiceConfiguration()
+                                      {
+                                          AcrChangeList = new AcrChangeList()
+                                          {
+                                              Added = new List<AccessControlRecord>(),
+                                              Deleted = new[] { existingAcr.InstanceId },
+                                              Updated = new List<AccessControlRecord>()
+                                          },
+                                          CredentialChangeList = new SacChangeList(),
+                                      };
 
-                    if (WaitForComplete.IsPresent)
-                    {
-                        var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                        WriteObject(jobStatus);
-                    }
-                    else
-                    {
-                        var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse));
-                    }
-                }
-            }
-            catch (CloudException cloudException)
-            {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
-            }
+                                      if (WaitForComplete.IsPresent)
+                                      {
+                                          var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
+                                          WriteObject(jobStatus);
+                                      }
+                                      else
+                                      {
+                                          var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
+                                          WriteObject(ToAsyncJobMessage(jobResponse, "delete"));
+                                      }
+                                  }
+                              }
+                              catch (CloudException cloudException)
+                              {
+                                  StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                              }
+                          });
         }
     }
 }

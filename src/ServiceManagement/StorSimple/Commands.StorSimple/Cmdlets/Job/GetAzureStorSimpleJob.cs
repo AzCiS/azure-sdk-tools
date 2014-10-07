@@ -3,12 +3,14 @@ using System.Management.Automation;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleJob")]
     public class GetAzureStorSimpleJob : StorSimpleCmdletBase
     {
 
         [Alias("JobId")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The job instance id.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageJobId)]
         [ValidateNotNullOrEmptyAttribute]
         public string InstanceId { get; set; }
 

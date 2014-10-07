@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     /// <summary>
     /// Get a list of Access Control Records present in the StorSimple Manager Service Configuration or retrieves a specific named ACR Object
     /// </summary>
@@ -13,7 +15,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
     public class GetAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
-        [Parameter(Position = 0, Mandatory = false, HelpMessage = "The access control record name.")]
+        [Parameter(Position = 0, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageACRName)]
         public string ACRName { get; set; }
 
         public override void ExecuteCmdlet()
@@ -27,10 +29,10 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 }
                 else
                 {
-                    var acr = allACRs.Where(x => x.Name.Equals(ACRName)).FirstOrDefault();
+                    var acr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                     if (acr == null)
                     {
-                        WriteObject("Access control record with the given name doesn't exist");
+                        WriteObject(Resources.NotFoundMessageACR);
                     }
                     else
                     {

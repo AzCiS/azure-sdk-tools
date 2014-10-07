@@ -5,28 +5,29 @@ using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
 {
+    using Properties;
+
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolume")]
     public class GetAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
-        [Alias("DN")]
-        [Parameter(Position = 0, Mandatory = true, HelpMessage = "The device name.")]
+        [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Alias("DCId")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "DataContainerId", HelpMessage = "The volume container id.")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByParentObject, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerObject)]
         [ValidateNotNullOrEmptyAttribute]
-        public string VolumeContainerId { get; set; }
+        public DataContainer VolumeContainer { get; set; }
 
-        [Alias("VId")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = "VolumeId", HelpMessage = "The volume id.")]
+        [Alias("ID")]
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeId)]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeId { get; set; }
 
-        [Alias("VName")]
-        [Parameter(Position = 1, Mandatory = false, ParameterSetName = "VolumeName", HelpMessage = "The volume name.")]
+        [Alias("Name")]
+        [Parameter(Position = 1, Mandatory = false, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeName { get; set; }
+        
         public override void ExecuteCmdlet()
         {
             try
@@ -36,17 +37,17 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 VirtualDiskGetResponse volumeInfo;
                 switch (ParameterSetName)
                 {
-                    case "DataContainerId":
-                        var volumeInfoList = StorSimpleClient.GetAllVolumesFordataContainer(deviceId, VolumeContainerId);
-                        WriteObject(volumeInfoList);
+                    case StorSimpleCmdletParameterSet.IdentifyByParentObject:
+                        var volumeInfoList = StorSimpleClient.GetAllVolumesFordataContainer(deviceId, VolumeContainer.InstanceId);
+                        WriteObject(volumeInfoList.ListofVirtualDisks);
                         break;
-                    case "VolumeId" :
+                    case StorSimpleCmdletParameterSet.IdentifyById :
                         volumeInfo = StorSimpleClient.GetVolumeById(deviceId, VolumeId);
-                        WriteObject(volumeInfo);
+                        WriteObject(volumeInfo.VirtualDiskInfo);
                         break;
-                    case "VolumeName" :
+                    case StorSimpleCmdletParameterSet.IdentifyByName :
                         volumeInfo = StorSimpleClient.GetVolumeByName(deviceId, VolumeName);
-                        WriteObject(volumeInfo);
+                        WriteObject(volumeInfo.VirtualDiskInfo);
                         break;
                 }
             }

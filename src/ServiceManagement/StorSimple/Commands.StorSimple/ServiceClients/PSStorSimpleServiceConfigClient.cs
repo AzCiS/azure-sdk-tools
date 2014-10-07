@@ -13,17 +13,17 @@ namespace Microsoft.Azure.Commands.StorSimple
     {
         public JobStatusInfo ConfigureService(ServiceConfiguration serviceConfig)
         {
-            return GetStorSimpleClient().ServiceConfig.Create(serviceConfig, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().ServiceConfig.Create(serviceConfig, GetCustomRequestHeaders());
         }
 
         public JobResponse ConfigureServiceAsync(ServiceConfiguration serviceConfig)
         {
-            return GetStorSimpleClient().ServiceConfig.BeginCreating(serviceConfig, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().ServiceConfig.BeginCreating(serviceConfig, GetCustomRequestHeaders());
         }
 
         public IList<AccessControlRecord> GetAllAccessControlRecords()
         {
-            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomRequestHeaders());
             if (sc == null || sc.AcrChangeList == null)
             {
                 return null;
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Commands.StorSimple
 
         public IList<StorageAccountCredential> GetAllStorageAccountCredentials()
         {
-            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomeRequestHeaders());
+            var sc = GetStorSimpleClient().ServiceConfig.Get(GetCustomRequestHeaders());
             if (sc == null || sc.CredentialChangeList == null)
             {
                 return null;
