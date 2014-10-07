@@ -122,11 +122,7 @@
     <Compile Include="Cmdlets\Volume\RemoveAzureStorSimpleDeviceVolume .cs" />
     <Compile Include="Cmdlets\Volume\SetAzureStorSimpleDeviceVolume.cs" />
     <Compile Include="Models\PSContracts.cs" />
-<<<<<<< HEAD
-    <Compile Include="Resources.Designer.cs">
-=======
     <Compile Include="Properties\Resources.Designer.cs">
->>>>>>> origin/dev
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
