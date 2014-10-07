@@ -7,15 +7,15 @@ using System.Net.Security;
 using System.Runtime.Caching;
 using Microsoft.WindowsAzure.Commands.Common.Models;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
 using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using Microsoft.Azure.Management.StorSimple;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using Microsoft.WindowsAzure.Management.Scheduler;

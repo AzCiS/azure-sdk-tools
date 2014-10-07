@@ -106,6 +106,42 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removing backup with backupId {0}....
+        /// </summary>
+        internal static string RemoveASSDBackupMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing backuppolicy with backuppolicyId {0}....
+        /// </summary>
+        internal static string RemoveASSDBackupPolicyMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupPolicyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the backuppolicy with backuppolicyId{0}?.
+        /// </summary>
+        internal static string RemoveASSDBackupPolicyWarningMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupPolicyWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the backup with backupId{0}?.
+        /// </summary>
+        internal static string RemoveASSDBackupWarningMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Removing access control record....
         /// </summary>
         internal static string RemoveConfirmationACR {
@@ -178,6 +214,24 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restoring backup with backupId {0}....
+        /// </summary>
+        internal static string StartASSDBackupRestoreJobMessage {
+            get {
+                return ResourceManager.GetString("StartASSDBackupRestoreJobMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to restore the backup with backupId{0}?.
+        /// </summary>
+        internal static string StartASSDBackupRestoreJobWarningMessage {
+            get {
+                return ResourceManager.GetString("StartASSDBackupRestoreJobWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Context set successfully for the given resource name..
         /// </summary>
         internal static string SuccessMessageSetResourceContext {
@@ -187,7 +241,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status.
+        ///   Looks up a localized string similar to The {0} job is submitted successfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status.
         /// </summary>
         internal static string SuccessMessageSubmitJob {
             get {

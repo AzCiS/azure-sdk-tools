@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     public static class StorSimpleContext
     {

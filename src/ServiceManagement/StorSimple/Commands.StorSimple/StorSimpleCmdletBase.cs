@@ -1,10 +1,11 @@
 ﻿
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 using System.Net;
 using Microsoft.WindowsAzure;
+using Microsoft.Azure.Commands.StorSimple.Properties;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     using Properties;
 

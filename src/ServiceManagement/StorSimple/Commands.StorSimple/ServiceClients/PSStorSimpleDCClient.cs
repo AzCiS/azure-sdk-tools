@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Management.Automation;
 using Microsoft.Azure;
-using Microsoft.Azure.Commands.StorSimple;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Commands.StorSimple;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {

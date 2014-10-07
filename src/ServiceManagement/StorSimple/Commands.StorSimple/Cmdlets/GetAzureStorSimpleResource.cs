@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management.Automation;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleResource")]
     public class GetAzureStorSimpleResource : StorSimpleCmdletBase

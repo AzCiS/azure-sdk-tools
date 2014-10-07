@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure.Commands.CloudService.Development;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
@@ -14,7 +15,8 @@ namespace Microsoft.Azure.Commands.StorSimple
             string skip, string top)
         {
             return this.GetStorSimpleClient()
-                .Backup.Get(deviceId, filterType, isAllSelected, filterValue, startDateTime, endDateTime, skip, top, GetCustomRequestHeaders());
+                .Backup.Get(deviceId, filterType, isAllSelected, filterValue, startDateTime, endDateTime, skip, top,
+                    GetCustomRequestHeaders());
         }
 
         public JobStatusInfo DeleteBackup(string deviceid, string backupSetId)
@@ -29,22 +31,22 @@ namespace Microsoft.Azure.Commands.StorSimple
 
         public JobStatusInfo RestoreBackup(string deviceid, RestoreBackupRequest backupRequest)
         {
-            return GetStorSimpleClient().Backup.Restore(deviceid, backupRequest, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.Restore(deviceid, backupRequest, GetCustomRequestHeaders());
         }
 
         public JobResponse RestoreBackupAsync(string deviceid, RestoreBackupRequest backupRequest)
         {
-            return GetStorSimpleClient().Backup.BeginRestoring(deviceid, backupRequest, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.BeginRestoring(deviceid, backupRequest, GetCustomRequestHeaders());
         }
 
         public JobStatusInfo DoBackup(string deviceid,String backupPolicyId, BackupNowRequest request)
         {
-            return GetStorSimpleClient().Backup.Create(deviceid, backupPolicyId,request, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.Create(deviceid, backupPolicyId,request, GetCustomRequestHeaders());
         }
 
         public JobResponse DoBackupAsync(string deviceid, String backupPolicyId, BackupNowRequest request)
         {
-            return GetStorSimpleClient().Backup.BeginCreatingBackup(deviceid, backupPolicyId, request, GetCustomeRequestHeaders());
+            return GetStorSimpleClient().Backup.BeginCreatingBackup(deviceid, backupPolicyId, request, GetCustomRequestHeaders());
         }
     }
 }

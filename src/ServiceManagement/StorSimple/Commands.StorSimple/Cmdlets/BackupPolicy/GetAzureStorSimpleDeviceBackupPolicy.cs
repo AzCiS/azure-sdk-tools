@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Management.Automation;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 using System;
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.Commands.Utilities.CloudService;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     /// <summary>
     /// commandlet that returns one or more BackupPolicy objects for a given DeviceName and BackupPolicyName
@@ -14,7 +14,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
      [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceBackupPolicy")]
     public class GetAzureStorSimpleDeviceBackupPolicy:StorSimpleCmdletBase
     {
-        private const string PARAMETERSET_BACKUPPOLICYNAME = "WithBackupPolicyName";
+        private const string PARAMETERSET_BACKUPPOLICYNAME = "ByBackupPolicyName";
         private const string PARAMETERSET_DEFAULT = "Default";
         private string deviceId = null;
 
