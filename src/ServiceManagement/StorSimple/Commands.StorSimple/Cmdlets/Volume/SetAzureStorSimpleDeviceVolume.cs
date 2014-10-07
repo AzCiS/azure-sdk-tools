@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Management.Automation;
 using System.Net;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 
@@ -16,29 +16,23 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         public string DeviceName { get; set; }
 
         [Alias("Name")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByName, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
+        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
         [ValidateNotNullOrEmptyAttribute]
         public string VolumeName { get; set; }
 
-        [Alias("ID")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeId)]
-        [ValidateNotNullOrEmptyAttribute]
-        public string VolumeId { get; set; }
-
-        [Alias("Online")]
         [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeOnline)]
         [ValidateNotNullOrEmpty]
-        public bool Online { get; set; }
+        public bool? Online { get; set; }
 
         [Alias("Size")]
         [Parameter(Position = 3, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeSize)]
         [ValidateNotNullOrEmpty]
-        public Int64 VolumeSize { get; set; }
+        public Int64? VolumeSize { get; set; }
 
-        [Alias("Apptype")]
+        [Alias("AppType")]
         [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAppType)]
         [ValidateNotNullOrEmpty]
-        public AppType VolumeAppType { get; set; }
+        public AppType? VolumeAppType { get; set; }
 
         [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
         [ValidateNotNullOrEmpty]
@@ -54,30 +48,37 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                 var deviceId = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceId == null)
                 {
-                    return;
+                    WriteObject(Resources.NotFoundMessageDevice);
                 }
 
                 VirtualDisk diskDetails = null;
 
-                switch (ParameterSetName)
-                {
-                    case StorSimpleCmdletParameterSet.IdentifyById:
-                        diskDetails = StorSimpleClient.GetVolumeById(deviceId, VolumeId).VirtualDiskInfo;
-                        break;
-                    case StorSimpleCmdletParameterSet.IdentifyByName:
                         diskDetails = StorSimpleClient.GetVolumeByName(deviceId, VolumeName).VirtualDiskInfo;
-                        break;
-                }
 
                 if (diskDetails == null)
                 {
-                    return;
+                    WriteObject(Resources.NotFoundMessageVirtualDisk);
                 }
                 
-                    diskDetails.Online = Online;
-                    diskDetails.SizeInBytes = VolumeSize;
-                    diskDetails.AppType = VolumeAppType;
+                if (Online != null)
+                {
+                    diskDetails.Online = Online.GetValueOrDefault();
+                }
+                if (VolumeSize != null)
+                {
+                    diskDetails.SizeInBytes = VolumeSize.GetValueOrDefault();
+                }
+                if (VolumeAppType != null)
+                {
+                    diskDetails.AppType = VolumeAppType.GetValueOrDefault();
+                }
+                if (AccessControlRecords != null)
+                {
                     diskDetails.AcrList = AccessControlRecords;
+                }
+
+                //TODO: fix logic
+                diskDetails.DataContainer.PrimaryStorageAccountCredential.PasswordEncryptionCertThumbprint = "dummy";
 
                 if (WaitForComplete.IsPresent)
                 {

@@ -2,9 +2,9 @@
 using System.Linq;
 using Microsoft.WindowsAzure;
 using System.Collections.Generic;
-using Microsoft.Azure.Commands.StorSimple;
+using Microsoft.WindowsAzure.Commands.StorSimple;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     using Properties;
 

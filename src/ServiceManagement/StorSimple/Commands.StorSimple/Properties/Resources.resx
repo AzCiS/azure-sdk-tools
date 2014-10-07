@@ -120,17 +120,35 @@
   <data name="FailureMessageSubmitJob" xml:space="preserve">
     <value>The {0} job failed to submit. </value>
   </data>
+  <data name="NotAllowedErrorDataContainerEncryption" xml:space="preserve">
+    <value>Please provide the EncryptionKey.</value>
+  </data>
   <data name="NotFoundMessageACR" xml:space="preserve">
     <value>The specified access control record does not exist.</value>
   </data>
   <data name="NotFoundMessageDevice" xml:space="preserve">
-    <value>Device with the given name or identifier does not exist.</value>
+    <value>The specified device does not exist.</value>
   </data>
   <data name="NotFoundMessageResource" xml:space="preserve">
-    <value>No resource found for the given resource name. Please check the name again.</value>
+    <value>The specified resource does not exist.</value>
   </data>
   <data name="NotFoundMessageStorageAccount" xml:space="preserve">
     <value>The specified storage account does not exist.</value>
+  </data>
+  <data name="RemoveASSDBackupMessage" xml:space="preserve">
+    <value>Removing backup with backupId {0}...</value>
+  </data>
+  <data name="RemoveASSDBackupPolicyMessage" xml:space="preserve">
+    <value>Removing backuppolicy with backuppolicyId {0}...</value>
+  </data>
+  <data name="RemoveASSDBackupPolicyWarningMessage" xml:space="preserve">
+    <value>Are you sure you want to remove the backuppolicy with backuppolicyId{0}?</value>
+  </data>
+  <data name="RemoveASSDBackupWarningMessage" xml:space="preserve">
+    <value>Are you sure you want to remove the backup with backupId{0}?</value>
+  </data>
+  <data name="NotFoundMessageVirtualDisk" xml:space="preserve">
+    <value>The specified volume does not exist.</value>
   </data>
   <data name="RemoveConfirmationACR" xml:space="preserve">
     <value>Removing access control record...</value>
@@ -156,10 +174,16 @@
   <data name="RemoveWarningVolume" xml:space="preserve">
     <value>Are you sure you want to remove the volume?</value>
   </data>
+  <data name="StartASSDBackupRestoreJobMessage" xml:space="preserve">
+    <value>Restoring backup with backupId {0}...</value>
+  </data>
+  <data name="StartASSDBackupRestoreJobWarningMessage" xml:space="preserve">
+    <value>Are you sure you want to restore the backup with backupId{0}?</value>
+  </data>
   <data name="SuccessMessageSetResourceContext" xml:space="preserve">
     <value>Context set successfully for the given resource name.</value>
   </data>
   <data name="SuccessMessageSubmitJob" xml:space="preserve">
-    <value>The {0} job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status</value>
+    <value>The {0} job is submitted successfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status</value>
   </data>
 </root>

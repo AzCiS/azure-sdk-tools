@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Management.Automation;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 

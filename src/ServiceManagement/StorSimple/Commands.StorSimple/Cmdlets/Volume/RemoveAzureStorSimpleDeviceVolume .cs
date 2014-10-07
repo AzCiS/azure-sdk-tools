@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Management.Automation;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 
@@ -19,10 +19,9 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
         [ValidateNotNullOrEmpty]
         public string VolumeName { get; set; }
 
-        [Alias("ID")]
-        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyById, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeId)]
-        [ValidateNotNullOrEmptyAttribute]
-        public string VolumeId { get; set; }
+        [Parameter(Position = 1, Mandatory = true, ParameterSetName = StorSimpleCmdletParameterSet.IdentifyByObject, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeId)]
+        [ValidateNotNullOrEmpty]
+        public VirtualDisk Volume { get; set; }
 
         [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
@@ -41,14 +40,21 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                               try
                               {
                                   var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
-                                  if (deviceid == null) return;
+
+                                  if (deviceid == null)
+                                  {
+                                      WriteObject(Resources.NotFoundMessageDevice);
+                                  }
+
+                                  else
+                                  {
                                   if (WaitForComplete.IsPresent)
                                   {
                                       JobStatusInfo jobstatus;
                                       switch (ParameterSetName)
                                       {
-                                          case StorSimpleCmdletParameterSet.IdentifyById:
-                                              jobstatus = StorSimpleClient.RemoveVolume(deviceid, VolumeId);
+                                              case StorSimpleCmdletParameterSet.IdentifyByObject:
+                                                  jobstatus = StorSimpleClient.RemoveVolume(deviceid, Volume.InstanceId);
                                               WriteObject(jobstatus);
                                               break;
                                           case StorSimpleCmdletParameterSet.IdentifyByName:
@@ -66,22 +72,21 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets
                                       GuidJobResponse jobresult = null;
                                       switch (ParameterSetName)
                                       {
-                                          case StorSimpleCmdletParameterSet.IdentifyById:
-                                              jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, VolumeId);
-                                              //WriteObject(jobstatus);
+                                              case StorSimpleCmdletParameterSet.IdentifyByObject:
+                                                  jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, Volume.InstanceId);
                                               break;
                                           case StorSimpleCmdletParameterSet.IdentifyByName:
                                               var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
                                               if (volumeInfo != null)
                                               {
                                                   jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, volumeInfo.VirtualDiskInfo.InstanceId);
-                                                  //WriteObject(jobstatus);
                                               }
                                               break;
                                       }
                                       if (jobresult == null) return;
                                       WriteObject(ToAsyncJobMessage(jobresult, "delete"));
                                   }
+                              }
                               }
                               catch (CloudException cloudException)
                               {

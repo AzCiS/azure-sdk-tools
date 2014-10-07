@@ -70,6 +70,15 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please provide the EncryptionKey..
+        /// </summary>
+        internal static string NotAllowedErrorDataContainerEncryption {
+            get {
+                return ResourceManager.GetString("NotAllowedErrorDataContainerEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified access control record does not exist..
         /// </summary>
         internal static string NotFoundMessageACR {
@@ -79,7 +88,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device with the given name or identifier does not exist..
+        ///   Looks up a localized string similar to The specified device does not exist..
         /// </summary>
         internal static string NotFoundMessageDevice {
             get {
@@ -88,7 +97,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No resource found for the given resource name. Please check the name again..
+        ///   Looks up a localized string similar to The specified resource does not exist..
         /// </summary>
         internal static string NotFoundMessageResource {
             get {
@@ -102,6 +111,51 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         internal static string NotFoundMessageStorageAccount {
             get {
                 return ResourceManager.GetString("NotFoundMessageStorageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified volume does not exist..
+        /// </summary>
+        internal static string NotFoundMessageVirtualDisk {
+            get {
+                return ResourceManager.GetString("NotFoundMessageVirtualDisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing backup with backupId {0}....
+        /// </summary>
+        internal static string RemoveASSDBackupMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing backuppolicy with backuppolicyId {0}....
+        /// </summary>
+        internal static string RemoveASSDBackupPolicyMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupPolicyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the backuppolicy with backuppolicyId{0}?.
+        /// </summary>
+        internal static string RemoveASSDBackupPolicyWarningMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupPolicyWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the backup with backupId{0}?.
+        /// </summary>
+        internal static string RemoveASSDBackupWarningMessage {
+            get {
+                return ResourceManager.GetString("RemoveASSDBackupWarningMessage", resourceCulture);
             }
         }
         
@@ -178,6 +232,24 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restoring backup with backupId {0}....
+        /// </summary>
+        internal static string StartASSDBackupRestoreJobMessage {
+            get {
+                return ResourceManager.GetString("StartASSDBackupRestoreJobMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to restore the backup with backupId{0}?.
+        /// </summary>
+        internal static string StartASSDBackupRestoreJobWarningMessage {
+            get {
+                return ResourceManager.GetString("StartASSDBackupRestoreJobWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Context set successfully for the given resource name..
         /// </summary>
         internal static string SuccessMessageSetResourceContext {
@@ -187,7 +259,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The {0} job submitted succesfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status.
+        ///   Looks up a localized string similar to The {0} job is submitted successfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status.
         /// </summary>
         internal static string SuccessMessageSubmitJob {
             get {

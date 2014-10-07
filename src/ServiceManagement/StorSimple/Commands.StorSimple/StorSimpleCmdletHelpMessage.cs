@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.Azure.Commands.StorSimple
+namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     internal static class StorSimpleCmdletHelpMessage
     {
         public const string HelpMessageACRName = "The access control record name.";
         public const string HelpMessageACRObject = "The access control record object.";
         public const string HelpMessageDataContainerBandwidth = "The data container bandwidth rate.";
+        public const string HelpMessageDataContainerEncryptionEnabled = "Flag to encrypt the data container.";
+        public const string HelpMessageDataContainerEncryptionkey = "The encryption key for the data container.";
         public const string HelpMessageDataContainerId = "The volume container identifier.";
         public const string HelpMessageDataContainerName = "The volume container name.";
         public const string HelpMessageDataContainerObject = "The volume container object.";

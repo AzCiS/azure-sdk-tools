@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Management.Automation;
 using System.Net;
-using Microsoft.Azure.Management.StorSimple.Models;
+using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
 
-namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
 {
     using Properties;
+    using System.Collections.Generic;
 
     [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolume")]
     public class NewAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
@@ -15,7 +16,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
         [ValidateNotNullOrEmptyAttribute]
         public string DeviceName { get; set; }
 
-        [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
+        [Parameter(Position = 1, Mandatory = true, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
         [ValidateNotNullOrEmpty]
         public DataContainer Container { get; set; }
         
@@ -29,9 +30,9 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
         [ValidateNotNullOrEmpty]
         public Int64 VolumeSize { get; set; }
 
-        [Parameter(Position = 4, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
+        [Parameter(Position = 4, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
         [ValidateNotNullOrEmpty]
-        public AccessControlRecord[] AccessControlRecords { get; set; }
+        public List<AccessControlRecord> AccessControlRecords { get; set; }
 
         [Alias("AppType")]
         [Parameter(Position = 5, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAppType)]
@@ -64,35 +65,71 @@ namespace Microsoft.Azure.Commands.StorSimple.Cmdlets.Volume
                     WriteObject(Resources.NotFoundMessageDevice);
                 }
 
-                //Virtual disk create request object
-                var virtualDiskToCreate = new VirtualDiskRequest()
-                {
-                    Name = VolumeName,
-                    AccessType = AccessType.ReadWrite,
-                    AcrList = AccessControlRecords,
-                    AppType = VolumeAppType,
-                    IsDefaultBackupEnabled = EnableDefaultBackup,
-                    SizeInBytes = VolumeSize,
-                    DataContainer = Container,
-                    Online = Online,
-                    IsMonitoringEnabled = EnableMonitoring
-                };
-
-                //var jobStatusInfo = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate);
-                //WriteObject(jobStatusInfo);
-
-                if (WaitForComplete.IsPresent)
-                {
-                    var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
-                    WriteObject(jobstatus);
-                }
-
                 else
                 {
-                    var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
-                    
-                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
+                    //TODO: fix logic 
 
+                    var sacToUse = new StorageAccountCredential
+                    {
+                        InstanceId = Container.PrimaryStorageAccountCredential.InstanceId,
+                        Name = Container.PrimaryStorageAccountCredential.Name,
+                        CloudType = Container.PrimaryStorageAccountCredential.CloudType,
+                        Hostname = Container.PrimaryStorageAccountCredential.Hostname,
+                        Login = Container.PrimaryStorageAccountCredential.Login,
+                        Password = Container.PrimaryStorageAccountCredential.Password,
+                        UseSSL = Container.PrimaryStorageAccountCredential.UseSSL,
+                        VolumeCount = Container.PrimaryStorageAccountCredential.VolumeCount,
+                        IsDefault = Container.PrimaryStorageAccountCredential.IsDefault,
+                        Location = Container.PrimaryStorageAccountCredential.Location,
+                        OperationInProgress = Container.PrimaryStorageAccountCredential.OperationInProgress,
+                        PasswordEncryptionCertThumbprint = "dummy"
+                    };
+
+                    var dcToUse = new DataContainer
+                    {
+                        IsDefault = Container.IsDefault,
+                        InstanceId = Container.InstanceId,
+                        Name = Container.Name,
+                        BandwidthRate = Container.BandwidthRate,
+                        IsEncryptionEnabled = Container.IsEncryptionEnabled,
+                        VolumeCount = Container.VolumeCount,
+                        EncryptionKey = Container.EncryptionKey,
+                        OperationInProgress = Container.OperationInProgress,
+                        Owned = Container.Owned,
+                        SecretsEncryptionThumbprint = Container.SecretsEncryptionThumbprint,
+                        PrimaryStorageAccountCredential = sacToUse
+                    };
+
+                    //Virtual disk create request object
+                    var virtualDiskToCreate = new VirtualDiskRequest()
+                    {
+                        Name = VolumeName,
+                        AccessType = AccessType.ReadWrite,
+                        AcrList = AccessControlRecords,
+                        AppType = VolumeAppType,
+                        IsDefaultBackupEnabled = EnableDefaultBackup,
+                        SizeInBytes = VolumeSize,
+                        DataContainer = dcToUse,
+                        Online = Online,
+                        IsMonitoringEnabled = EnableMonitoring
+                    };
+
+                    //var jobStatusInfo = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate);
+                    //WriteObject(jobStatusInfo);
+
+                    if (WaitForComplete.IsPresent)
+                    {
+                        var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
+                        WriteObject(jobstatus);
+                    }
+
+                    else
+                    {
+                        var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
+
+                        WriteObject(ToAsyncJobMessage(jobstatus, "create"));
+
+                    }
                 }
                 
             }
