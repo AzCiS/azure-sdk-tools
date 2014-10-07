@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Azure.Commands.StorSimple.Properties {
+namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
     using System;
     
     

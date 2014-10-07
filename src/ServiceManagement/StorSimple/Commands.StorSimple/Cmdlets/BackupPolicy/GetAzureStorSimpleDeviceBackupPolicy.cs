@@ -65,7 +65,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 }
             }
             if (deviceId == null)
-                 throw new ArgumentException("Device with name " + DeviceName + "not found");
+                 throw new ArgumentException("Device with name " + DeviceName + " not found");
             if (ParameterSetName == PARAMETERSET_BACKUPPOLICYNAME
                 && String.IsNullOrEmpty(BackupPolicyName))
                 throw new ArgumentException("BackupPolicyName parameter is specified but value is empty. Please skip this parameter to get all backuppolicies on the device");
