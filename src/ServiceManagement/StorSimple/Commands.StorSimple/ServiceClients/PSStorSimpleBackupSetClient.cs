@@ -10,7 +10,7 @@ namespace Microsoft.Azure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public GetBackupSetResponse GetAllBackups(string deviceId, string filterType, string isAllSelected,string filterValue, string startDateTime, string endDateTime,
+        public GetBackupResponse GetAllBackups(string deviceId, string filterType, string isAllSelected,string filterValue, string startDateTime, string endDateTime,
             string skip, string top)
         {
             return this.GetStorSimpleClient()
@@ -25,6 +25,26 @@ namespace Microsoft.Azure.Commands.StorSimple
         public JobResponse DeleteBackupAsync(string deviceid, string backupSetId)
         {
             return GetStorSimpleClient().Backup.BeginDeleting(deviceid, backupSetId, GetCustomeRequestHeaders());
+        }
+
+        public JobStatusInfo RestoreBackup(string deviceid, RestoreBackupRequest backupRequest)
+        {
+            return GetStorSimpleClient().Backup.Restore(deviceid, backupRequest, GetCustomeRequestHeaders());
+        }
+
+        public JobResponse RestoreBackupAsync(string deviceid, RestoreBackupRequest backupRequest)
+        {
+            return GetStorSimpleClient().Backup.BeginRestoring(deviceid, backupRequest, GetCustomeRequestHeaders());
+        }
+
+        public JobStatusInfo DoBackup(string deviceid,String backupPolicyId, BackupNowRequest request)
+        {
+            return GetStorSimpleClient().Backup.Create(deviceid, backupPolicyId,request, GetCustomeRequestHeaders());
+        }
+
+        public JobResponse DoBackupAsync(string deviceid, String backupPolicyId, BackupNowRequest request)
+        {
+            return GetStorSimpleClient().Backup.BeginCreatingBackup(deviceid, backupPolicyId, request, GetCustomeRequestHeaders());
         }
     }
 }

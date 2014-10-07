@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="StorSimple.Tests, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\StorSimple.Tests.dll</HintPath>
+      <HintPath>..\..\..\..\..\hydra-specs-pr\StorSimple\StorSimple.Tests\bin\Debug\StorSimple.Tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -89,8 +89,16 @@
     <Compile Include="Cmdlets\BackupPolicy\GetAzureStorSimpleDeviceBackupPolicy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Cmdlets\BackupSet\GetAzureStorSimpleBackup.cs" />
-    <Compile Include="Cmdlets\BackupSet\RemoveAzureStorSimpleBackup.cs" />
+    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupPolicy.cs" />
+    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupScheduleUpdateConfig.cs" />
+    <Compile Include="Cmdlets\BackupPolicy\RemoveAzureStorSimpleDeviceBackupPolicy.cs" />
+    <Compile Include="Cmdlets\BackupPolicy\SetAzureStorSimpleDeviceBackupPolicy.cs" />
+    <Compile Include="Cmdlets\BackupSet\GetAzureStorSimpleDeviceBackup.cs" />
+    <Compile Include="Cmdlets\BackupSet\RemoveAzureStorSimpleDeviceBackup.cs" />
+    <Compile Include="Cmdlets\BackupSet\StartAzureStorSimpleDeviceBackupJob.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Cmdlets\BackupSet\StartAzureStorSimpleDeviceBackupRestoreJob.cs" />
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\RemoveAzureStorSimpleDeviceVolumeContainer.cs" />
@@ -99,6 +107,7 @@
     <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\Job\GetAzureStorSimpleJob.cs" />
+    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupScheduleAddConfig.cs" />
     <Compile Include="Cmdlets\ServiceConfig\GetAzureStorSimpleStorageAccountCredential.cs" />
     <Compile Include="Cmdlets\ServiceConfig\NewAzureStorSimpleAccessControlRecord.cs" />
     <Compile Include="Cmdlets\SelectAzureStorSimpleResource.cs" />
@@ -113,6 +122,11 @@
     <Compile Include="Cmdlets\Volume\RemoveAzureStorSimpleDeviceVolume .cs" />
     <Compile Include="Cmdlets\Volume\SetAzureStorSimpleDeviceVolume.cs" />
     <Compile Include="Models\PSContracts.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceClients\PSStoreSimpleBackupPolicyClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleBackupSetClient.cs" />
     <Compile Include="ServiceClients\PSStorSimpleClient.cs" />
@@ -139,7 +153,13 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

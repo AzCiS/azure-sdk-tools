@@ -18,6 +18,7 @@ namespace Microsoft.Azure.Commands.StorSimple
         public VirtualDiskGetResponse GetVolumeByName(string deviceid, string diskName)
         {
             return GetStorSimpleClient().VirtualDisk.GetByName(deviceid, diskName, GetCustomeRequestHeaders());
+            return null;
         }
 
         public VirtualDiskGetResponse GetVolumeById(string deviceid, string diskId)

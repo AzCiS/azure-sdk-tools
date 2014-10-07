@@ -20,5 +20,25 @@ namespace Microsoft.Azure.Commands.StorSimple
         {
             return this.GetStorSimpleClient().BackupPolicy.GetBackupPolicyDetailsByName(deviceId, backupPolicyName, GetCustomeRequestHeaders());
         }
+
+        public JobStatusInfo DeleteBackupPolicy(string deviceid, string backupPolicyId)
+        {
+            return GetStorSimpleClient().BackupPolicy.Delete(deviceid, backupPolicyId, GetCustomeRequestHeaders());
+        }
+
+        public JobResponse DeleteBackupPolicyAsync(string deviceid, string backupPolicyId)
+        {
+            return GetStorSimpleClient().BackupPolicy.BeginDeleting(deviceid, backupPolicyId, GetCustomeRequestHeaders());
+        }
+
+        public JobStatusInfo CreateBackupPolicy(string deviceId, NewBackupPolicyConfig config)
+        {
+            return GetStorSimpleClient().BackupPolicy.Create(deviceId, config, GetCustomeRequestHeaders());
+        }
+
+        public JobResponse CreateBackupPolicyAsync(string deviceId, NewBackupPolicyConfig config)
+        {
+            return GetStorSimpleClient().BackupPolicy.BeginCreatingBackupPolicy(deviceId, config, GetCustomeRequestHeaders());
+        }
     }
 }
