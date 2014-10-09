@@ -5,7 +5,6 @@ using Microsoft.Azure;
 using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using System;
 using System.Management.Automation;
-using Microsoft.WindowsAzure.Management.StorSimple.Models;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple
 {

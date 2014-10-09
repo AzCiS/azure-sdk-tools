@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     /// <summary>
     /// Sets the Host IQN of the ACR in the StorSimple Manager Service Configuration
     /// </summary>
-    [Cmdlet(VerbsCommon.Set, "AzureStorSimpleAccessControlRecord")]
+    [Cmdlet(VerbsCommon.Set, "AzureStorSimpleAccessControlRecord"), OutputType(typeof(JobStatusInfo))]
 
     public class SetAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var existingAcr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (existingAcr == null)
                 {
-                    WriteObject(Resources.NotFoundMessageACR);
+                    WriteVerbose(Resources.NotFoundMessageACR);
                     return;
                 }
                 
@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                    WriteObject(ToAsyncJobMessage(jobResponse, "update"));
+                    WriteVerbose(ToAsyncJobMessage(jobResponse, "update"));
                 }
             }
             catch (CloudException cloudException)

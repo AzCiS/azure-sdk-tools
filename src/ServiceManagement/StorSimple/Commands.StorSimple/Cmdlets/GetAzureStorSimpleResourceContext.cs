@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         public override void ExecuteCmdlet()
         {
             var currentContext = StorSimpleClient.GetResourceContext();
-            this.WriteObject(currentContext);
+            this.WriteVerbose(currentContext);
         }
     }
 }

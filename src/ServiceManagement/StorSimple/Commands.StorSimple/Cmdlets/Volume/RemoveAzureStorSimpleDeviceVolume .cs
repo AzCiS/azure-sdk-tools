@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 
-    [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolume")]
+    [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleDeviceVolume"), OutputType(typeof(JobStatusInfo))]
     public class RemoveAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
                                   if (deviceid == null)
                                   {
-                                      WriteObject(Resources.NotFoundMessageDevice);
+                                      WriteVerbose(Resources.NotFoundMessageDevice);
                                       return;
                                   }
 
@@ -57,7 +57,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                           var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
                                           if (volumeInfo == null)
                                           {
-                                              WriteObject(Resources.NotFoundMessageVirtualDisk);
+                                              WriteVerbose(Resources.NotFoundMessageVirtualDisk);
                                               return;
                                           }
                                           volumeId = volumeInfo.VirtualDiskInfo.InstanceId;
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                   else
                                   {
                                       var jobresponse = StorSimpleClient.RemoveVolumeAsync(deviceid, volumeId);
-                                      WriteObject(ToAsyncJobMessage(jobresponse, "delete"));
+                                      WriteVerbose(ToAsyncJobMessage(jobresponse, "delete"));
                                   }
                               }
                               catch (CloudException cloudException)

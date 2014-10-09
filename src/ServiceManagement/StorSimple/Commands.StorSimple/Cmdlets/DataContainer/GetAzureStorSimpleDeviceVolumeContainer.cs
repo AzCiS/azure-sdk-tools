@@ -7,8 +7,9 @@ using Microsoft.WindowsAzure;
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
+    using System.Collections.Generic;
 
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolumeContainer"),OutputType(typeof(DataContainerGetResponse))]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolumeContainer"),OutputType(typeof(DataContainer), typeof(IList<DataContainer>))]
     public class GetAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
@@ -28,7 +29,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
                 if (deviceid == null)
                 {
-                    WriteObject(Resources.NotFoundMessageDevice);
+                    WriteVerbose(Resources.NotFoundMessageDevice);
                     return;
                 }
 

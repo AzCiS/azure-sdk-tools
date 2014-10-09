@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
     using Properties;
     using System.Collections.Generic;
 
-    [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolume")]
+    [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolume"), OutputType(typeof(JobStatusInfo))]
     public class NewAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
 
                 if (deviceid == null)
                 {
-                    WriteObject(Resources.NotFoundMessageDevice);
+                    WriteVerbose(Resources.NotFoundMessageDevice);
                     return;
                 }
 
@@ -91,7 +91,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
-                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
+                    WriteVerbose(ToAsyncJobMessage(jobstatus, "create"));
                 }
             }
             catch (CloudException cloudException)

@@ -2,12 +2,13 @@
 using System.Management.Automation;
 using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using Microsoft.WindowsAzure;
+using System.Collections.Generic;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolume")]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceVolume"), OutputType(typeof(VirtualDisk), typeof(IList<VirtualDisk>))]
     public class GetAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
@@ -30,7 +31,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var deviceId = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceId == null)
                 {
-                    WriteObject(Resources.NotFoundMessageDevice);
+                    WriteVerbose(Resources.NotFoundMessageDevice);
                     return;
                 }
                 

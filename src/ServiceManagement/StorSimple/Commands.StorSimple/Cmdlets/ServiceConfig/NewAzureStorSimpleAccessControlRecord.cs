@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     /// <summary>
     /// Add New Access Control Record to the StorSimple Manager Service Configuration
     /// </summary>
-    [Cmdlet(VerbsCommon.New, "AzureStorSimpleAccessControlRecord")]
+    [Cmdlet(VerbsCommon.New, "AzureStorSimpleAccessControlRecord"), OutputType(typeof(JobStatusInfo))]
 
     public class NewAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                    WriteObject(ToAsyncJobMessage(jobResponse, "create"));
+                    WriteVerbose(ToAsyncJobMessage(jobResponse, "create"));
                 }
             }
             catch (CloudException cloudException)

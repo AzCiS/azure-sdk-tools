@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     /// <summary>
     /// Removes a ACR from the StorSimple Manager Service Configuration
     /// </summary>
-    [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleAccessControlRecord")]
+    [Cmdlet(VerbsCommon.Remove, "AzureStorSimpleAccessControlRecord"), OutputType(typeof(JobStatusInfo))]
 
     public class RemoveAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                   }
                                   if (existingAcr == null)
                                   {
-                                      WriteObject(Resources.NotFoundMessageACR);
+                                      WriteVerbose(Resources.NotFoundMessageACR);
                                       return;
                                   }
                                   
@@ -79,7 +79,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                     else
                                     {
                                         var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                                        WriteObject(ToAsyncJobMessage(jobResponse, "delete"));
+                                        WriteVerbose(ToAsyncJobMessage(jobResponse, "delete"));
                                     }
                               }
                               catch (CloudException cloudException)

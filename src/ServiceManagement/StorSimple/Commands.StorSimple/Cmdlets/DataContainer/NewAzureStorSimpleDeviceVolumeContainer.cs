@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
 
-    [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolumeContainer")]
+    [Cmdlet(VerbsCommon.New, "AzureStorSimpleDeviceVolumeContainer"), OutputType(typeof(JobStatusInfo))]
     public class NewAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
 
@@ -49,13 +49,13 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 deviceid = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceid == null)
                 {
-                    WriteObject(Resources.NotFoundMessageDevice);
+                    WriteVerbose(Resources.NotFoundMessageDevice);
                     return;
                 }
 
                 if (IsEncryptionEnabled == true && EncryptionKey == null)
                 {
-                    WriteObject(Resources.NotAllowedErrorDataContainerEncryption);
+                    WriteVerbose(Resources.NotAllowedErrorDataContainerEncryption);
                     return;
                 }
 
@@ -79,7 +79,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid, dc);
-                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
+                    WriteVerbose(ToAsyncJobMessage(jobstatus, "create"));
 
                 }
             }

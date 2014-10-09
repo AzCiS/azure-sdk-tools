@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     /// <summary>
     /// Lists all the connected ISCSI initiators
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceConnectedInitiator")]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDeviceConnectedInitiator"), OutputType(typeof(List<IscsiConnection>))]
     public class GetAzureStorSimpleDeviceConnectedInitiator : StorSimpleCmdletBase
     {
         [Alias("ID")]
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                         var deviceToUse = StorSimpleClient.GetAllDevices().Where(x => x.FriendlyName.Equals(DeviceName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                         if (deviceToUse == null)
                         {
-                            WriteObject(Resources.NotFoundMessageDevice);
+                            WriteVerbose(Resources.NotFoundMessageDevice);
                             return;
                         }
                         iscsiConnections = StorSimpleClient.GetAllIscsiConnections(deviceToUse.DeviceId);

@@ -9,7 +9,8 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     using Properties;
     using System.Collections.Generic;
 
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDevice", DefaultParameterSetName = StorSimpleCmdletParameterSet.Empty)]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDevice", DefaultParameterSetName = StorSimpleCmdletParameterSet.Empty),
+        OutputType(typeof(List<DeviceDetails>), typeof(IEnumerable<DeviceInfo>))]
     public class GetAzureStorSimpleDevice : StorSimpleCmdletBase
     {
         [Alias("ID")]

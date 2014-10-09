@@ -7,11 +7,12 @@ using System.Linq;
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Get a list of Access Control Records present in the StorSimple Manager Service Configuration or retrieves a specific named ACR Object
     /// </summary>
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleAccessControlRecord"), OutputType(typeof(AcrChangeList))]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleAccessControlRecord"), OutputType(typeof(AccessControlRecord), typeof(IList<AccessControlRecord>))]
     public class GetAzureStorSimpleAccessControlRecord : StorSimpleCmdletBase
     {
         [Alias("Name")]
@@ -25,13 +26,14 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var allACRs = StorSimpleClient.GetAllAccessControlRecords();
                 if (ACRName == null)
                 {
+                    WriteObject(allACRs);
                     return;
                 }
                 
                 var acr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
                 if (acr == null)
                 {
-                    WriteObject(Resources.NotFoundMessageACR);
+                    WriteVerbose(Resources.NotFoundMessageACR);
                 }
                 else
                 {

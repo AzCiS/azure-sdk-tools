@@ -24,9 +24,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         public override void ExecuteCmdlet()
         {
             var status = StorSimpleClient.SetResourceContext(resourceName);
-            this.WriteObject(status);
+            this.WriteVerbose(status);
             var currentContext = StorSimpleClient.GetResourceContext();
-            this.WriteObject(currentContext);
+            this.WriteVerbose(currentContext);
         }         
     }
 }

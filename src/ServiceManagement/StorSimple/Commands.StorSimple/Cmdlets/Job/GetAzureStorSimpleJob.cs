@@ -3,9 +3,10 @@ using System.Management.Automation;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
+    using Microsoft.WindowsAzure.Management.StorSimple.Models;
     using Properties;
 
-    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleJob")]
+    [Cmdlet(VerbsCommon.Get, "AzureStorSimpleJob"), OutputType(typeof(JobStatusInfo))]
     public class GetAzureStorSimpleJob : StorSimpleCmdletBase
     {
 
