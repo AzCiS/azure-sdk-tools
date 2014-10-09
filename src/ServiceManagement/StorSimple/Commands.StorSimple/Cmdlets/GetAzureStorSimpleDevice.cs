@@ -7,6 +7,7 @@ using System;
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
+    using System.Collections.Generic;
 
     [Cmdlet(VerbsCommon.Get, "AzureStorSimpleDevice", DefaultParameterSetName = StorSimpleCmdletParameterSet.Empty)]
     public class GetAzureStorSimpleDevice : StorSimpleCmdletBase
@@ -66,11 +67,12 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
                 if (Detailed.IsPresent)
                 {
+                    List<DeviceDetails> deviceDetailsList = new List<DeviceDetails>();
                     foreach (var deviceInfo in deviceInfos)
                     {
-                        var deviceDetails = StorSimpleClient.GetDeviceDetails(deviceInfo.DeviceId);
-                        WriteObject(deviceDetails);
+                        deviceDetailsList.Add(StorSimpleClient.GetDeviceDetails(deviceInfo.DeviceId));
                     }
+                    WriteObject(deviceDetailsList);
                 }
 
                 else

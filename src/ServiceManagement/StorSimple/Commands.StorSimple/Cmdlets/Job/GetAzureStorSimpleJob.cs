@@ -11,7 +11,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
         [Alias("JobId")]
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageJobId)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string InstanceId { get; set; }
 
         public override void ExecuteCmdlet()

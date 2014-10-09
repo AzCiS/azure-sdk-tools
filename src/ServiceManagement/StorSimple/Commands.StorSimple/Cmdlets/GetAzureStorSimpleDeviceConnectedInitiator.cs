@@ -35,11 +35,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                         if (deviceToUse == null)
                         {
                             WriteObject(Resources.NotFoundMessageDevice);
+                            return;
                         }
-                        else
-                        {
-                            iscsiConnections = StorSimpleClient.GetAllIscsiConnections(deviceToUse.DeviceId);
-                        }
+                        iscsiConnections = StorSimpleClient.GetAllIscsiConnections(deviceToUse.DeviceId);
                         break;
                     case StorSimpleCmdletParameterSet.IdentifyById:
                         iscsiConnections = StorSimpleClient.GetAllIscsiConnections(DeviceId);

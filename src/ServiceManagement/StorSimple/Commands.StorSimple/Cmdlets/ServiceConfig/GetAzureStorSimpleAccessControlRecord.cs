@@ -25,19 +25,17 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var allACRs = StorSimpleClient.GetAllAccessControlRecords();
                 if (ACRName == null)
                 {
-                    WriteObject(allACRs);
+                    return;
+                }
+                
+                var acr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                if (acr == null)
+                {
+                    WriteObject(Resources.NotFoundMessageACR);
                 }
                 else
                 {
-                    var acr = allACRs.Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
-                    if (acr == null)
-                    {
-                        WriteObject(Resources.NotFoundMessageACR);
-                    }
-                    else
-                    {
-                        WriteObject(acr);
-                    }
+                    WriteObject(acr);
                 }
             }
             catch (CloudException cloudException)

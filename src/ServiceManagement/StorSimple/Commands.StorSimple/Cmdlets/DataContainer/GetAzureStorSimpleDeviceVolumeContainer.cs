@@ -12,41 +12,34 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     public class GetAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
         [Alias("Name")]
         [Parameter(Position = 1, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
-        [ValidateNotNullOrEmptyAttribute]
-        public string DataContainerName { get; set; }
+        [ValidateNotNullOrEmpty]
+        public string VolumeContainerName { get; set; }
 
         public override void ExecuteCmdlet()
         {
             try
             {
-                string deviceid = null;
-                deviceid = StorSimpleClient.GetDeviceId(DeviceName);
+                var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
                 if (deviceid == null)
                 {
                     WriteObject(Resources.NotFoundMessageDevice);
+                    return;
                 }
 
-                if (DataContainerName == null)
+                if (VolumeContainerName == null)
                 {
                     var dataContainerList = StorSimpleClient.GetAllDataContainers(deviceid);
-                    if (dataContainerList.Any())
-                    {
-                        foreach (var datacontainer in dataContainerList)
-                        {
-                            WriteObject(datacontainer);
-                        }
-                    }
+                    WriteObject(dataContainerList.DataContainers);
                 }
                 else
                 {
-                    var dataContainer = StorSimpleClient.GetDataContainer(deviceid, DataContainerName);
-
+                    var dataContainer = StorSimpleClient.GetDataContainer(deviceid, VolumeContainerName);
                     WriteObject(dataContainer.DataContainerInfo);
                 }
             }

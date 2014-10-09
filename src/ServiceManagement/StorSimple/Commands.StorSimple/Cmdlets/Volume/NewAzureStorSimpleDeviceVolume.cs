@@ -13,12 +13,13 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
     public class NewAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
-        [Parameter(Position = 1, Mandatory = true, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
+        [Alias("Container")]
+        [Parameter(Position = 1, Mandatory = true, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerObject)]
         [ValidateNotNullOrEmpty]
-        public DataContainer Container { get; set; }
+        public DataContainer VolumeContainer { get; set; }
         
         [Alias("Name")]
         [Parameter(Position = 2, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
@@ -53,6 +54,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
 
         [Parameter(Position = 9, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
+        
         public override void ExecuteCmdlet()
         {
             try
@@ -63,75 +65,34 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
                 if (deviceid == null)
                 {
                     WriteObject(Resources.NotFoundMessageDevice);
+                    return;
+                }
+
+                //Virtual disk create request object
+                var virtualDiskToCreate = new VirtualDiskRequest()
+                {
+                    Name = VolumeName,
+                    AccessType = AccessType.ReadWrite,
+                    AcrList = AccessControlRecords,
+                    AppType = VolumeAppType,
+                    IsDefaultBackupEnabled = EnableDefaultBackup,
+                    SizeInBytes = VolumeSize,
+                    DataContainer = VolumeContainer,
+                    Online = Online,
+                    IsMonitoringEnabled = EnableMonitoring
+                };
+
+                if (WaitForComplete.IsPresent)
+                {
+                    var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
+                    WriteObject(jobstatus);
                 }
 
                 else
                 {
-                    //TODO: fix logic 
-
-                    var sacToUse = new StorageAccountCredential
-                    {
-                        InstanceId = Container.PrimaryStorageAccountCredential.InstanceId,
-                        Name = Container.PrimaryStorageAccountCredential.Name,
-                        CloudType = Container.PrimaryStorageAccountCredential.CloudType,
-                        Hostname = Container.PrimaryStorageAccountCredential.Hostname,
-                        Login = Container.PrimaryStorageAccountCredential.Login,
-                        Password = Container.PrimaryStorageAccountCredential.Password,
-                        UseSSL = Container.PrimaryStorageAccountCredential.UseSSL,
-                        VolumeCount = Container.PrimaryStorageAccountCredential.VolumeCount,
-                        IsDefault = Container.PrimaryStorageAccountCredential.IsDefault,
-                        Location = Container.PrimaryStorageAccountCredential.Location,
-                        OperationInProgress = Container.PrimaryStorageAccountCredential.OperationInProgress,
-                        PasswordEncryptionCertThumbprint = "dummy"
-                    };
-
-                    var dcToUse = new DataContainer
-                    {
-                        IsDefault = Container.IsDefault,
-                        InstanceId = Container.InstanceId,
-                        Name = Container.Name,
-                        BandwidthRate = Container.BandwidthRate,
-                        IsEncryptionEnabled = Container.IsEncryptionEnabled,
-                        VolumeCount = Container.VolumeCount,
-                        EncryptionKey = Container.EncryptionKey,
-                        OperationInProgress = Container.OperationInProgress,
-                        Owned = Container.Owned,
-                        SecretsEncryptionThumbprint = Container.SecretsEncryptionThumbprint,
-                        PrimaryStorageAccountCredential = sacToUse
-                    };
-
-                    //Virtual disk create request object
-                    var virtualDiskToCreate = new VirtualDiskRequest()
-                    {
-                        Name = VolumeName,
-                        AccessType = AccessType.ReadWrite,
-                        AcrList = AccessControlRecords,
-                        AppType = VolumeAppType,
-                        IsDefaultBackupEnabled = EnableDefaultBackup,
-                        SizeInBytes = VolumeSize,
-                        DataContainer = dcToUse,
-                        Online = Online,
-                        IsMonitoringEnabled = EnableMonitoring
-                    };
-
-                    //var jobStatusInfo = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate);
-                    //WriteObject(jobStatusInfo);
-
-                    if (WaitForComplete.IsPresent)
-                    {
-                        var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
-                        WriteObject(jobstatus);
-                    }
-
-                    else
-                    {
-                        var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
-
-                        WriteObject(ToAsyncJobMessage(jobstatus, "create"));
-
-                    }
+                    var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
+                    WriteObject(ToAsyncJobMessage(jobstatus, "create"));
                 }
-                
             }
             catch (CloudException cloudException)
             {

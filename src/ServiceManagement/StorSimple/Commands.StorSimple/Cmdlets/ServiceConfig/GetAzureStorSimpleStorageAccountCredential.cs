@@ -25,19 +25,17 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var allSACs = StorSimpleClient.GetAllStorageAccountCredentials();
                 if (StorageAccountName == null)
                 {
-                    WriteObject(allSACs);
+                    return;
+                }
+                
+                var sac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                if (sac == null)
+                {
+                    WriteObject(Resources.NotFoundMessageStorageAccount);
                 }
                 else
                 {
-                    var sac = allSACs.Where(x => x.Name.Equals(StorageAccountName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
-                    if (sac == null)
-                    {
-                        WriteObject(Resources.NotFoundMessageStorageAccount);
-                    }
-                    else
-                    {
-                        WriteObject(sac);
-                    }
+                    WriteObject(sac);
                 }
             }
             catch (CloudException cloudException)

@@ -11,11 +11,11 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     public class RemoveAzureStorSimpleDeviceVolumeContainer : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
-        [Parameter(Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [Parameter(Position = 1, Mandatory = true, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
+        [ValidateNotNullOrEmpty]
         public DataContainer VolumeContainer { get; set; }
 
         [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
@@ -36,17 +36,22 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                               {
                                   var deviceid = StorSimpleClient.GetDeviceId(DeviceName);
 
-                                  if (deviceid == null) return;
-                                  if (WaitForComplete.IsPresent)
+                                  if (deviceid == null)
                                   {
-                                      var jobstatusInfo = StorSimpleClient.DeleteDataContainer(deviceid, VolumeContainer.InstanceId);
-                                      WriteObject(jobstatusInfo);
+                                      WriteObject(Resources.NotFoundMessageDevice);
+                                      return;
                                   }
-                                  else
-                                  {
-                                      var jobresult = StorSimpleClient.DeleteDataContainerAsync(deviceid, VolumeContainer.InstanceId);
-                                      WriteObject(ToAsyncJobMessage(jobresult, "delete"));
-                                  }
+                                  
+                                    if (WaitForComplete.IsPresent)
+                                    {
+                                        var jobstatusInfo = StorSimpleClient.DeleteDataContainer(deviceid, VolumeContainer.InstanceId);
+                                        WriteObject(jobstatusInfo);
+                                    }
+                                    else
+                                    {
+                                        var jobresult = StorSimpleClient.DeleteDataContainerAsync(deviceid, VolumeContainer.InstanceId);
+                                        WriteObject(ToAsyncJobMessage(jobresult, "delete"));
+                                    }
                               }
                               catch (CloudException cloudException)
                               {

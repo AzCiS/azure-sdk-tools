@@ -12,12 +12,12 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     public class SetAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
         [Alias("Name")]
         [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string VolumeName { get; set; }
 
         [Parameter(Position = 2, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeOnline)]
@@ -49,15 +49,14 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (deviceId == null)
                 {
                     WriteObject(Resources.NotFoundMessageDevice);
+                    return;
                 }
 
-                VirtualDisk diskDetails = null;
-
-                        diskDetails = StorSimpleClient.GetVolumeByName(deviceId, VolumeName).VirtualDiskInfo;
-
+                VirtualDisk diskDetails = StorSimpleClient.GetVolumeByName(deviceId, VolumeName).VirtualDiskInfo;
                 if (diskDetails == null)
                 {
                     WriteObject(Resources.NotFoundMessageVirtualDisk);
+                    return;
                 }
                 
                 if (Online != null)
@@ -77,21 +76,17 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     diskDetails.AcrList = AccessControlRecords;
                 }
 
-                //TODO: fix logic
-                diskDetails.DataContainer.PrimaryStorageAccountCredential.PasswordEncryptionCertThumbprint = "dummy";
-
                 if (WaitForComplete.IsPresent)
                 {
-                    var jobstatus = StorSimpleClient.UpdateVolume(deviceId, diskDetails.InstanceId,diskDetails);
+                    var jobstatus = StorSimpleClient.UpdateVolume(deviceId, diskDetails.InstanceId, diskDetails);
                     WriteObject(jobstatus);
                 }
                 else
                 {
                     var jobresult = StorSimpleClient.UpdateVolumeAsync(deviceId, diskDetails.InstanceId, diskDetails);
-                    
+
                     WriteObject(ToAsyncJobMessage(jobresult, "update"));
                 }
-
             }
             catch (CloudException cloudException)
             {

@@ -13,25 +13,33 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     {
 
         [Parameter(Position = 0, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDeviceName)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public string DeviceName { get; set; }
 
         [Alias("Name")]
         [Parameter(Position = 1, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerName)]
-        [ValidateNotNullOrEmptyAttribute]
-        public string DataContainerName { get; set; }
+        [ValidateNotNullOrEmpty]
+        public string VolumeContainerName { get; set; }
 
         [Alias("StorageAccount")]
-        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageSACObject)]
-        [ValidateNotNullOrEmptyAttribute]
+        [Parameter(Position = 2, Mandatory = true, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageSACObject)]
+        [ValidateNotNullOrEmpty]
         public StorageAccountCredential PrimaryStorageAccountCredential { get; set; }
 
         [Alias("CloudBandwidth")]
         [Parameter(Position = 3, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerBandwidth)]
-        [ValidateNotNullOrEmptyAttribute]
+        [ValidateNotNullOrEmpty]
         public int BandWidthRate { get; set; }
 
-        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
+        [Parameter(Position = 4, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerEncryptionEnabled)]
+        [ValidateNotNullOrEmpty]
+        public bool IsEncryptionEnabled { get; set; }
+
+        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerEncryptionkey)]
+        [ValidateNotNullOrEmpty]
+        public string EncryptionKey { get; set; }
+
+        [Parameter(Position = 6, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
@@ -42,14 +50,23 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (deviceid == null)
                 {
                     WriteObject(Resources.NotFoundMessageDevice);
+                    return;
+                }
+
+                if (IsEncryptionEnabled == true && EncryptionKey == null)
+                {
+                    WriteObject(Resources.NotAllowedErrorDataContainerEncryption);
+                    return;
                 }
 
                 var dc = new DataContainerRequest
                 {
                     IsDefault = false,
-                    Name = DataContainerName,
+                    Name = VolumeContainerName,
                     BandwidthRate = BandWidthRate,
-                    IsEncryptionEnabled = false,
+                    IsEncryptionEnabled = IsEncryptionEnabled,
+                    EncryptionKey = IsEncryptionEnabled ? EncryptionKey : null,
+                    VolumeCount = 0,
                     PrimaryStorageAccountCredential = PrimaryStorageAccountCredential
                 };
 
@@ -61,11 +78,10 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
                 else
                 {
-                    var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid,dc);
+                    var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid, dc);
                     WriteObject(ToAsyncJobMessage(jobstatus, "create"));
-                    
+
                 }
-                
             }
             catch (CloudException cloudException)
             {

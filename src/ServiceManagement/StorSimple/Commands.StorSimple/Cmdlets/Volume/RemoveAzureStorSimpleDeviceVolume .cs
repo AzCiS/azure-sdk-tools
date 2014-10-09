@@ -44,49 +44,36 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                   if (deviceid == null)
                                   {
                                       WriteObject(Resources.NotFoundMessageDevice);
+                                      return;
                                   }
 
-                                  else
+                                  string volumeId = string.Empty;
+                                  switch(ParameterSetName)
                                   {
+                                      case StorSimpleCmdletParameterSet.IdentifyByObject:
+                                          volumeId = Volume.InstanceId;
+                                          break;
+                                      case StorSimpleCmdletParameterSet.IdentifyByName:
+                                          var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
+                                          if (volumeInfo == null)
+                                          {
+                                              WriteObject(Resources.NotFoundMessageVirtualDisk);
+                                              return;
+                                          }
+                                          volumeId = volumeInfo.VirtualDiskInfo.InstanceId;
+                                          break;
+                                  }
+
                                   if (WaitForComplete.IsPresent)
                                   {
-                                      JobStatusInfo jobstatus;
-                                      switch (ParameterSetName)
-                                      {
-                                              case StorSimpleCmdletParameterSet.IdentifyByObject:
-                                                  jobstatus = StorSimpleClient.RemoveVolume(deviceid, Volume.InstanceId);
-                                              WriteObject(jobstatus);
-                                              break;
-                                          case StorSimpleCmdletParameterSet.IdentifyByName:
-                                              var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
-                                              if (volumeInfo != null)
-                                              {
-                                                  jobstatus = StorSimpleClient.RemoveVolume(deviceid, volumeInfo.VirtualDiskInfo.InstanceId);
-                                                  WriteObject(jobstatus);
-                                              }
-                                              break;
-                                      }
+                                      var jobstatus = StorSimpleClient.RemoveVolume(deviceid, volumeId);
+                                      WriteObject(jobstatus);
                                   }
                                   else
                                   {
-                                      GuidJobResponse jobresult = null;
-                                      switch (ParameterSetName)
-                                      {
-                                              case StorSimpleCmdletParameterSet.IdentifyByObject:
-                                                  jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, Volume.InstanceId);
-                                              break;
-                                          case StorSimpleCmdletParameterSet.IdentifyByName:
-                                              var volumeInfo = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
-                                              if (volumeInfo != null)
-                                              {
-                                                  jobresult = StorSimpleClient.RemoveVolumeAsync(deviceid, volumeInfo.VirtualDiskInfo.InstanceId);
-                                              }
-                                              break;
-                                      }
-                                      if (jobresult == null) return;
-                                      WriteObject(ToAsyncJobMessage(jobresult, "delete"));
+                                      var jobresponse = StorSimpleClient.RemoveVolumeAsync(deviceid, volumeId);
+                                      WriteObject(ToAsyncJobMessage(jobresponse, "delete"));
                                   }
-                              }
                               }
                               catch (CloudException cloudException)
                               {

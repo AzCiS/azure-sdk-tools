@@ -11,10 +11,11 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
             try
             {
                 var serviceList = StorSimpleClient.GetAllResources();
-                foreach (var resourceCredentialse in serviceList)
-                {
-                    this.WriteObject(resourceCredentialse);
-                }
+                this.WriteObject(serviceList);
+                //foreach (var resourceCredentialse in serviceList)
+                //{
+                //    this.WriteObject(resourceCredentialse);
+                //}
             }
             catch (Exception exception)
             {

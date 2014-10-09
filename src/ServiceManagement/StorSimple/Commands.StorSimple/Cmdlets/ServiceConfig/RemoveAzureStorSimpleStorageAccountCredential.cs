@@ -57,31 +57,30 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                   if (existingSac == null)
                                   {
                                       WriteObject(Resources.NotFoundMessageStorageAccount);
+                                      return;
                                   }
-                                  else
-                                  {
-                                      var serviceConfig = new ServiceConfiguration()
-                                      {
-                                          AcrChangeList = new AcrChangeList(),
-                                          CredentialChangeList = new SacChangeList()
-                                          {
-                                              Added = new List<StorageAccountCredential>(),
-                                              Deleted = new[] { existingSac.InstanceId },
-                                              Updated = new List<StorageAccountCredential>()
-                                          }
-                                      };
+                                  
+                                    var serviceConfig = new ServiceConfiguration()
+                                    {
+                                    AcrChangeList = new AcrChangeList(),
+                                    CredentialChangeList = new SacChangeList()
+                                    {
+                                        Added = new List<StorageAccountCredential>(),
+                                        Deleted = new[] { existingSac.InstanceId },
+                                        Updated = new List<StorageAccountCredential>()
+                                    }
+                                    };
 
-                                      if (WaitForComplete.IsPresent)
-                                      {
-                                          var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                                          WriteObject(jobStatus);
-                                      }
-                                      else
-                                      {
-                                          var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                                          WriteObject(ToAsyncJobMessage(jobResponse, "delete"));
-                                      }
-                                  }
+                                    if (WaitForComplete.IsPresent)
+                                    {
+                                        var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
+                                        WriteObject(jobStatus);
+                                    }
+                                    else
+                                    {
+                                        var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
+                                        WriteObject(ToAsyncJobMessage(jobResponse, "delete"));
+                                    }
                               }
                               catch (CloudException cloudException)
                               {

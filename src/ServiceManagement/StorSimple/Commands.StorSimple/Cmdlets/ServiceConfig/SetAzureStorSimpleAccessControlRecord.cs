@@ -41,40 +41,39 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (existingAcr == null)
                 {
                     WriteObject(Resources.NotFoundMessageACR);
+                    return;
+                }
+                
+                var serviceConfig = new ServiceConfiguration()
+                {
+                    AcrChangeList = new AcrChangeList()
+                    {
+                        Added = new List<AccessControlRecord>(),
+                        Deleted = new List<string>(),
+                        Updated = new []
+                        {
+                            new AccessControlRecord()
+                            {
+                                GlobalId = existingAcr.GlobalId,
+                                InitiatorName = IQNInitiatorName,
+                                InstanceId = existingAcr.InstanceId,
+                                Name = existingAcr.Name,
+                                VolumeCount = existingAcr.VolumeCount
+                            },
+                        }
+                    },
+                    CredentialChangeList = new SacChangeList(),
+                };
+
+                if (WaitForComplete.IsPresent)
+                {
+                    var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
+                    WriteObject(jobStatus);
                 }
                 else
                 {
-                    var serviceConfig = new ServiceConfiguration()
-                    {
-                        AcrChangeList = new AcrChangeList()
-                        {
-                            Added = new List<AccessControlRecord>(),
-                            Deleted = new List<string>(),
-                            Updated = new []
-                            {
-                                new AccessControlRecord()
-                                {
-                                    GlobalId = existingAcr.GlobalId,
-                                    InitiatorName = IQNInitiatorName,
-                                    InstanceId = existingAcr.InstanceId,
-                                    Name = existingAcr.Name,
-                                    VolumeCount = existingAcr.VolumeCount
-                                },
-                            }
-                        },
-                        CredentialChangeList = new SacChangeList(),
-                    };
-
-                    if (WaitForComplete.IsPresent)
-                    {
-                        var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                        WriteObject(jobStatus);
-                    }
-                    else
-                    {
-                        var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse, "update"));
-                    }
+                    var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
+                    WriteObject(ToAsyncJobMessage(jobResponse, "update"));
                 }
             }
             catch (CloudException cloudException)

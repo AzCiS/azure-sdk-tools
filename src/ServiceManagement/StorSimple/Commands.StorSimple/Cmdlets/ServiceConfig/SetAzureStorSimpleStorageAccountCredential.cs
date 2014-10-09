@@ -45,43 +45,42 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (existingSac == null)
                 {
                     WriteObject(Resources.NotFoundMessageStorageAccount);
+                    return;
+                }
+                
+                var serviceConfig = new ServiceConfiguration()
+                {
+                    AcrChangeList = new AcrChangeList(),
+                    CredentialChangeList = new SacChangeList()
+                    {
+                        Added = new List<StorageAccountCredential>(),
+                        Deleted = new List<string>(),
+                        Updated = new[]
+                        {
+                            new StorageAccountCredential()
+                            {
+                                CloudType = existingSac.CloudType,
+                                Hostname = existingSac.Hostname,
+                                Login = existingSac.Login,
+                                Password = StorageAccountKey ?? existingSac.Password,
+                                UseSSL = UseSSL ?? existingSac.UseSSL,
+                                VolumeCount = existingSac.VolumeCount,
+                                Name = existingSac.Name,
+                                PasswordEncryptionCertThumbprint = existingSac.PasswordEncryptionCertThumbprint
+                            },
+                        }
+                    }
+                };
+
+                if (WaitForComplete.IsPresent)
+                {
+                    var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
+                    WriteObject(jobStatus);
                 }
                 else
                 {
-                    var serviceConfig = new ServiceConfiguration()
-                    {
-                        AcrChangeList = new AcrChangeList(),
-                        CredentialChangeList = new SacChangeList()
-                        {
-                            Added = new List<StorageAccountCredential>(),
-                            Deleted = new List<string>(),
-                            Updated = new[]
-                            {
-                                new StorageAccountCredential()
-                                {
-                                    CloudType = existingSac.CloudType,
-                                    Hostname = existingSac.Hostname,
-                                    Login = existingSac.Login,
-                                    Password = StorageAccountKey ?? existingSac.Password,
-                                    UseSSL = UseSSL ?? existingSac.UseSSL,
-                                    VolumeCount = existingSac.VolumeCount,
-                                    Name = existingSac.Name,
-                                    PasswordEncryptionCertThumbprint = existingSac.PasswordEncryptionCertThumbprint
-                                },
-                            }
-                        }
-                    };
-
-                    if (WaitForComplete.IsPresent)
-                    {
-                        var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                        WriteObject(jobStatus);
-                    }
-                    else
-                    {
-                        var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                        WriteObject(ToAsyncJobMessage(jobResponse, "update"));
-                    }
+                    var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
+                    WriteObject(ToAsyncJobMessage(jobResponse, "update"));
                 }
             }
             catch (CloudException cloudException)
