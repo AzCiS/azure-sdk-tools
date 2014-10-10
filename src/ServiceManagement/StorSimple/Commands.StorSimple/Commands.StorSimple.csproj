@@ -85,13 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlets\BackupPolicy\GetAzureStorSimpleDeviceBackupPolicy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupPolicy.cs" />
-    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupScheduleUpdateConfig.cs" />
-    <Compile Include="Cmdlets\BackupPolicy\RemoveAzureStorSimpleDeviceBackupPolicy.cs" />
-    <Compile Include="Cmdlets\BackupPolicy\SetAzureStorSimpleDeviceBackupPolicy.cs" />
     <Compile Include="Cmdlets\BackupSet\GetAzureStorSimpleDeviceBackup.cs" />
     <Compile Include="Cmdlets\BackupSet\RemoveAzureStorSimpleDeviceBackup.cs" />
     <Compile Include="Cmdlets\BackupSet\StartAzureStorSimpleDeviceBackupJob.cs">
@@ -106,7 +99,6 @@
     <Compile Include="Cmdlets\GetAzureStorSimpleResource.cs" />
     <Compile Include="Cmdlets\GetAzureStorSimpleResourceContext.cs" />
     <Compile Include="Cmdlets\Job\GetAzureStorSimpleJob.cs" />
-    <Compile Include="Cmdlets\BackupPolicy\NewAzureStorSimpleDeviceBackupScheduleAddConfig.cs" />
     <Compile Include="Cmdlets\ServiceConfig\GetAzureStorSimpleStorageAccountCredential.cs" />
     <Compile Include="Cmdlets\ServiceConfig\NewAzureStorSimpleAccessControlRecord.cs" />
     <Compile Include="Cmdlets\SelectAzureStorSimpleResource.cs" />
@@ -159,6 +151,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cmdlets\BackupPolicy\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
