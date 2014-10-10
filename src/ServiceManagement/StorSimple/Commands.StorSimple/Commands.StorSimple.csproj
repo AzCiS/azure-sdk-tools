@@ -85,12 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlets\BackupSet\GetAzureStorSimpleDeviceBackup.cs" />
-    <Compile Include="Cmdlets\BackupSet\RemoveAzureStorSimpleDeviceBackup.cs" />
-    <Compile Include="Cmdlets\BackupSet\StartAzureStorSimpleDeviceBackupJob.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Cmdlets\BackupSet\StartAzureStorSimpleDeviceBackupRestoreJob.cs" />
     <Compile Include="Cmdlets\DataContainer\GetAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\NewAzureStorSimpleDeviceVolumeContainer.cs" />
     <Compile Include="Cmdlets\DataContainer\RemoveAzureStorSimpleDeviceVolumeContainer.cs" />
@@ -154,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Cmdlets\BackupPolicy\" />
+    <Folder Include="Cmdlets\BackupSet\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
