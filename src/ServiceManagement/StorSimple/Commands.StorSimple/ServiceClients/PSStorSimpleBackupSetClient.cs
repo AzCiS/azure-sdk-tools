@@ -11,7 +11,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
 {
     public partial class PSStorSimpleClient
     {
-        public GetBackupResponse GetAllBackups(string deviceId, string filterType, string isAllSelected,string filterValue, string startDateTime, string endDateTime,
+        public GetBackupResponse GetAllBackups(string deviceId, string filterType, string isAllSelected, string filterValue, string startDateTime, string endDateTime,
             string skip, string top)
         {
             return this.GetStorSimpleClient()
@@ -39,9 +39,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
             return GetStorSimpleClient().Backup.BeginRestoring(deviceid, backupRequest, GetCustomRequestHeaders());
         }
 
-        public JobStatusInfo DoBackup(string deviceid,String backupPolicyId, BackupNowRequest request)
+        public JobStatusInfo DoBackup(string deviceid, String backupPolicyId, BackupNowRequest request)
         {
-            return GetStorSimpleClient().Backup.Create(deviceid, backupPolicyId,request, GetCustomRequestHeaders());
+            return GetStorSimpleClient().Backup.Create(deviceid, backupPolicyId, request, GetCustomRequestHeaders());
         }
 
         public JobResponse DoBackupAsync(string deviceid, String backupPolicyId, BackupNowRequest request)

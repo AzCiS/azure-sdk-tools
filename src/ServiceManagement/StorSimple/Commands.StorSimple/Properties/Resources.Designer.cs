@@ -61,11 +61,146 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More backups are available for your query. To access the next page of your result use \&quot;-First {0} -Skip {1}\&quot; in your commandlet.
+        /// </summary>
+        internal static string BackupNextPageFormatMessage {
+            get {
+                return ResourceManager.GetString("BackupNextPageFormatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More backups are available in the subsequent pages for your query. To access the next page use \&quot;-Skip {0}\&quot;  in your commandlet.
+        /// </summary>
+        internal static string BackupNextPagewithNoFirstMessage {
+            get {
+                return ResourceManager.GetString("BackupNextPagewithNoFirstMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No more backup sets are present for your query!.
+        /// </summary>
+        internal static string BackupNoMorePagesMessage {
+            get {
+                return ResourceManager.GetString("BackupNoMorePagesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # of backups policies returned : {0}.
+        /// </summary>
+        internal static string BackupPoliciesReturnedCount {
+            get {
+                return ResourceManager.GetString("BackupPoliciesReturnedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BackupPolicy with id {0} found!.
+        /// </summary>
+        internal static string BackupPolicyFound {
+            get {
+                return ResourceManager.GetString("BackupPolicyFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No BackupPolicy was found with the given name. Try giving a different name or remove the Name paramter altogether to get all backuppolicies on the device.
+        /// </summary>
+        internal static string BackupPolicyNotFound {
+            get {
+                return ResourceManager.GetString("BackupPolicyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} job failed to submit. .
         /// </summary>
         internal static string FailureMessageSubmitJob {
             get {
                 return ResourceManager.GetString("FailureMessageSubmitJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter First cannot be &lt;0.
+        /// </summary>
+        internal static string FirstParameterInvalidMessage {
+            get {
+                return ResourceManager.GetString("FirstParameterInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid string for BackupId parameter.
+        /// </summary>
+        internal static string InvalidBackupIdParameter {
+            get {
+                return ResourceManager.GetString("InvalidBackupIdParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid Backup object for Backup parameter .
+        /// </summary>
+        internal static string InvalidBackupObjectParameter {
+            get {
+                return ResourceManager.GetString("InvalidBackupObjectParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid string for BackupPolicyId parameter.
+        /// </summary>
+        internal static string InvalidBackupPolicyIdParameter {
+            get {
+                return ResourceManager.GetString("InvalidBackupPolicyIdParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid BackupPolicy object for BackupPolicy Parameter.
+        /// </summary>
+        internal static string InvalidBackupPolicyObjectParameter {
+            get {
+                return ResourceManager.GetString("InvalidBackupPolicyObjectParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atleast one BackupSchedule should be present in BackupSchedulesToAdd parameter.
+        /// </summary>
+        internal static string InvalidBackupSchedulesToAddParameter {
+            get {
+                return ResourceManager.GetString("InvalidBackupSchedulesToAddParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide valid datetime string for From parameter!.
+        /// </summary>
+        internal static string InvalidFromMessage {
+            get {
+                return ResourceManager.GetString("InvalidFromMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide valid datetime string for To parameter!.
+        /// </summary>
+        internal static string InvalidToMessage {
+            get {
+                return ResourceManager.GetString("InvalidToMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atleast one VolumeId should be present in VolumeIdsToAdd parameter.
+        /// </summary>
+        internal static string InvalidVolumeIdsToAddParameter {
+            get {
+                return ResourceManager.GetString("InvalidVolumeIdsToAddParameter", resourceCulture);
             }
         }
         
@@ -232,6 +367,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameter Skip cannot be &lt;0.
+        /// </summary>
+        internal static string SkipParameterInvalidMessage {
+            get {
+                return ResourceManager.GetString("SkipParameterInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restoring backup with backupId {0}....
         /// </summary>
         internal static string StartASSDBackupRestoreJobMessage {
@@ -246,6 +390,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         internal static string StartASSDBackupRestoreJobWarningMessage {
             get {
                 return ResourceManager.GetString("StartASSDBackupRestoreJobWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide valid dateTime for StartFrom parameter.
+        /// </summary>
+        internal static string StartFromDateForBackupNotValid {
+            get {
+                return ResourceManager.GetString("StartFromDateForBackupNotValid", resourceCulture);
             }
         }
         

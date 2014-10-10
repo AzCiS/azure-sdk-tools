@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackupPoliciesReturnedCount" xml:space="preserve">
+    <value># of backups policies returned : {0}</value>
+  </data>
+  <data name="BackupPolicyFound" xml:space="preserve">
+    <value>BackupPolicy with id {0} found!</value>
+  </data>
+  <data name="BackupPolicyNotFound" xml:space="preserve">
+    <value>No BackupPolicy was found with the given name. Try giving a different name or remove the Name paramter altogether to get all backuppolicies on the device</value>
+  </data>
   <data name="FailureMessageSubmitJob" xml:space="preserve">
     <value>The {0} job failed to submit. </value>
   </data>
@@ -185,5 +194,47 @@
   </data>
   <data name="SuccessMessageSubmitJob" xml:space="preserve">
     <value>The {0} job is submitted successfully. Please use the command Get-AzureStorSimpleJob -InstanceId {1} for tracking the job status</value>
+  </data>
+  <data name="InvalidBackupIdParameter" xml:space="preserve">
+    <value>Specify valid string for BackupId parameter</value>
+  </data>
+  <data name="InvalidBackupObjectParameter" xml:space="preserve">
+    <value>Specify valid Backup object for Backup parameter </value>
+  </data>
+  <data name="InvalidBackupPolicyIdParameter" xml:space="preserve">
+    <value>Specify valid string for BackupPolicyId parameter</value>
+  </data>
+  <data name="InvalidBackupPolicyObjectParameter" xml:space="preserve">
+    <value>Specify valid BackupPolicy object for BackupPolicy Parameter</value>
+  </data>
+  <data name="BackupNextPageFormatMessage" xml:space="preserve">
+    <value>More backups are available for your query. To access the next page of your result use \"-First {0} -Skip {1}\" in your commandlet</value>
+  </data>
+  <data name="BackupNextPagewithNoFirstMessage" xml:space="preserve">
+    <value>More backups are available in the subsequent pages for your query. To access the next page use \"-Skip {0}\"  in your commandlet</value>
+  </data>
+  <data name="BackupNoMorePagesMessage" xml:space="preserve">
+    <value>No more backup sets are present for your query!</value>
+  </data>
+  <data name="FirstParameterInvalidMessage" xml:space="preserve">
+    <value>Parameter First cannot be &lt;0</value>
+  </data>
+  <data name="InvalidBackupSchedulesToAddParameter" xml:space="preserve">
+    <value>Atleast one BackupSchedule should be present in BackupSchedulesToAdd parameter</value>
+  </data>
+  <data name="InvalidFromMessage" xml:space="preserve">
+    <value>Provide valid datetime string for From parameter!</value>
+  </data>
+  <data name="InvalidToMessage" xml:space="preserve">
+    <value>Provide valid datetime string for To parameter!</value>
+  </data>
+  <data name="InvalidVolumeIdsToAddParameter" xml:space="preserve">
+    <value>Atleast one VolumeId should be present in VolumeIdsToAdd parameter</value>
+  </data>
+  <data name="SkipParameterInvalidMessage" xml:space="preserve">
+    <value>Parameter Skip cannot be &lt;0</value>
+  </data>
+  <data name="StartFromDateForBackupNotValid" xml:space="preserve">
+    <value>Provide valid dateTime for StartFrom parameter</value>
   </data>
 </root>

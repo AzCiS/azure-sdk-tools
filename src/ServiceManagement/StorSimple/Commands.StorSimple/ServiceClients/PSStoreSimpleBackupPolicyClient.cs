@@ -41,5 +41,16 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
         {
             return GetStorSimpleClient().BackupPolicy.BeginCreatingBackupPolicy(deviceId, config, GetCustomRequestHeaders());
         }
+
+        public JobStatusInfo UpdateBackupPolicy(string deviceId, string policyId, UpdateBackupPolicyConfig updatepolicyConfig)
+        {
+            return GetStorSimpleClient()
+                .BackupPolicy.Update(deviceId, policyId, updatepolicyConfig, GetCustomRequestHeaders());
+        }
+
+        public JobResponse UpdateBackupPolicyAsync(string deviceId, string policyId, UpdateBackupPolicyConfig updatepolicyConfig)
+        {
+            return GetStorSimpleClient().BackupPolicy.BeginUpdatingBackupPolicy(deviceId, policyId, updatepolicyConfig, GetCustomRequestHeaders());
+        }
     }
 }
