@@ -12,8 +12,12 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
+using Microsoft.WindowsAzure.Management.Scheduler;
+using Microsoft.WindowsAzure.Management.StorSimple;
 using Microsoft.WindowsAzure.Testing;
 using System.Management;
 using System.Management.Automation;
@@ -23,35 +27,59 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
     public class StorSimpleTestBase
     {
         private EnvironmentSetupHelper helper;
-        protected const string TenantIdKey = "TenantId";
+        private RDFETestEnvironmentFactory rdfeTestFactory;
 
         protected StorSimpleTestBase()
         {
-            helper = new EnvironmentSetupHelper();
+            this.helper = new EnvironmentSetupHelper();
+            this.rdfeTestFactory = new RDFETestEnvironmentFactory();
         }
 
-        //protected void SetupManagementClients()
-        //{
-        //    var storSimpleManagementClient = GetStorSimpleClient();
-        //    var cloudServiceClient = GetCloudServiceClient();
-        //    helper.SetupManagementClients(storSimpleManagementClient);
-        //}
+        protected void SetupManagementClients()
+        {
+            //var storSimpleManagementClient = GetStorSimpleClient();
+            //var cloudServiceClient = GetCloudServiceClient();
+            //helper.SetupManagementClients(storSimpleManagementClient, cloudServiceClient);
+
+            helper.SetupSomeOfManagementClients();
+        }
 
         //private StorSimpleManagementClient GetStorSimpleClient()
         //{
-        //    TestBase.
+        //    var testEnvironment = this.rdfeTestFactory.GetTestEnvironment();
+        //    //var storSimpleClient = TestBase.GetServiceClient<StorSimpleManagementClient>(this.rdfeTestFactory);
+        //    var storSimpleClient = new StorSimpleManagementClient("", "", "", "", "",
+        //        testEnvironment.Credentials as SubscriptionCloudCredentials, testEnvironment.BaseUri);
+        //    return storSimpleClient;
+        //}
+
+        //private CloudServiceManagementClient GetCloudServiceClient()
+        //{
+        //    return TestBase.GetServiceClient<CloudServiceManagementClient>(this.rdfeTestFactory);
         //}
 
         protected void RunPowerShellTest(params string[] scripts)
         {
-            using (UndoContext context = UndoContext.Current)
+            try
             {
-                context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
-                //SetupManagementClients();
-                helper.SetupEnvironment(AzureModule.AzureServiceManagement);
-                helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
-                helper.RunPowerShellTest(scripts);
+                using (UndoContext context = UndoContext.Current)
+                {
+                    context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
+
+                    SetupManagementClients();
+
+                    helper.SetupEnvironment(AzureModule.AzureServiceManagement);
+                    helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
+                    helper.RunPowerShellTest(scripts);
+                }
             }
+            catch (TypeInitializationException ex)
+            {
+
+                
+                throw ex;
+            }
+            
         }
     }
 }
