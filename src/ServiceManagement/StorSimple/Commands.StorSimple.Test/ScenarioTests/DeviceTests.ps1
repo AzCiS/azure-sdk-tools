@@ -20,8 +20,9 @@ Tests creating new resource group and a simple resource.
 function Test-GetDevices
 {
 	# Setup
-	$selectedResource = Get-AzureStorSimpleResource | Select-Object -first 1
-	$selectedResource | Select-AzureStorSimpleResource
+	$selectedResource = Get-AzureStorSimpleResource #| Select-Object -first 1
+	#$selectedResource | Select-AzureStorSimpleResource
+	Select-AzureStorSimpleResource -ResourceName $selectedResource.ResourceName
 	
 	# Test
 	$list = Get-AzureStorSimpleDevice

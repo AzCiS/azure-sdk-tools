@@ -13,6 +13,8 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Reflection;
+using Microsoft.Azure.Utilities.HttpRecorder;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
@@ -37,26 +39,35 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
 
         protected void SetupManagementClients()
         {
-            //var storSimpleManagementClient = GetStorSimpleClient();
-            //var cloudServiceClient = GetCloudServiceClient();
-            //helper.SetupManagementClients(storSimpleManagementClient, cloudServiceClient);
+            var storSimpleManagementClient = GetStorSimpleClient();
+            var cloudServiceClient = GetCloudServiceClient();
+            helper.SetupManagementClients(storSimpleManagementClient, cloudServiceClient);
 
-            helper.SetupSomeOfManagementClients();
+            //helper.SetupSomeOfManagementClients();
         }
 
-        //private StorSimpleManagementClient GetStorSimpleClient()
-        //{
-        //    var testEnvironment = this.rdfeTestFactory.GetTestEnvironment();
-        //    //var storSimpleClient = TestBase.GetServiceClient<StorSimpleManagementClient>(this.rdfeTestFactory);
-        //    var storSimpleClient = new StorSimpleManagementClient("", "", "", "", "",
-        //        testEnvironment.Credentials as SubscriptionCloudCredentials, testEnvironment.BaseUri);
-        //    return storSimpleClient;
-        //}
+        private StorSimpleManagementClient GetStorSimpleClient()
+        {
+            try
+            {
+                var testEnvironment = this.rdfeTestFactory.GetTestEnvironment();
+                //var storSimpleClient = TestBase.GetServiceClient<StorSimpleManagementClient>(this.rdfeTestFactory);
+                var storSimpleClient = new StorSimpleManagementClient("", "", "", "", "",
+                    testEnvironment.Credentials as SubscriptionCloudCredentials, testEnvironment.BaseUri).WithHandler(HttpMockServer.CreateInstance());
+                return storSimpleClient;
+            }
+            catch (ReflectionTypeLoadException leException)
+            {
+                
+                throw leException;
+            }
+            
+        }
 
-        //private CloudServiceManagementClient GetCloudServiceClient()
-        //{
-        //    return TestBase.GetServiceClient<CloudServiceManagementClient>(this.rdfeTestFactory);
-        //}
+        private CloudServiceManagementClient GetCloudServiceClient()
+        {
+            return TestBase.GetServiceClient<CloudServiceManagementClient>(this.rdfeTestFactory);
+        }
 
         protected void RunPowerShellTest(params string[] scripts)
         {
@@ -66,9 +77,10 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
                 {
                     context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
 
+                    
+                    helper.SetupEnvironment(AzureModule.AzureServiceManagement);
                     SetupManagementClients();
 
-                    helper.SetupEnvironment(AzureModule.AzureServiceManagement);
                     helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
                     helper.RunPowerShellTest(scripts);
                 }

@@ -69,7 +69,7 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StorSimple.Tests">
-      <HintPath>..\Commands.StorSimple\bin\Debug\StorSimple.Tests.dll</HintPath>
+      <HintPath>..\..\..\..\..\StorSimple.Tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
