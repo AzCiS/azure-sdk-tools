@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 }
             }
             else
-                StartFromDt = DateTime.UtcNow;
+                StartFromDt = DateTime.Now;
 
             scheduleStatus = Enabled ? ScheduleStatus.Enabled : ScheduleStatus.Disabled;
         }
