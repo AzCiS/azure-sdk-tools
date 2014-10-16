@@ -13,6 +13,10 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Configuration;
+using System.Net;
+using System.Net.Http;
+using System.Net.Security;
 using System.Reflection;
 using Microsoft.Azure.Utilities.HttpRecorder;
 using Microsoft.WindowsAzure;
@@ -50,10 +54,12 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
         {
             try
             {
-                var testEnvironment = this.rdfeTestFactory.GetTestEnvironment();
-                //var storSimpleClient = TestBase.GetServiceClient<StorSimpleManagementClient>(this.rdfeTestFactory);
-                var storSimpleClient = new StorSimpleManagementClient("", "", "", "", "",
-                    testEnvironment.Credentials as SubscriptionCloudCredentials, testEnvironment.BaseUri).WithHandler(HttpMockServer.CreateInstance());
+                //var testEnvironment = this.rdfeTestFactory.GetTestEnvironment();
+                
+                var storSimpleClient = GetServiceClient<StorSimpleManagementClient>();
+                
+                //var storSimpleClient = new StorSimpleManagementClient("", "", "", "", "",
+                //    testEnvironment.Credentials as SubscriptionCloudCredentials, testEnvironment.BaseUri).WithHandler(HttpMockServer.CreateInstance());
                 return storSimpleClient;
             }
             catch (ReflectionTypeLoadException leException)
@@ -92,6 +98,91 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
                 throw ex;
             }
             
+        }
+
+        public new static T GetServiceClient<T>() where T : class
+        {
+            var factory = (TestEnvironmentFactory)new RDFETestEnvironmentFactory();
+
+            var testEnvironment = factory.GetTestEnvironment();
+
+            ServicePointManager.ServerCertificateValidationCallback = IgnoreCertificateErrorHandler;
+
+            StorSimpleManagementClient client;
+
+            if (testEnvironment.UsesCustomUri())
+            {
+                client = new StorSimpleManagementClient(
+                    ConfigurationManager.AppSettings["CloudServiceName"],
+                    ConfigurationManager.AppSettings["ResourceName"],
+                    ConfigurationManager.AppSettings["ResourceId"],
+                    ConfigurationManager.AppSettings["ResourceNamespace"],
+                    ConfigurationManager.AppSettings["CisStampId"],
+                    testEnvironment.Credentials as SubscriptionCloudCredentials,
+                    testEnvironment.BaseUri);
+            }
+
+            else
+            {
+                client = new StorSimpleManagementClient(
+                    ConfigurationManager.AppSettings["CloudServiceName"],
+                    ConfigurationManager.AppSettings["ResourceName"],
+                    ConfigurationManager.AppSettings["ResourceId"],
+                    ConfigurationManager.AppSettings["ResourceNamespace"],
+                    ConfigurationManager.AppSettings["CisStampId"],
+                    testEnvironment.Credentials as SubscriptionCloudCredentials);
+            }
+
+            return GetServiceClient<T>(factory, client);
+        }
+
+        public static T GetServiceClient<T>(TestEnvironmentFactory factory, StorSimpleManagementClient client) where T : class
+        {
+            TestEnvironment testEnvironment = factory.GetTestEnvironment();
+
+            HttpMockServer instance;
+            try
+            {
+                instance = HttpMockServer.CreateInstance();
+            }
+            catch (ApplicationException)
+            {
+                HttpMockServer.Initialize("TestEnvironment", "InitialCreation");
+                instance = HttpMockServer.CreateInstance();
+            }
+            T obj2 = typeof(T).GetMethod("WithHandler", new Type[1]
+            {
+                typeof (DelegatingHandler)
+            }).Invoke((object)client, new object[1]
+            {
+                (object) instance
+            }) as T;
+
+            if (HttpMockServer.Mode == HttpRecorderMode.Record)
+            {
+                HttpMockServer.Variables[TestEnvironmentFactory.SubscriptionIdKey] = testEnvironment.SubscriptionId;
+            }
+
+            if (HttpMockServer.Mode == HttpRecorderMode.Playback)
+            {
+                PropertyInfo property1 = typeof(T).GetProperty("LongRunningOperationInitialTimeout", typeof(int));
+                PropertyInfo property2 = typeof(T).GetProperty("LongRunningOperationRetryTimeout", typeof(int));
+                if (property1 != (PropertyInfo)null && property2 != (PropertyInfo)null)
+                {
+                    property1.SetValue((object)obj2, (object)0);
+                    property2.SetValue((object)obj2, (object)0);
+                }
+            }
+            return obj2;
+        }
+
+        private static bool IgnoreCertificateErrorHandler
+           (object sender,
+           System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+           System.Security.Cryptography.X509Certificates.X509Chain chain,
+           SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
     }
 }
