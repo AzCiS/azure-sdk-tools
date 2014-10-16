@@ -25,23 +25,19 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         [ValidateNotNullOrEmptyAttribute]
         public string BackupPolicyName { get; set; }
 
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageIsPolicyRenamed)]
-        [ValidateNotNullOrEmptyAttribute]
-        public bool IsPolicyRenamed { get; set; }
-
-        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToAdd)]
+        [Parameter(Position = 3, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToAdd)]
         public PSObject[] BackupSchedulesToAdd { get; set; }
 
-        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToUpdate)]
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToUpdate)]
         public PSObject[] BackupSchedulesToUpdate { get; set; }
 
-        [Parameter(Position = 6, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToDelete)]
+        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupScheduleBaseObjsToDelete)]
         public PSObject[] BackupScheduleIdsToDelete { get; set; }
 
-        [Parameter(Position = 7, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeObjsToUpdate)]
+        [Parameter(Position = 6, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeObjsToUpdate)]
         public PSObject[] VolumeIdsToUpdate { get; set; }
 
-        [Parameter(Position = 8, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
+        [Parameter(Position = 7, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
 
         private string deviceId = null;
@@ -58,7 +54,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
             updateConfig.InstanceId = BackupPolicyId;
             updateConfig.Name = BackupPolicyName;
-            updateConfig.IsPolicyRenamed = IsPolicyRenamed;
+            updateConfig.IsPolicyRenamed = false;
             updateConfig.BackupSchedulesToBeAdded = schedulesToAdd;
             updateConfig.BackupSchedulesToBeUpdated = schedulesToUpdate;
             updateConfig.BackupSchedulesToBeDeleted = scheduleIdsTodelete;
@@ -93,9 +89,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
         private void ProcessAddSchedules()
         {
-            schedulesToAdd = new List<BackupScheduleBase>();
             if (BackupSchedulesToAdd!=null && BackupSchedulesToAdd.Length > 0)
             {
+                schedulesToAdd = new List<BackupScheduleBase>();
                 foreach (var addSchedule in BackupSchedulesToAdd)
                 {
                     BackupScheduleBase backupSchedule = (BackupScheduleBase)addSchedule.BaseObject;
@@ -107,10 +103,10 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
 
         private void ProcessUpdateSchedules()
-        {
-            schedulesToUpdate = new List<BackupScheduleUpdateRequest>();
+        {          
             if (BackupSchedulesToUpdate!=null && BackupSchedulesToUpdate.Length > 0)
             {
+                schedulesToUpdate = new List<BackupScheduleUpdateRequest>();
                 foreach (var updateSchedule in BackupSchedulesToUpdate)
                 {
                     BackupScheduleUpdateRequest updateschedule = (BackupScheduleUpdateRequest) updateSchedule.BaseObject;
@@ -122,9 +118,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
         private void ProcessDeleteScheduleIds()
         {
-            scheduleIdsTodelete = new List<string>();
             if (BackupScheduleIdsToDelete!=null && BackupScheduleIdsToDelete.Length > 0)
             {
+                scheduleIdsTodelete = new List<string>();
                 foreach (var deleteSchedule in BackupScheduleIdsToDelete)
                 {
                     String scheduleIdToDelete = (String)deleteSchedule.BaseObject;
@@ -136,9 +132,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
         private void ProcessUpdateVolumeIds()
         {
-            volumeIdsToUpdate = new List<string>();
             if (VolumeIdsToUpdate!=null && VolumeIdsToUpdate.Length > 0)
             {
+                volumeIdsToUpdate = new List<string>();
                 foreach (var volume in VolumeIdsToUpdate)
                 {
                     String volumeId = (String)volume.BaseObject;
