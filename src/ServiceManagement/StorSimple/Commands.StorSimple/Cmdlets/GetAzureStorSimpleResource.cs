@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
             try
             {
                 var serviceList = StorSimpleClient.GetAllResources();
-                this.WriteObject(serviceList);
+                this.WriteObject(serviceList, true);
             }
             catch (CloudException cloudException)
             {

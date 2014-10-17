@@ -73,12 +73,12 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     {
                         deviceDetailsList.Add(StorSimpleClient.GetDeviceDetails(deviceInfo.DeviceId));
                     }
-                    WriteObject(deviceDetailsList);
+                    WriteObject(deviceDetailsList, true);
                 }
 
                 else
                 {
-                    WriteObject(deviceInfos);
+                    WriteObject(deviceInfos, true);
                 }
             }
             catch (CloudException cloudException)

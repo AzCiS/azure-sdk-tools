@@ -20,14 +20,15 @@ Tests creating new resource group and a simple resource.
 function Test-GetDevices
 {
 	# Setup
-	$selectedResource = Get-AzureStorSimpleResource #| Select-Object -first 1
-	#$selectedResource | Select-AzureStorSimpleResource
-	Select-AzureStorSimpleResource -ResourceName $selectedResource.ResourceName
+	$selectedResource = (Get-AzureStorSimpleResource) | Select-Object -first 1
+	
+	echo $selectedResource
+	
+	$selectedResource | Select-AzureStorSimpleResource 
 	
 	# Test
 	$list = Get-AzureStorSimpleDevice
 
 	# Assert
-	Assert-AreNotEqual 0 @($list).Count
-	
+	Assert-AreNotEqual 0 @($list).Count	
 }
