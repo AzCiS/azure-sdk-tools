@@ -80,10 +80,11 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
             using (UndoContext context = UndoContext.Current)
             {
                 context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
-
-                helper.SetupEnvironment(AzureModule.AzureServiceManagement);
+                
                 SetupManagementClients();
-
+                
+                helper.SetupEnvironment(AzureModule.AzureServiceManagement);
+                
                 helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
                 helper.RunPowerShellTest(scripts);
             }
