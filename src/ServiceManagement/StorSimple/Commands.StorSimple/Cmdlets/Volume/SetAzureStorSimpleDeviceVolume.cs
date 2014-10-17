@@ -7,6 +7,7 @@ using Microsoft.WindowsAzure;
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
     using Properties;
+    using System.Collections.Generic;
 
     [Cmdlet(VerbsCommon.Set, "AzureStorSimpleDeviceVolume"), OutputType(typeof(JobStatusInfo))]
     public class SetAzureStorSimpleDeviceVolume : StorSimpleCmdletBase
@@ -34,9 +35,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         [ValidateNotNullOrEmpty]
         public AppType? VolumeAppType { get; set; }
 
-        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
+        [Parameter(Position = 5, Mandatory = false, ValueFromPipeline = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageVolumeAcrList)]
         [ValidateNotNullOrEmpty]
-        public AccessControlRecord[] AccessControlRecords { get; set; }
+        public List<AccessControlRecord> AccessControlRecords { get; set; }
 
         [Parameter(Position = 6, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
