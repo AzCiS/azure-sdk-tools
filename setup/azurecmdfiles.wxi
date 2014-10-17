@@ -1666,6 +1666,458 @@
                             <File Id="fil9E1984AC573FD4A1CE5AD9ACF7B4F9AA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\Storage\System.Spatial.dll" />
                         </Component>
                     </Directory>
+                    <Directory Id="dirA4646967E1E1AC7CFABA2F0120408449" Name="StorSimple">
+                        <Component Id="cmpDD538AC84C4FD9EADDBD5E9F8652D1DB" Guid="*">
+                            <File Id="filEFBF3FEB1E02DC43F48D5321582DEAD8" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\AutoMapper.dll" />
+                        </Component>
+                        <Component Id="cmpB740481086521821977B2DFD1D5D785A" Guid="*">
+                            <File Id="filD935B18A309709B9B3D6AC83E52A0389" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\AutoMapper.Net4.dll" />
+                        </Component>
+                        <Component Id="cmp502CCE2E5739942FF82A530D9EC17A4C" Guid="*">
+                            <File Id="fil64D0C20B53FD792C249522C80824D947" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Azure.psd1" />
+                        </Component>
+                        <Component Id="cmpFD21A09814FE0A9FECD05AFD8B51D2A7" Guid="*">
+                            <File Id="fil4C2CE9FAB543FA3BCA1DBCC669B5931B" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\AzureResourceManager.psd1" />
+                        </Component>
+                        <Component Id="cmpEE148D309C770D5FC188D9863E911E97" Guid="*">
+                            <File Id="filAC2E5DA1F50F8203831414132BAD10F3" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.RedisCache.dll-Help.xml" />
+                        </Component>
+                        <Component Id="cmpA2DEC4704EEA92D0D3D722B7378150BD" Guid="*">
+                            <File Id="fil04B1B2DEA37A96E6450EFAFC9B20EABA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.RedisCache.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmp24E80CBAD9A80CC74D69DB7D95D44715" Guid="*">
+                            <File Id="filB4798C4BA4FA028C7D51610061F3FD95" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.Resources.dll-Help.xml" />
+                        </Component>
+                        <Component Id="cmpE09137A6C24F2822CE7151F0D742AF57" Guid="*">
+                            <File Id="fil034775F26C32E734686CD09EED7986DC" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.Resources.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpA4DBBC8A8DFC7CA1671C24D301240BB5" Guid="*">
+                            <File Id="fil0FF1293A43D798AA1225E0C60E9E2242" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.Sql.dll-Help.xml" />
+                        </Component>
+                        <Component Id="cmpA92E5E88E68782F59DD6A63CB046767A" Guid="*">
+                            <File Id="fil149186E0C6AD9B25EFEFD1B53C82874C" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.Tags.dll-help.xml" />
+                        </Component>
+                        <Component Id="cmp47D1B22FE80FA207432B1DBF1EF6F7E6" Guid="*">
+                            <File Id="fil66147E0ED06EAA253DD765B08091CD93" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Commands.Tags.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpF584FEE91889D98A4299209A1B9B1B94" Guid="*">
+                            <File Id="fil1E84C52FC3BA4FCD7D38DF81574031BC" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.ResourceManager.dll" />
+                        </Component>
+                        <Component Id="cmp778750BE697923E72EF27EBFD10DDEFA" Guid="*">
+                            <File Id="fil707FF5EE6A1C5F2A5B16DB4A1403D616" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Azure.Utilities.HttpRecorder.dll" />
+                        </Component>
+                        <Component Id="cmp934EFDC73AA282ECCAE7BC9CC86AC16C" Guid="*">
+                            <File Id="fil3763F3116F5E6A81AB6B3774BE4FF3D3" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Data.Edm.dll" />
+                        </Component>
+                        <Component Id="cmpC2DF1AD20C1D38630771DA7C92973501" Guid="*">
+                            <File Id="filE9791F7E7C1E6FD7BAEA3AD9865AE861" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Data.OData.dll" />
+                        </Component>
+                        <Component Id="cmp9F0617E6681BA889414C6460F57CF276" Guid="*">
+                            <File Id="fil63770E842C5BF6C138CC07858F78A08B" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Data.Services.Client.dll" />
+                        </Component>
+                        <Component Id="cmp9E03AAB684EA41B087D79346AE6C1073" Guid="*">
+                            <File Id="fil501FE0FB963E03A9292BE5CC5A895CBB" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
+                        </Component>
+                        <Component Id="cmpEC794DBE4822765C546A06D80EAA3292" Guid="*">
+                            <File Id="filDD30152846BFFA806AFD88C478152184" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll" />
+                        </Component>
+                        <Component Id="cmp9608E5ABECBF349B9FC4F5A17443C33F" Guid="*">
+                            <File Id="fil7327D13840F14DC2E0BC452F5AC30BB3" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.ServiceBus.dll" />
+                        </Component>
+                        <Component Id="cmpB48F1BD4D2E8307615F7E22174FF4E6D" Guid="*">
+                            <File Id="filE9A07FBA81EEB890FE59DA47B42BB22A" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Threading.Tasks.dll" />
+                        </Component>
+                        <Component Id="cmpA0956C90D2B044403B89552A999810D4" Guid="*">
+                            <File Id="filDE3B5DAEAE94CC1EB5507C5B32B99762" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
+                        </Component>
+                        <Component Id="cmpA198033EEE9BFFF6B11B5703D4B4C591" Guid="*">
+                            <File Id="filF698B30EC40CF5E1B0DBE3D1ECD80C2D" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.Threading.Tasks.Extensions.dll" />
+                        </Component>
+                        <Component Id="cmpD25C00EBEA59E02F4DAF7483DA555C73" Guid="*">
+                            <File Id="fil9B00CED7EBB9B299A246DB7592C81982" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.CloudService.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmp2A4B259F8FE4D228DE8EC6FF05D891DA" Guid="*">
+                            <File Id="fil62B923AF38650AFAA88867B9728BB661" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Common.dll" />
+                        </Component>
+                        <Component Id="cmpBBCE333DC1D96CCA2841CBEC999E9659" Guid="*">
+                            <File Id="fil582E6DB723482DCAC673352021D8328E" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Common.Storage.dll" />
+                        </Component>
+                        <Component Id="cmpF11B09756200D9F97B9E2E1BED57AB1C" Guid="*">
+                            <File Id="fil5B263CD2D0AA18A847CA27043557BAE9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.dll" />
+                        </Component>
+                        <Component Id="cmpCC6591EF34F96436ADD1F7E00D891CF8" Guid="*">
+                            <File Id="fil8369CB969ED9443A8CD62153049B71B4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.dll-Help.xml" />
+                        </Component>
+                        <Component Id="cmpFB6556FE8AFBACC159CF007D54B0A596" Guid="*">
+                            <File Id="filBDD635824DFDFCF5CE0EA5849D77EB9E" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Profile.dll-Help.xml" />
+                        </Component>
+                        <Component Id="cmpFAC924E5D4D1D4C91A2E9AF98E698E09" Guid="*">
+                            <File Id="filDAB4639DB27E60B4982BB8D739FE011C" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Profile.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmp0C60ED7AE090EC2EF452CD6405E03274" Guid="*">
+                            <File Id="fil73F09E8062DC4D72CE1DF35455FE5E23" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Scheduler.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpD3EC5D8717456FB857C4E5EED0E5D43F" Guid="*">
+                            <File Id="fil78313BBB3E5D9EF56AA436341C3539EF" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.ServiceBus.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpE14F5F5D64D2B28B8CEAE226A954E4F2" Guid="*">
+                            <File Id="filB68DC13D550A5BC340F3566135121E6C" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Store.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpCD982CBC7CFC44B49F7A30F6D9C7CCC3" Guid="*">
+                            <File Id="filC256B5F3371D72D24D3796CAE59A96E6" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.StorSimple.dll" />
+                        </Component>
+                        <Component Id="cmpA6F58C80C9EF0B1601DE5321E5641F55" Guid="*">
+                            <File Id="fil7534E14B71F7C776A76C49D619EFED82" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.Utilities.dll" />
+                        </Component>
+                        <Component Id="cmp51280421552C0EC6971A850D6DA75C91" Guid="*">
+                            <File Id="filE8139079B3B3F309FFB2C92ED11C7CD0" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.WebSites.format.ps1xml" />
+                        </Component>
+                        <Component Id="cmpB1A70FDFFB4E3C103A18932544F46952" Guid="*">
+                            <File Id="fil279D7C17A2DE773865EF264BA2159836" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Commands.WebSites.Types.ps1xml" />
+                        </Component>
+                        <Component Id="cmpC1929517E6D9B3A476877DDB94AA57A0" Guid="*">
+                            <File Id="filA99214E3EFACECFB2C11CE8A6FBCDF64" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Common.dll" />
+                        </Component>
+                        <Component Id="cmp3FD4FF53EA96AA4B3B3B51F0F4BB5F04" Guid="*">
+                            <File Id="filE57A4B40CC6DECA20CF8C17870202FC7" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Common.NetFramework.dll" />
+                        </Component>
+                        <Component Id="cmp7CE995D6A2BD1F64E96E05D02A9D122E" Guid="*">
+                            <File Id="filE1A6FDBC00C937F912A159962D9CA264" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.Compute.dll" />
+                        </Component>
+                        <Component Id="cmpAD8A1A5D3992F815160303B36F74BD2B" Guid="*">
+                            <File Id="filF37A55DDF2F7847DFC167A8CD2E537EA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.dll" />
+                        </Component>
+                        <Component Id="cmpF0B61D792A8A734B7311F002E4F3CBE1" Guid="*">
+                            <File Id="fil29D3641BD908A3BCDD9CABFABA1F91B8" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.MediaServices.dll" />
+                        </Component>
+                        <Component Id="cmpDB303B7C18802A00CB5709A889118585" Guid="*">
+                            <File Id="fil9B13ACE6A459522F30526A623CE17BDC" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.Network.dll" />
+                        </Component>
+                        <Component Id="cmpBE0D655A7C1D36DC753F35A20389F05F" Guid="*">
+                            <File Id="fil9F332E2D712A34BB01D4B387BE04650A" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.Scheduler.dll" />
+                        </Component>
+                        <Component Id="cmp57E1A7BB7F1E721C8BC68CB575CF8CD8" Guid="*">
+                            <File Id="filC23B3BB51ECB332059AAD40FF413E679" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.ServiceBus.dll" />
+                        </Component>
+                        <Component Id="cmp459D951ED5279E258E135291DD2E1B20" Guid="*">
+                            <File Id="fil5C8E3DF383E93D1CCB72209AEEB51BCC" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.Storage.dll" />
+                        </Component>
+                        <Component Id="cmpAEE78355F8701AEFFFD53C707CF4BD80" Guid="*">
+                            <File Id="fil1772B8F227C01472810173BF41FD3C33" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.Store.dll" />
+                        </Component>
+                        <Component Id="cmp7D4373D79DBB0055DBFFBB6A605F95E1" Guid="*">
+                            <File Id="fil56365E3262097300FB817F9672B55FAC" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Management.WebSites.dll" />
+                        </Component>
+                        <Component Id="cmp39D43FC43654B0D7821174CE7FCBF06D" Guid="*">
+                            <File Id="fil00EF51D47173BD4152F9966CFF1F018E" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Microsoft.WindowsAzure.Storage.dll" />
+                        </Component>
+                        <Component Id="cmpB7DDB72F9DBAE9F9F12C674FFD00853C" Guid="*">
+                            <File Id="filD2BEA0DE1FB483F4C3E220994E31B7D5" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Newtonsoft.Json.dll" />
+                        </Component>
+                        <Component Id="cmp7960C718BF6D7D4CE813068F5CDB6BFA" Guid="*">
+                            <File Id="filFF311A73768F83CD00FFF1FF9F0919C8" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\ServiceManagementStartup.ps1" />
+                        </Component>
+                        <Component Id="cmpCF2FD81C749F525BCE42AA87CE563381" Guid="*">
+                            <File Id="filA623D2E9BA4433895B2C1EFCDEAB2A48" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\ShortcutStartup.ps1" />
+                        </Component>
+                        <Component Id="cmp60CF1E1226A52DEBD4407C452F81EEC5" Guid="*">
+                            <File Id="fil4AD411694BEB4E517894626665DFF384" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\StorSimple.Tests.dll" />
+                        </Component>
+                        <Component Id="cmp0631D52AB2CC9A302EABD7E074F5677D" Guid="*">
+                            <File Id="filF5DF3AE44556843B9BA2FC427BD6E2CE" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\System.Net.Http.Extensions.dll" />
+                        </Component>
+                        <Component Id="cmpF717085B273764E99EDA68C7F0EE158E" Guid="*">
+                            <File Id="fil3AA405FD01BFC186EF31C6E4023936A1" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\System.Net.Http.Formatting.dll" />
+                        </Component>
+                        <Component Id="cmp4E07D562E97B5A66522EB87589E3C876" Guid="*">
+                            <File Id="fil93F578F2247467F06FF71FF3FDEFCE4A" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\System.Net.Http.Primitives.dll" />
+                        </Component>
+                        <Component Id="cmp976F2B07FD0563A3E2A4F2C16C0F12F7" Guid="*">
+                            <File Id="filEA345E2DF91F9F934690C4BA1B6F4067" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\System.Spatial.dll" />
+                        </Component>
+                        <Directory Id="dirC1FEE6F2A66390C5E72E49B4C6684E6F" Name="Resources">
+                            <Directory Id="dirC7AD7B8F338D32DD6987E951E4A67B49" Name="Scaffolding">
+                                <Directory Id="dirD2B03FD5E3C6FEBBF03EF66D94AF3C62" Name="Cache">
+                                    <Directory Id="dir4273504F6202B6E7927C6C877ECD5B24" Name="WebRole">
+                                        <Component Id="cmp62B6A67E2D4A500BFE268F1E8B578421" Guid="*">
+                                            <File Id="filD28D10BD63A8FE6998BD9C0090BE16E1" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Cache\WebRole\Scaffold.xml" />
+                                        </Component>
+                                        <Directory Id="dir23308D5EB6A89778B81B949DFC9812B0" Name="bin">
+                                            <Component Id="cmpFD3D67314895DFB71D702573CA62FA83" Guid="*">
+                                                <File Id="filE341E01B0F949A2662AC8FC5C322A87B" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Cache\WebRole\bin\setup_cache.cmd" />
+                                            </Component>
+                                        </Directory>
+                                    </Directory>
+                                    <Directory Id="dir0BF66811158935FDFE171EF407142DCC" Name="WorkerRole">
+                                        <Component Id="cmp7CDA7E4C00BCA819822CE39BB1589E8C" Guid="*">
+                                            <File Id="fil8BCE17FCE943943F27D77234BC87D5FA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Cache\WorkerRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmp41060F5E90D0B457FA5C91B4614DE694" Guid="*">
+                                            <File Id="fil59321B900D0E180904BF28B829FDA3FD" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Cache\WorkerRole\setup_cache.cmd" />
+                                        </Component>
+                                        <Component Id="cmp1D08980D19F952A8E1EC7FF80D8F2F8A" Guid="*">
+                                            <File Id="fil9C8A89A62974C7791AB36782AD143246" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Cache\WorkerRole\web.config" />
+                                        </Component>
+                                    </Directory>
+                                </Directory>
+                                <Directory Id="dir746059ACDBFC543A32F13FE9FFF59662" Name="General">
+                                    <Component Id="cmpC76B80CA9AA4BB849C7AB79E4E312AA8" Guid="*">
+                                        <File Id="fil2A20D88E0A93C9C5D1565EF8B85BA560" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\deploymentSettings.json" />
+                                    </Component>
+                                    <Component Id="cmp84E75235C3125E6A6A5FFEBE2305CBDA" Guid="*">
+                                        <File Id="filF88753ECF1A11FA2644E73F12764440A" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\Scaffold.xml" />
+                                    </Component>
+                                    <Component Id="cmpDF14895298C5B10562B039580B257F2D" Guid="*">
+                                        <File Id="fil41B18D611A66ADB141CCEF5E034B3D6D" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\ServiceConfiguration.Cloud.cscfg" />
+                                    </Component>
+                                    <Component Id="cmpB2AD092190DCD1BA6ECF3D9FD1A29384" Guid="*">
+                                        <File Id="fil3C5BB247FECA2610B6A63D246D83B0D0" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\ServiceConfiguration.Local.cscfg" />
+                                    </Component>
+                                    <Component Id="cmpFEDB74F7A2F277796499B1D0669957B4" Guid="*">
+                                        <File Id="fil3160EF744CAD11923C3E7E18672F5AEA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\ServiceDefinition.csdef" />
+                                    </Component>
+                                    <Directory Id="dir935EA54053801D69BEA647D364D3CB4E" Name="WebRole">
+                                        <Component Id="cmp3D72044EE10E7F888C9DD1E69CEE0EFA" Guid="*">
+                                            <File Id="fil6741EE1FB87F95C6F0162FF6764E2A0D" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmpB3B62FAB0E1137142CCFD97F9ECC32E8" Guid="*">
+                                            <File Id="fil5E0E60F74AAE41A98B6C6F189ED42A9A" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmpB5189C1DB0289B6C4B631BC5F286BAC3" Guid="*">
+                                            <File Id="fil680100CEAA4827F985131EE297C71848" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\startup.cmd" />
+                                        </Component>
+                                        <Component Id="cmp25BEFCFFD8DC366AF10BFA69AB79201B" Guid="*">
+                                            <File Id="fil743CA574B0DD47E3DBF952CC259DF1F9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\Web.cloud.config" />
+                                        </Component>
+                                        <Component Id="cmp903914D60B70C801751311923F902BB9" Guid="*">
+                                            <File Id="filDB2507C77923CDAB29FB3720742D43EF" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\Web.config" />
+                                        </Component>
+                                        <Component Id="cmp19E500F32075826728700631C83F8A0B" Guid="*">
+                                            <File Id="fil8F0214A22FFDAB2F4F03B569C809FF07" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\WebRole.xml" />
+                                        </Component>
+                                        <Directory Id="dir24426DD39798FCD1311117834B98B440" Name="bin">
+                                            <Component Id="cmpC65068EE7C08BAEFA054DFA3AF893BEF" Guid="*">
+                                                <File Id="fil43EC77D760CB252E3CEAD7469AAAF0E4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\bin\download.ps1" />
+                                            </Component>
+                                            <Component Id="cmp2A52AD191733DA52454B37F17B775D5F" Guid="*">
+                                                <File Id="fil20B41CA24D6ED1BFCFDF7D9AF012DA51" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WebRole\bin\setup_web.cmd" />
+                                            </Component>
+                                        </Directory>
+                                    </Directory>
+                                    <Directory Id="dir5F221D7843B7F12FA0A8248EE61E3C20" Name="WorkerRole">
+                                        <Component Id="cmp9C1390B41A5CB99FE784D926D1E6BEED" Guid="*">
+                                            <File Id="fil387317E22AD888CAC2F2A2E4D216C8C2" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\download.ps1" />
+                                        </Component>
+                                        <Component Id="cmpE8F079852B7886502AEFAE5CC75E5DBC" Guid="*">
+                                            <File Id="fil500347C6AD7A26427E7FF6717C16E4BD" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmp4246E019956FA2CA3033870AC46E6A30" Guid="*">
+                                            <File Id="filAB24F72C5FBE216CC02E06E7622C9FAA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmpDDDDCB22E8D7004133C137375E1187AB" Guid="*">
+                                            <File Id="filE99612A8BF88D00CC834B1D8B3D70D97" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\setup_worker.cmd" />
+                                        </Component>
+                                        <Component Id="cmp283A958F92E146A7CB4D4F7A1B063173" Guid="*">
+                                            <File Id="fil8F73DEE81F9A9B91641B53BB64DB1619" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\startup.cmd" />
+                                        </Component>
+                                        <Component Id="cmpDF5849C189EF48464F8867F8D4610E3A" Guid="*">
+                                            <File Id="filD536DDCEE1A7EF6EC2F0FD7C44EE7CFA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\worker.cmd" />
+                                        </Component>
+                                        <Component Id="cmp3BFC6EAE6FCA9F11B1A5E157524AF9BE" Guid="*">
+                                            <File Id="fil76A667EDE8C29D58B681F7CEEC3AE3F6" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\General\WorkerRole\WorkerRole.xml" />
+                                        </Component>
+                                    </Directory>
+                                </Directory>
+                                <Directory Id="dirCEE8B31338D1D4C4E47761A3820AF768" Name="Node">
+                                    <Directory Id="dir8630B4C8EC4A9FAB15AC17809F3BE5DC" Name="WebRole">
+                                        <Component Id="cmpF064315E8248849F0FA7FE82EBB223E8" Guid="*">
+                                            <File Id="fil2A6EA668E2C4C7D90A5169D34BC2C5E8" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmp0D05E9734F67A04AEC2A9C97A24FCC6B" Guid="*">
+                                            <File Id="filE8A24DB7FD5B061454C678408C21EB9C" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmp12FEFD05A208895BEC2BA8C45800CAA9" Guid="*">
+                                            <File Id="filBC5D5DE17B38C93749EA984FB3303121" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\server.js" />
+                                        </Component>
+                                        <Component Id="cmp0AA23AC4505824F40E0DA42071E37E28" Guid="*">
+                                            <File Id="filD390B13ACA7EFA416D97028983E0EA18" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\startup.js" />
+                                        </Component>
+                                        <Component Id="cmp18A35220AFAD44D165712E06A36FAF45" Guid="*">
+                                            <File Id="fil966D6F4AB6E9D281B79E84216ED07DF4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\web.cloud.config" />
+                                        </Component>
+                                        <Component Id="cmp485C00346E51FFBC363ACAB267FF418E" Guid="*">
+                                            <File Id="fil4F0F2678C2B2EDE42B87796E41A92EDD" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\Web.config" />
+                                        </Component>
+                                        <Component Id="cmp186B9C28A62C61D4B3A50BEAC963687E" Guid="*">
+                                            <File Id="fil23ABBAA8C4A1E107697F8F5FCE7547EE" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\WebRole.xml" />
+                                        </Component>
+                                        <Directory Id="dirCAA12DE0180923C435B54F2E688E7D10" Name="bin">
+                                            <Component Id="cmpEEC1792C57BC265EFF9DF7F71BE62844" Guid="*">
+                                                <File Id="filCDD141482A764892C1D162AC6313ADAA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\bin\ChangeConfig.ps1" />
+                                            </Component>
+                                            <Component Id="cmp0F101EA3AA1D5894A1CE1F711DDF75C1" Guid="*">
+                                                <File Id="fil791E3DA5E96BFD1F765DE1D1B47434ED" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\bin\download.ps1" />
+                                            </Component>
+                                            <Component Id="cmp24CB7379AA790BD2856AACA9F143A06A" Guid="*">
+                                                <File Id="filEDDB9476B69FA7463B5438345BE05098" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\bin\node.cmd" />
+                                            </Component>
+                                            <Component Id="cmpC0FBE34B3E3A2AFF1BEB9305CA0F9AD7" Guid="*">
+                                                <File Id="fil8E174FCFDED57A7AFCCFEDF3977C2F83" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WebRole\bin\setup_web.cmd" />
+                                            </Component>
+                                        </Directory>
+                                    </Directory>
+                                    <Directory Id="dir52C19B9B48719009AF22AF8F997C01FF" Name="Website">
+                                        <Component Id="cmp66ADBD1052196C89DC153DFDF484D0C0" Guid="*">
+                                            <File Id="fil66A9C8C7BE34E6FAAD150701DEF14BC9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\Website\.gitignore" />
+                                        </Component>
+                                        <Component Id="cmp1DA8D318B3074C7DDBFE84886DDDE60C" Guid="*">
+                                            <File Id="fil56DB1C9C44E0BA8407028090D977F467" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\Website\iisnode.yml" />
+                                        </Component>
+                                    </Directory>
+                                    <Directory Id="dirC2CB3C38CD0950B1C6BCFB05A2EAFA03" Name="WorkerRole">
+                                        <Component Id="cmp3C83370651BCA744E7B5DBAC459C2F4A" Guid="*">
+                                            <File Id="fil3EF7A768F0B3FE73C8BF4A5523AFA5D2" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\download.ps1" />
+                                        </Component>
+                                        <Component Id="cmp3DB88DF39BE4AC15126116A26FA9FCE1" Guid="*">
+                                            <File Id="fil507BCB14E2A4125880487DF054BCD194" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\node.cmd" />
+                                        </Component>
+                                        <Component Id="cmpE1E4D1FB11ED8C230FDCC77FAAF4CB0D" Guid="*">
+                                            <File Id="fil31EE806AC358ABF3026AA2A530D9910F" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmp936BE11664D5D0BC78F56D6F7CE22EB1" Guid="*">
+                                            <File Id="fil9B049408C6148EA42419E465362CFDA3" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmp1971D860C5FC8FB32439769B55AF36C6" Guid="*">
+                                            <File Id="fil2AE5A8217D10E10A0DA1C8B36661350E" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\server.js" />
+                                        </Component>
+                                        <Component Id="cmp18E6FD518A2F0C5C90061499D0E5B6E6" Guid="*">
+                                            <File Id="filF338B16351B160A0C47ECCC9614EB2A4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\setup_worker.cmd" />
+                                        </Component>
+                                        <Component Id="cmp467CA87A0EBE5AA0C7B8B7BA03D947CD" Guid="*">
+                                            <File Id="filFD9FD70E217EF9881CF1E56D6D69B2F4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\startup.js" />
+                                        </Component>
+                                        <Component Id="cmp9B15EF4454995A86A8D99496C233EB94" Guid="*">
+                                            <File Id="fil87CDBF768A7FFF4636D8009234351CE6" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Node\WorkerRole\WorkerRole.xml" />
+                                        </Component>
+                                    </Directory>
+                                </Directory>
+                                <Directory Id="dir55800EC1EDE02388226B486EC73693D3" Name="PHP">
+                                    <Directory Id="dirE216F8A1BD1D1B6394C0055CD60C787D" Name="WebRole">
+                                        <Component Id="cmp13A041F684878010D51F1CB75A50CE07" Guid="*">
+                                            <File Id="fil54F07688437303390FD40C1061DD3AC7" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\index.php" />
+                                        </Component>
+                                        <Component Id="cmpBA8AFE321321DC3351431C0D81D65C1F" Guid="*">
+                                            <File Id="fil40C0A4E8133F4872AC6857BB0FC6415F" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmpA62BE17C1DBCE5D018C287427B7BD54F" Guid="*">
+                                            <File Id="fil3DFD8D3837A324A2CFA861351EBE4A8E" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmpFB67263630F89AD522CE8C8A5CFEC77D" Guid="*">
+                                            <File Id="fil83A426A6ED2AAE94B80F5DCAF7AE54DA" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\web.cloud.config" />
+                                        </Component>
+                                        <Component Id="cmp4B2DEAC36CFE8A229EBB71C5A5A8AE8D" Guid="*">
+                                            <File Id="filEFBB7B2E8F6183E094CC2FBE5E6481D9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\Web.config" />
+                                        </Component>
+                                        <Component Id="cmp497C3CF9A3087CBD2D2916FFF3227685" Guid="*">
+                                            <File Id="fil346E61486235369184D610EC335BFC77" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\WebRole.xml" />
+                                        </Component>
+                                        <Directory Id="dirF1CC9B90D9F2B8E0FF8360B531EAA8AF" Name="bin">
+                                            <Component Id="cmpDC5D2C450D3310EC7A1E6DBB6707E773" Guid="*">
+                                                <File Id="filE098412E7D4E5922B1C296D5F9FB5B83" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\bin\download.ps1" />
+                                            </Component>
+                                            <Component Id="cmpD2FE632067926A3B79D92A953ED429A7" Guid="*">
+                                                <File Id="fil75C13392310B323901F6863B9E3B474D" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\bin\php_entry.cmd" />
+                                            </Component>
+                                            <Component Id="cmpF7448D37059AB0EA0A9926C821BE0B76" Guid="*">
+                                                <File Id="fil9EBD55E1D50F4F632832B4A3A57AC299" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\bin\setup.cmd" />
+                                            </Component>
+                                            <Component Id="cmpC8921A2F3410C11A8E90BBCBE42FFABA" Guid="*">
+                                                <File Id="fil2BD24BC980AB035E1B8CAD2D86D8C236" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\bin\setup.ps1" />
+                                            </Component>
+                                            <Component Id="cmpD404967C4B2686ADD83669E87DDEF1C1" Guid="*">
+                                                <File Id="filB03BE91AE22225EEEB4B860D5053DDF9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WebRole\bin\setup_web.cmd" />
+                                            </Component>
+                                        </Directory>
+                                    </Directory>
+                                    <Directory Id="dirE009ADBECA278A03651631ED26235A33" Name="WorkerRole">
+                                        <Component Id="cmp30DAC22D4433BA581CE883E4471FE8AD" Guid="*">
+                                            <File Id="fil54A434C8F06D7BD90ED806DECC669C20" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\download.ps1" />
+                                        </Component>
+                                        <Component Id="cmp1078C2952B8172243597605878C8F36F" Guid="*">
+                                            <File Id="fil5B2DC825798A659D92787612171E10C4" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\index.php" />
+                                        </Component>
+                                        <Component Id="cmpFB9FA70721011B0D446957D81244A72F" Guid="*">
+                                            <File Id="fil53D756C9FB60F4F199D32AD0374E791F" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\php_entry.cmd" />
+                                        </Component>
+                                        <Component Id="cmp740EF46C4F409639B5B5F7DE84C09E37" Guid="*">
+                                            <File Id="fil5D477D8152F1FE9EE4F1964BB2C12EB0" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmp86A54C75CDAE678E9A137009A7AA6BC2" Guid="*">
+                                            <File Id="filA47EC2A999E348FBD8AF0235BC70DE24" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmpEE5890F9649FE81038B982EA2E84FABF" Guid="*">
+                                            <File Id="fil096EA14F19510D0FC79E1321B55CC3D9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\setup.cmd" />
+                                        </Component>
+                                        <Component Id="cmpB72D7F1AAEA1F619602BD64D32F4B258" Guid="*">
+                                            <File Id="fil7718237E2820B160378405AFDBDA5885" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\setup.ps1" />
+                                        </Component>
+                                        <Component Id="cmpB0E686A672547E313B184A5BBFD79C5E" Guid="*">
+                                            <File Id="fil8989F73E9D8F064389752B6FFE2B9460" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\setup_worker.cmd" />
+                                        </Component>
+                                        <Component Id="cmp7217F2C92052F762ABA0D5A6C4229597" Guid="*">
+                                            <File Id="filA1AC221703F6238790ED1CA8D4CB5D86" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\PHP\WorkerRole\WorkerRole.xml" />
+                                        </Component>
+                                    </Directory>
+                                </Directory>
+                                <Directory Id="dir029E78A43BD4354E77967F6939F984E5" Name="Python">
+                                    <Directory Id="dirE8B466B52D10FE2B562847E43ECECC69" Name="WebRole">
+                                        <Component Id="cmp78990FF3B6C234B067A7F116C521CC59" Guid="*">
+                                            <File Id="filCB869144A8CADED1435C961CA1582466" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\AzureSetup.cfg" />
+                                        </Component>
+                                        <Component Id="cmpCBF04A5989EE0FEE4810DCF2345D37FF" Guid="*">
+                                            <File Id="fil2495C9B159D58E978E2B1E667FB6D679" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.PythonTools.AzureSetup.exe.config" />
+                                        </Component>
+                                        <Component Id="cmpC6654BF67482A3C93E41E519B8F47BD4" Guid="*">
+                                            <File Id="fil3B7E3614268CD10701A2B8B687F6EE2F" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.PythonTools.AzureSetup.exe.content" />
+                                        </Component>
+                                        <Component Id="cmpB673F2A7A9331EE7C433E007FB6FA971" Guid="*">
+                                            <File Id="filC2AC27202B6D248A122A86E4D33724F9" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.PythonTools.WebRole.dll.content" />
+                                        </Component>
+                                        <Component Id="cmpCF64C6B841C79A0E94F2D5F2914AFB66" Guid="*">
+                                            <File Id="fil1DB03C556EBA3CF969A4499FAC9F2C4B" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.Web.Deployment.dll.content" />
+                                        </Component>
+                                        <Component Id="cmp9EA66EF1931935C0393B3737EAC7C9FA" Guid="*">
+                                            <File Id="fil2CA5A10B5D8E7C5C77BD8E1817AAA006" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.Web.PlatformInstaller.dll.content" />
+                                        </Component>
+                                        <Component Id="cmp00D8B5F92FD64C502318175FD56682A2" Guid="*">
+                                            <File Id="filA820C3C4FE76C6B40A166684004372B0" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Microsoft.Web.PlatformInstaller.UI.dll.content" />
+                                        </Component>
+                                        <Component Id="cmpADA63C87D0D733004D53A07A4672604D" Guid="*">
+                                            <File Id="filCEA53A1EACDAA04D6D4D29B6F8AA4853" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\RoleSettings.xml" />
+                                        </Component>
+                                        <Component Id="cmpFEB25E93C3B4915A4790173B0268189D" Guid="*">
+                                            <File Id="filCCEE1873CAE3689BB2455467BB01B3C0" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Scaffold.xml" />
+                                        </Component>
+                                        <Component Id="cmpC15A9B84E2F6012587B6232F512F7FF4" Guid="*">
+                                            <File Id="fil867F3EE4602A71FC25B0FEC47336D5F5" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\web.cloud.config" />
+                                        </Component>
+                                        <Component Id="cmpEE6672CA1550C197D6821B0DAD97F812" Guid="*">
+                                            <File Id="fil262DB5C386620F8928CFA4FA24F0A667" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\Web.config" />
+                                        </Component>
+                                        <Component Id="cmp12D9F5ED4DC4B5EBB0401BA7E827E391" Guid="*">
+                                            <File Id="fil074B337A60488890686486AC015292BD" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\WebPICmdLine.exe.content" />
+                                        </Component>
+                                        <Component Id="cmp1CBBDC1BD23E1C05302EE57366B6BE27" Guid="*">
+                                            <File Id="filD58C5318AA6708D61F8C14DE51261CC7" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\WebRole.xml" />
+                                        </Component>
+                                        <Component Id="cmp0A7B26917BC5FDD9A217856359546777" Guid="*">
+                                            <File Id="filA9D4DDD57B59D7CC5C8675C5AA11061F" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\StorSimple\Resources\Scaffolding\Python\WebRole\wfastcgi.py" />
+                                        </Component>
+                                    </Directory>
+                                </Directory>
+                            </Directory>
+                        </Directory>
+                    </Directory>
                     <Directory Id="dirE7E1C4D3416099C7648453EA7E433216" Name="TrafficManager">
                         <Component Id="cmp0EDB1564DE086E770DD3ECB2B7FEB447" Guid="*">
                             <File Id="filFC54762F4AB73FDEEF6DA3A02DAF9397" KeyPath="yes" Source="$(var.sourceDir)\ServiceManagement\Azure\TrafficManager\Microsoft.Azure.ResourceManager.dll" />
@@ -2267,6 +2719,142 @@
             <ComponentRef Id="cmp558B809B6B758A29CA1CD1B340943369" />
             <ComponentRef Id="cmp2D8EAF351C80F628AB412FA578D5DA1F" />
             <ComponentRef Id="cmp42906E7134E65AE01E9F9D2893535070" />
+            <ComponentRef Id="cmpDD538AC84C4FD9EADDBD5E9F8652D1DB" />
+            <ComponentRef Id="cmpB740481086521821977B2DFD1D5D785A" />
+            <ComponentRef Id="cmp502CCE2E5739942FF82A530D9EC17A4C" />
+            <ComponentRef Id="cmpFD21A09814FE0A9FECD05AFD8B51D2A7" />
+            <ComponentRef Id="cmpEE148D309C770D5FC188D9863E911E97" />
+            <ComponentRef Id="cmpA2DEC4704EEA92D0D3D722B7378150BD" />
+            <ComponentRef Id="cmp24E80CBAD9A80CC74D69DB7D95D44715" />
+            <ComponentRef Id="cmpE09137A6C24F2822CE7151F0D742AF57" />
+            <ComponentRef Id="cmpA4DBBC8A8DFC7CA1671C24D301240BB5" />
+            <ComponentRef Id="cmpA92E5E88E68782F59DD6A63CB046767A" />
+            <ComponentRef Id="cmp47D1B22FE80FA207432B1DBF1EF6F7E6" />
+            <ComponentRef Id="cmpF584FEE91889D98A4299209A1B9B1B94" />
+            <ComponentRef Id="cmp778750BE697923E72EF27EBFD10DDEFA" />
+            <ComponentRef Id="cmp934EFDC73AA282ECCAE7BC9CC86AC16C" />
+            <ComponentRef Id="cmpC2DF1AD20C1D38630771DA7C92973501" />
+            <ComponentRef Id="cmp9F0617E6681BA889414C6460F57CF276" />
+            <ComponentRef Id="cmp9E03AAB684EA41B087D79346AE6C1073" />
+            <ComponentRef Id="cmpEC794DBE4822765C546A06D80EAA3292" />
+            <ComponentRef Id="cmp9608E5ABECBF349B9FC4F5A17443C33F" />
+            <ComponentRef Id="cmpB48F1BD4D2E8307615F7E22174FF4E6D" />
+            <ComponentRef Id="cmpA0956C90D2B044403B89552A999810D4" />
+            <ComponentRef Id="cmpA198033EEE9BFFF6B11B5703D4B4C591" />
+            <ComponentRef Id="cmpD25C00EBEA59E02F4DAF7483DA555C73" />
+            <ComponentRef Id="cmp2A4B259F8FE4D228DE8EC6FF05D891DA" />
+            <ComponentRef Id="cmpBBCE333DC1D96CCA2841CBEC999E9659" />
+            <ComponentRef Id="cmpF11B09756200D9F97B9E2E1BED57AB1C" />
+            <ComponentRef Id="cmpCC6591EF34F96436ADD1F7E00D891CF8" />
+            <ComponentRef Id="cmpFB6556FE8AFBACC159CF007D54B0A596" />
+            <ComponentRef Id="cmpFAC924E5D4D1D4C91A2E9AF98E698E09" />
+            <ComponentRef Id="cmp0C60ED7AE090EC2EF452CD6405E03274" />
+            <ComponentRef Id="cmpD3EC5D8717456FB857C4E5EED0E5D43F" />
+            <ComponentRef Id="cmpE14F5F5D64D2B28B8CEAE226A954E4F2" />
+            <ComponentRef Id="cmpCD982CBC7CFC44B49F7A30F6D9C7CCC3" />
+            <ComponentRef Id="cmpA6F58C80C9EF0B1601DE5321E5641F55" />
+            <ComponentRef Id="cmp51280421552C0EC6971A850D6DA75C91" />
+            <ComponentRef Id="cmpB1A70FDFFB4E3C103A18932544F46952" />
+            <ComponentRef Id="cmpC1929517E6D9B3A476877DDB94AA57A0" />
+            <ComponentRef Id="cmp3FD4FF53EA96AA4B3B3B51F0F4BB5F04" />
+            <ComponentRef Id="cmp7CE995D6A2BD1F64E96E05D02A9D122E" />
+            <ComponentRef Id="cmpAD8A1A5D3992F815160303B36F74BD2B" />
+            <ComponentRef Id="cmpF0B61D792A8A734B7311F002E4F3CBE1" />
+            <ComponentRef Id="cmpDB303B7C18802A00CB5709A889118585" />
+            <ComponentRef Id="cmpBE0D655A7C1D36DC753F35A20389F05F" />
+            <ComponentRef Id="cmp57E1A7BB7F1E721C8BC68CB575CF8CD8" />
+            <ComponentRef Id="cmp459D951ED5279E258E135291DD2E1B20" />
+            <ComponentRef Id="cmpAEE78355F8701AEFFFD53C707CF4BD80" />
+            <ComponentRef Id="cmp7D4373D79DBB0055DBFFBB6A605F95E1" />
+            <ComponentRef Id="cmp39D43FC43654B0D7821174CE7FCBF06D" />
+            <ComponentRef Id="cmpB7DDB72F9DBAE9F9F12C674FFD00853C" />
+            <ComponentRef Id="cmp7960C718BF6D7D4CE813068F5CDB6BFA" />
+            <ComponentRef Id="cmpCF2FD81C749F525BCE42AA87CE563381" />
+            <ComponentRef Id="cmp60CF1E1226A52DEBD4407C452F81EEC5" />
+            <ComponentRef Id="cmp0631D52AB2CC9A302EABD7E074F5677D" />
+            <ComponentRef Id="cmpF717085B273764E99EDA68C7F0EE158E" />
+            <ComponentRef Id="cmp4E07D562E97B5A66522EB87589E3C876" />
+            <ComponentRef Id="cmp976F2B07FD0563A3E2A4F2C16C0F12F7" />
+            <ComponentRef Id="cmp62B6A67E2D4A500BFE268F1E8B578421" />
+            <ComponentRef Id="cmpFD3D67314895DFB71D702573CA62FA83" />
+            <ComponentRef Id="cmp7CDA7E4C00BCA819822CE39BB1589E8C" />
+            <ComponentRef Id="cmp41060F5E90D0B457FA5C91B4614DE694" />
+            <ComponentRef Id="cmp1D08980D19F952A8E1EC7FF80D8F2F8A" />
+            <ComponentRef Id="cmpC76B80CA9AA4BB849C7AB79E4E312AA8" />
+            <ComponentRef Id="cmp84E75235C3125E6A6A5FFEBE2305CBDA" />
+            <ComponentRef Id="cmpDF14895298C5B10562B039580B257F2D" />
+            <ComponentRef Id="cmpB2AD092190DCD1BA6ECF3D9FD1A29384" />
+            <ComponentRef Id="cmpFEDB74F7A2F277796499B1D0669957B4" />
+            <ComponentRef Id="cmp3D72044EE10E7F888C9DD1E69CEE0EFA" />
+            <ComponentRef Id="cmpB3B62FAB0E1137142CCFD97F9ECC32E8" />
+            <ComponentRef Id="cmpB5189C1DB0289B6C4B631BC5F286BAC3" />
+            <ComponentRef Id="cmp25BEFCFFD8DC366AF10BFA69AB79201B" />
+            <ComponentRef Id="cmp903914D60B70C801751311923F902BB9" />
+            <ComponentRef Id="cmp19E500F32075826728700631C83F8A0B" />
+            <ComponentRef Id="cmpC65068EE7C08BAEFA054DFA3AF893BEF" />
+            <ComponentRef Id="cmp2A52AD191733DA52454B37F17B775D5F" />
+            <ComponentRef Id="cmp9C1390B41A5CB99FE784D926D1E6BEED" />
+            <ComponentRef Id="cmpE8F079852B7886502AEFAE5CC75E5DBC" />
+            <ComponentRef Id="cmp4246E019956FA2CA3033870AC46E6A30" />
+            <ComponentRef Id="cmpDDDDCB22E8D7004133C137375E1187AB" />
+            <ComponentRef Id="cmp283A958F92E146A7CB4D4F7A1B063173" />
+            <ComponentRef Id="cmpDF5849C189EF48464F8867F8D4610E3A" />
+            <ComponentRef Id="cmp3BFC6EAE6FCA9F11B1A5E157524AF9BE" />
+            <ComponentRef Id="cmpF064315E8248849F0FA7FE82EBB223E8" />
+            <ComponentRef Id="cmp0D05E9734F67A04AEC2A9C97A24FCC6B" />
+            <ComponentRef Id="cmp12FEFD05A208895BEC2BA8C45800CAA9" />
+            <ComponentRef Id="cmp0AA23AC4505824F40E0DA42071E37E28" />
+            <ComponentRef Id="cmp18A35220AFAD44D165712E06A36FAF45" />
+            <ComponentRef Id="cmp485C00346E51FFBC363ACAB267FF418E" />
+            <ComponentRef Id="cmp186B9C28A62C61D4B3A50BEAC963687E" />
+            <ComponentRef Id="cmpEEC1792C57BC265EFF9DF7F71BE62844" />
+            <ComponentRef Id="cmp0F101EA3AA1D5894A1CE1F711DDF75C1" />
+            <ComponentRef Id="cmp24CB7379AA790BD2856AACA9F143A06A" />
+            <ComponentRef Id="cmpC0FBE34B3E3A2AFF1BEB9305CA0F9AD7" />
+            <ComponentRef Id="cmp66ADBD1052196C89DC153DFDF484D0C0" />
+            <ComponentRef Id="cmp1DA8D318B3074C7DDBFE84886DDDE60C" />
+            <ComponentRef Id="cmp3C83370651BCA744E7B5DBAC459C2F4A" />
+            <ComponentRef Id="cmp3DB88DF39BE4AC15126116A26FA9FCE1" />
+            <ComponentRef Id="cmpE1E4D1FB11ED8C230FDCC77FAAF4CB0D" />
+            <ComponentRef Id="cmp936BE11664D5D0BC78F56D6F7CE22EB1" />
+            <ComponentRef Id="cmp1971D860C5FC8FB32439769B55AF36C6" />
+            <ComponentRef Id="cmp18E6FD518A2F0C5C90061499D0E5B6E6" />
+            <ComponentRef Id="cmp467CA87A0EBE5AA0C7B8B7BA03D947CD" />
+            <ComponentRef Id="cmp9B15EF4454995A86A8D99496C233EB94" />
+            <ComponentRef Id="cmp13A041F684878010D51F1CB75A50CE07" />
+            <ComponentRef Id="cmpBA8AFE321321DC3351431C0D81D65C1F" />
+            <ComponentRef Id="cmpA62BE17C1DBCE5D018C287427B7BD54F" />
+            <ComponentRef Id="cmpFB67263630F89AD522CE8C8A5CFEC77D" />
+            <ComponentRef Id="cmp4B2DEAC36CFE8A229EBB71C5A5A8AE8D" />
+            <ComponentRef Id="cmp497C3CF9A3087CBD2D2916FFF3227685" />
+            <ComponentRef Id="cmpDC5D2C450D3310EC7A1E6DBB6707E773" />
+            <ComponentRef Id="cmpD2FE632067926A3B79D92A953ED429A7" />
+            <ComponentRef Id="cmpF7448D37059AB0EA0A9926C821BE0B76" />
+            <ComponentRef Id="cmpC8921A2F3410C11A8E90BBCBE42FFABA" />
+            <ComponentRef Id="cmpD404967C4B2686ADD83669E87DDEF1C1" />
+            <ComponentRef Id="cmp30DAC22D4433BA581CE883E4471FE8AD" />
+            <ComponentRef Id="cmp1078C2952B8172243597605878C8F36F" />
+            <ComponentRef Id="cmpFB9FA70721011B0D446957D81244A72F" />
+            <ComponentRef Id="cmp740EF46C4F409639B5B5F7DE84C09E37" />
+            <ComponentRef Id="cmp86A54C75CDAE678E9A137009A7AA6BC2" />
+            <ComponentRef Id="cmpEE5890F9649FE81038B982EA2E84FABF" />
+            <ComponentRef Id="cmpB72D7F1AAEA1F619602BD64D32F4B258" />
+            <ComponentRef Id="cmpB0E686A672547E313B184A5BBFD79C5E" />
+            <ComponentRef Id="cmp7217F2C92052F762ABA0D5A6C4229597" />
+            <ComponentRef Id="cmp78990FF3B6C234B067A7F116C521CC59" />
+            <ComponentRef Id="cmpCBF04A5989EE0FEE4810DCF2345D37FF" />
+            <ComponentRef Id="cmpC6654BF67482A3C93E41E519B8F47BD4" />
+            <ComponentRef Id="cmpB673F2A7A9331EE7C433E007FB6FA971" />
+            <ComponentRef Id="cmpCF64C6B841C79A0E94F2D5F2914AFB66" />
+            <ComponentRef Id="cmp9EA66EF1931935C0393B3737EAC7C9FA" />
+            <ComponentRef Id="cmp00D8B5F92FD64C502318175FD56682A2" />
+            <ComponentRef Id="cmpADA63C87D0D733004D53A07A4672604D" />
+            <ComponentRef Id="cmpFEB25E93C3B4915A4790173B0268189D" />
+            <ComponentRef Id="cmpC15A9B84E2F6012587B6232F512F7FF4" />
+            <ComponentRef Id="cmpEE6672CA1550C197D6821B0DAD97F812" />
+            <ComponentRef Id="cmp12D9F5ED4DC4B5EBB0401BA7E827E391" />
+            <ComponentRef Id="cmp1CBBDC1BD23E1C05302EE57366B6BE27" />
+            <ComponentRef Id="cmp0A7B26917BC5FDD9A217856359546777" />
             <ComponentRef Id="cmp0EDB1564DE086E770DD3ECB2B7FEB447" />
             <ComponentRef Id="cmp263057B18638FB187A5700638569DE42" />
             <ComponentRef Id="cmpC2DA894C31CA50679503117C1719C189" />

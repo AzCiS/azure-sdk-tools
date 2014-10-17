@@ -77,26 +77,16 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
 
         protected void RunPowerShellTest(params string[] scripts)
         {
-            try
+            using (UndoContext context = UndoContext.Current)
             {
-                using (UndoContext context = UndoContext.Current)
-                {
-                    context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
-                    
-                    helper.SetupEnvironment(AzureModule.AzureServiceManagement);
-                    SetupManagementClients();
+                context.Start(TestUtilities.GetCallingClass(2), TestUtilities.GetCurrentMethodName(2));
 
-                    helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
-                    helper.RunPowerShellTest(scripts);
-                }
-            }
-            catch (TypeInitializationException ex)
-            {
+                helper.SetupEnvironment(AzureModule.AzureServiceManagement);
+                SetupManagementClients();
 
-                
-                throw ex;
+                helper.SetupModules(AzureModule.AzureServiceManagement, "ScenarioTests\\" + this.GetType().Name + ".ps1");
+                helper.RunPowerShellTest(scripts);
             }
-            
         }
 
         public new static T GetServiceClient<T>() where T : class
