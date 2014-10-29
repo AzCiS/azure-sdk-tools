@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupStartFromDesc)]
         public String StartFromDateTime { get; set; }
 
-        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupEnabledDesc)]
+        [Parameter(Position = 5, Mandatory = true, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageBackupEnabledDesc)]
         public bool Enabled { get; set; }
 
         private ScheduleStatus scheduleStatus;

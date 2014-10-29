@@ -10,13 +10,13 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
 
     public partial class PSStorSimpleClient
     {
-        
+
         public IEnumerable<ResourceCredentials> GetAllResources()
         {
             var services = cloudServicesClient.CloudServices.List();
             var toReturn = new List<ResourceCredentials>();
 
-            
+
             foreach (var service in services)
             {
 
@@ -49,18 +49,20 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
                     catch (Exception)
                     {
                     }
-                    
+
                 }
-                
+
             }
-            Resourcecache.Add("resourceObject",toReturn, ResourceCachetimeoutPolicy);
+            Resourcecache.Add("resourceObject", toReturn, ResourceCachetimeoutPolicy);
             return toReturn;
         }
 
         public ResourceCredentials GetResourceDetails(string resourceName)
         {
             var resCredList = GetAllResources();
-            return resCredList.FirstOrDefault(resCred => resCred.ResourceName.Equals(resourceName, StringComparison.CurrentCultureIgnoreCase));
+            return
+                resCredList.FirstOrDefault(
+                    resCred => resCred.ResourceName.Equals(resourceName, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public string SetResourceContext(string resourceName)
@@ -82,9 +84,36 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
             return Resources.SuccessMessageSetResourceContext;
         }
 
-        public string GetResourceContext()
+        public StorSimpleResourceContext GetResourceContext()
         {
-            return StorSimpleContext.ResourceName + " :: " + StorSimpleContext.ResourceId + " :: " + StorSimpleContext.CloudServiceName + " :: " + StorSimpleContext.ResourceType + " :: " + StorSimpleContext.ResourceProviderNameSpace + " :: " + StorSimpleContext.StampId; 
+            return new StorSimpleResourceContext(StorSimpleContext.ResourceId, StorSimpleContext.ResourceName,
+                StorSimpleContext.StampId, StorSimpleContext.CloudServiceName, StorSimpleContext.ResourceProviderNameSpace,
+                StorSimpleContext.ResourceType);
         }
     }
+
+    public class StorSimpleResourceContext
+    {
+        public string ResourceId { get; set; }
+        public string StampId { get; set; }
+        public string CloudServiceName { get; set; }
+        public string ResourceProviderNameSpace { get; set; }
+        public string ResourceType { get; set; }
+        public string ResourceName { get; set; }
+
+        public StorSimpleResourceContext(string resourceId, string resourceName, string stampId,
+            string cloudServiceName, string resourceProviderNameSpace, string resourceType)
+        {
+            this.ResourceId = resourceId;
+            this.ResourceName = resourceName;
+            this.ResourceType = resourceType;
+            this.ResourceProviderNameSpace = resourceProviderNameSpace;
+            this.StampId = stampId;
+            this.CloudServiceName = cloudServiceName;
+        }
+
+
+    }   
 }
+
+

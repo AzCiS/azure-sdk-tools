@@ -1,14 +1,15 @@
 ﻿
+using Microsoft.WindowsAzure.Commands.StorSimple.Properties;
 using System.Management.Automation;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Select, "AzureStorSimpleResource")]
+    [Cmdlet(VerbsCommon.Select, "AzureStorSimpleResource"),OutputType(typeof(StorSimpleResourceContext))]
     public class SelectAzureStorSimpleResource : StorSimpleCmdletBase
     {
         private string resourceName;
         /// <summary>
-        /// Gets or sets Protection to set, either enable or disable.
+        /// Name of the resource that needs to be selected
         /// </summary>
         [Parameter(Mandatory = true, Position = 1, ValueFromPipelineByPropertyName = true)]
         [ValidateNotNullOrEmpty]
@@ -24,9 +25,16 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         public override void ExecuteCmdlet()
         {
             var status = StorSimpleClient.SetResourceContext(resourceName);
-            this.WriteVerbose(status);
-            var currentContext = StorSimpleClient.GetResourceContext();
-            this.WriteVerbose(currentContext);
+            if (status.Equals(Resources.NotFoundMessageResource))
+            {
+                this.WriteObject(status);
+            }
+            else
+            {
+                this.WriteObject(status);
+                var currentContext = StorSimpleClient.GetResourceContext();
+                this.WriteObject(currentContext);    
+            }
         }         
     }
 }

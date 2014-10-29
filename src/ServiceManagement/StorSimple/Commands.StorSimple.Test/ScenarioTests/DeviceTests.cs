@@ -13,17 +13,64 @@
 // ----------------------------------------------------------------------------------
 
 using Commands.StorSimple.Test;
+using Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets;
 using Xunit;
 
 namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
 {
     public class DeviceTests : StorSimpleTestBase
     {
+        #region Get-AzureStorSimpleDevice
         [Fact]
-        [Trait(Category.AcceptanceType, Category.CheckIn)]
+        [Trait("StorSimpleCmdlets","Get-Device")]
         public void TestGetAllDevices()
         {
             RunPowerShellTest("Test-GetDevices");
         }
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetAllDevices_ByDeviceId()
+        {
+            RunPowerShellTest("Test-GetDevices_ByDeviceId");
+        }
+
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetAllDevices_ByDeviceName()
+        {
+            RunPowerShellTest("Test-GetDevices_ByDeviceName");
+        }
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetAllDevices_ByDeviceType()
+        {
+            RunPowerShellTest("Test-GetDevices_ByType");
+        }
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetDevices_ByModel()
+        {
+            RunPowerShellTest("Test-GetDevices_ByModel");
+        }
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetAllDevices_NegativeCase()
+        {
+            RunPowerShellTest("Test-GetDevices_IncorrectParameters");
+        }
+
+        [Fact]
+        [Trait("StorSimpleCmdlets","Get-Device")]
+        public void TestGetDevices_DetailedResult()
+        {
+            RunPowerShellTest("Test-GetDevices_DetailedResult");
+        }
+        #endregion Get-AzureStorSimpleDevice
+
     }
 }
