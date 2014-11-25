@@ -170,8 +170,8 @@ namespace Microsoft.WindowsAzure.Commands.Websites
             {
                 throw new ArgumentException(Resources.InvalidGitCredentials);
             }
-            
-            if (users.Count != 1) 
+
+            if (users.Count != 1)
             {
                 throw new Exception(Resources.MultiplePublishingUsernames);
             }
@@ -382,15 +382,8 @@ namespace Microsoft.WindowsAzure.Commands.Websites
                 {
                     createdWebsite = WebsitesClient.GetWebsite(website.Name);
 
-                    // Make sure that the website is in Standard mode
-                    if (createdWebsite.ComputeMode == WebSiteComputeMode.Dedicated)
-                    {
-                        WebsitesClient.CreateWebsite(webspace.Name, website, Slot);
-                    }
-                    else
-                    {
-                        throw new Exception("Can not create slot in a website not in Standard mode");
-                    }
+                    // API makes sure site is in Standard mode
+                    WebsitesClient.CreateWebsite(createdWebsite.WebSpace, website, Slot);
                 }
                 else
                 {

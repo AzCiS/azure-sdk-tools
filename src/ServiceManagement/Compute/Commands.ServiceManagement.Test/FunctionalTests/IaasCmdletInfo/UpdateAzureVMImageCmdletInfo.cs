@@ -20,23 +20,25 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
 {
     public class UpdateAzureVMImageCmdletInfo : CmdletsInfo
     {
-        public UpdateAzureVMImageCmdletInfo(string imageName, string label, string recommendedSize,VirtualMachineImageDiskConfigSet diskConfig )
+        public UpdateAzureVMImageCmdletInfo(string imageName, string label, string recommendedSize, VirtualMachineImageDiskConfigSet diskConfig, bool? dontShowInGui)
         {
             cmdletName = Utilities.UpdateAzureVMImageCmdletName;
 
             cmdletParams.Add(new CmdletParam("ImageName", imageName));
 
-            if (label != null)
-            {
-                cmdletParams.Add(new CmdletParam("Label", label));
-            }
-            if (! string.IsNullOrEmpty(recommendedSize))
+            cmdletParams.Add(new CmdletParam("Label", label));
+
+            if (!string.IsNullOrEmpty(recommendedSize))
             {
                 cmdletParams.Add(new CmdletParam("RecommendedVMSize", recommendedSize));
             }
             if (diskConfig != null)
             {
                 cmdletParams.Add(new CmdletParam("DiskConfig", diskConfig));
+            }
+            if (dontShowInGui.HasValue && dontShowInGui.Value)
+            {
+                cmdletParams.Add(new CmdletParam("DontShowInGui"));
             }
         }
 
@@ -53,7 +55,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             Uri iconUri,
             Uri smallIconUri,
             bool showInGui)
-            : this(imageName, label, recommendedSize,null)
+            : this(imageName, label, recommendedSize, null, !showInGui)
         {
             if (!string.IsNullOrEmpty(description))
             {
@@ -86,10 +88,6 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Test.FunctionalTests
             if (smallIconUri != null)
             {
                 cmdletParams.Add(new CmdletParam("SmallIconUri", smallIconUri));
-            }
-            if (!showInGui)
-            {
-                cmdletParams.Add(new CmdletParam("DontShowInGui"));
             }
         }
     }
