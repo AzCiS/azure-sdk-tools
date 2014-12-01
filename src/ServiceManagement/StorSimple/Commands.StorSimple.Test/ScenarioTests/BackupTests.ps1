@@ -115,6 +115,8 @@ function Test-CreateGetDeleteBackupPolicy
 	
     # Test
     Create-CustomBackupPolicy $deviceName $vdName $bpName
+    $bpList = Get-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName
+    Assert-AreNotEqual 0 @($bpList).Count
     $bpToUse = Get-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyName $bpName
 	$bpId = $bpToUse.InstanceId
     
@@ -149,7 +151,7 @@ function Test-RenameBackupPolicy
     $updatedBpName = $bpName + "_updated"
     Set-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyId $bpId -BackupPolicyName $updatedBpName -WaitForComplete
     
-    Remove-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyId $bpId -Force -WaitForComplete
+    (Get-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyName $updatedBpName) | Remove-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -Force -WaitForComplete
 
     #Cleanup
     CleanupObjects-BackupScenario $deviceName $dcName $acrName $vdName
@@ -498,9 +500,7 @@ function Test-GetBackupByTimePeriod
     } while(($backupCreated -eq $null) -and ($retryCount -le 5))
     Assert-NotNull $backupCreated
 
-    $backupId = $backupCreated.InstanceId
-
-    Remove-AzureStorSimpleDeviceBackup -DeviceName $deviceName -BackupId $backupId -Force -WaitForComplete
+    $backupCreated | Remove-AzureStorSimpleDeviceBackup -DeviceName $deviceName -Force -WaitForComplete
     
     Remove-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyId $bpId -Force -WaitForComplete
 
