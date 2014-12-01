@@ -150,7 +150,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
 
             if (HttpMockServer.Mode == HttpRecorderMode.Record)
             {
-                HttpMockServer.Variables[TestEnvironmentFactory.SubscriptionIdKey] = testEnvironment.SubscriptionId;
+                HttpMockServer.Variables[TestEnvironment.SubscriptionIdKey] = testEnvironment.SubscriptionId;
             }
 
             if (HttpMockServer.Mode == HttpRecorderMode.Playback)
