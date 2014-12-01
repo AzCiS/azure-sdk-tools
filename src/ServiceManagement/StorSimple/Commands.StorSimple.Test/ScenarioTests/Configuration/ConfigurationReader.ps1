@@ -14,25 +14,46 @@
 
 $global:StorSimpleGlobalConfigMap = $null
 
-function Read-ConfigFile($configFilePath = "")
+function Read-ConfigFile($configFilePath)
 {
+	$methodName = "Read-ConfigFile"
+
+	Write-Verbose "$methodName : Reading configuration file '$configFilePath'"
+	if([string]::IsNullOrEmpty($configFilePath)) {
+		throw "$methodName : Config file path is not specified. Please specify file path OR set the environment variable STORSIMPLE_SDK_TEST_CONFIG_PATH."
+	}
+
+	$configContent = Get-Content $configFilePath
+	if(!$configContent) {
+		throw "$methodName : Config file '$configFilePath' is either not readable or is empty"
+	}
+	Write-Verbose "$methodName : Configuration file read. Extracting configuration keys."
+
+	$configContent | foreach-object -begin {$configMap=@{}} -process { $k = [regex]::split($_,'='); if(($k[0].CompareTo("") -ne 0) -and ($k[0].StartsWith("[") -ne $True) -and ($k[0].StartsWith("#") -ne $True)) { $configMap.Add($k[0], $k[1]) } }
+	$global:StorSimpleGlobalConfigMap = $configMap
+
+	Write-Verbose "$methodName : Completed reading configuration items from file '$configFilePath'. Found $($configMap.Count) keys : "
+	$configMap.GetEnumerator() | foreach-object -begin { $i = 1 } -process { Write-Verbose ("$methodName : Config entry #{0}: '{1}' : '{2}'" -F $i, $_.Key, $_.Value); $i++}
+	return $configMap
+}
+
+function Get-ConfigFileMap ()
+{
+	$methodName = "Get-ConfigFileMap"
+
 	if($global:StorSimpleGlobalConfigMap) {
+		Write-Verbose "$methodName : Using cached config map"
 		return $global:StorSimpleGlobalConfigMap
 	}
 
-	if([string]::IsNullOrEmpty($configFilePath)) {
-		$configFilePath = $env:STORSIMPLE_SDK_TEST_CONFIG_PATH
+	$configFilePath = $env:STORSIMPLE_SDK_TEST_CONFIG_PATH
+	$configurationMap = Read-ConfigFile $configFilePath
+
+	if(!$configurationMap -or $configurationMap.Count -eq 0) {
+		throw "$methodName : The configuration map does not contain any keys - please check the configuration file '$configFilePath' for correctness"
 	}
 
-	if([string]::IsNullOrEmpty($configFilePath)) {
-		throw "Read-ConfigFile: Config file path is not specified. Please specify file path OR set the environment variable STORSIMPLE_SDK_TEST_CONFIG_PATH."
-	}
-
-	Write-Verbose "Reading configuration file $configFilePath"
-
-	Get-Content $configFilePath |  foreach-object -begin {$configMap=@{}} -process { $k = [regex]::split($_,'='); if(($k[0].CompareTo("") -ne 0) -and ($k[0].StartsWith("[") -ne $True) -and ($k[0].StartsWith("#") -ne $True)) { $configMap.Add($k[0], $k[1]) } }
-	$global:StorSimpleGlobalConfigMap = $configMap
-	return $configMap
+	return $configurationMap
 }
 
 <#
@@ -40,21 +61,18 @@ function Read-ConfigFile($configFilePath = "")
 #>
 function Get-Configuration ($configPropertyKey)
 {
-	Write-Verbose "Fetching from configuration map with the key '$configPropertyKey'"
+	$methodName = "Get-Configuration"
+	Write-Verbose "$methodName : Fetching from configuration map, value of key '$configPropertyKey'"
 	
-	$configurationMap = Read-ConfigFile
+	$configurationMap = Get-ConfigFileMap
 
-	if($configurationMap) {
-		if($configurationMap.ContainsKey($configPropertyKey)) {
-			$configurationValue = $configurationMap[$configPropertyKey]
-			Write-Verbose "Returning configuration property with value '$configurationValue' for key '$configPropertyKey'"
+	if($configurationMap.ContainsKey($configPropertyKey)) {
+		$configurationValue = $configurationMap[$configPropertyKey]
+		Write-Verbose "$methodName : Returning configuration property with value '$configurationValue' for key '$configPropertyKey'"
 
-			return $configurationValue;
-		}
-	} else {
-		throw "Cannot get value for property '$configPropertyKey'. Configuration map does not contain any keys"
+		return $configurationValue;
 	}
 
-	Write-Verbose "Could not find any property in the configuration map with the key '$configPropertyKey'"
+	Write-Verbose "$methodName : Could not find any property in the configuration map with the key '$configPropertyKey'"
 	return $null
 }
