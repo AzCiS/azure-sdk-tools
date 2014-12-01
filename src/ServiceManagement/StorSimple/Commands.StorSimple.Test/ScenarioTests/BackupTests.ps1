@@ -31,8 +31,8 @@ Gets device name to use for the test
 function Get-DeviceName ()
 {
     $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
-	$deviceName = (Get-AzureStorSimpleDevice) | Where{$_.Status -eq "Online"} | Select-Object -first 1 | Select -ExpandProperty "FriendlyName"
-    Assert-NotNull $deviceName
+	$deviceName = (Get-AzureStorSimpleDevice) | Where{$_.Status -eq "Online"} | Select-Object -first 1 -wait | Select -ExpandProperty "FriendlyName"
+    $pass = Assert-NotNull $deviceName
     $deviceName
 }
 
@@ -44,7 +44,7 @@ function SetupObjects-BackupScenario($deviceName, $dcName, $acrName, $iqn, $vdNa
 {
     $sacList = Get-AzureStorSimpleStorageAccountCredential
 	Assert-AreNotEqual 0 @($sacList).Count
-	$sacToUse = $sacList | Select-Object -first 1
+	$sacToUse = $sacList | Select-Object -first 1 -wait
     
     $sacToUse | New-AzureStorSimpleDeviceVolumeContainer -Name $dcName -DeviceName $deviceName -BandWidthRate 256 -WaitForComplete
     $dcToUse = Get-AzureStorSimpleDeviceVolumeContainer -DeviceName $deviceName -VolumeContainerName $dcName
@@ -232,10 +232,10 @@ function Test-AddUpdateDeleteScheduleInBackupPolicy
     $addConfig = New-AzureStorSimpleDeviceBackupScheduleAddConfig -BackupType CloudSnapshot -RecurrenceType Daily -RecurrenceValue 1 -RetentionCount 100 -Enabled $true
     $addArray += $addConfig
     
-    $scheduleToDelete = $bpToUse.BackupSchedules | Where {$_.BackupType -eq [Microsoft.WindowsAzure.Management.StorSimple.Models.BackupType]::CloudSnapshot} | Select-Object -First 1
+    $scheduleToDelete = $bpToUse.BackupSchedules | Where {$_.BackupType -eq [Microsoft.WindowsAzure.Management.StorSimple.Models.BackupType]::CloudSnapshot} | Select-Object -First 1 -wait
     $deleteArray += $scheduleToDelete.Id
     
-    $scheduleToUpdate = $bpToUse.BackupSchedules | Where {$_.BackupType -eq [Microsoft.WindowsAzure.Management.StorSimple.Models.BackupType]::LocalSnapshot} | Select-Object -First 1
+    $scheduleToUpdate = $bpToUse.BackupSchedules | Where {$_.BackupType -eq [Microsoft.WindowsAzure.Management.StorSimple.Models.BackupType]::LocalSnapshot} | Select-Object -First 1 -wait
     $updateConfig = New-AzureStorSimpleDeviceBackupScheduleUpdateConfig -Id $scheduleToUpdate.Id -BackupType LocalSnapshot -RecurrenceType Daily -RecurrenceValue 3 -RetentionCount 2 -Enabled 1
     $updateArray += $updateConfig
     
