@@ -74,17 +74,17 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                                     if (WaitForComplete.IsPresent)
                                     {
                                         var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                                        WriteObject(jobStatus);
+                                        HandleSyncJobResponse(jobStatus, "delete");
                                     }
                                     else
                                     {
                                         var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                                        WriteVerbose(ToAsyncJobMessage(jobResponse, "delete"));
+                                        HandleAsyncJobResponse(jobResponse, "delete");
                                     }
                               }
-                              catch (CloudException cloudException)
+                              catch (Exception exception)
                               {
-                                  StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                                  this.HandleException(exception);
                               }
                           });
         }

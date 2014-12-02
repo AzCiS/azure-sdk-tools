@@ -46,17 +46,22 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (WaitForComplete.IsPresent)
                 {
                     var JobStatusInfo = StorSimpleClient.CreateBackupPolicy(deviceId, newConfig);
-                    WriteObject(JobStatusInfo);
+                    HandleSyncJobResponse(JobStatusInfo, "add");
+                    if(JobStatusInfo.TaskResult == TaskResult.Succeeded)
+                    {
+                        var createdBackupPolicy = StorSimpleClient.GetBackupPolicyByName(deviceId, BackupPolicyName);
+                        WriteObject(createdBackupPolicy.BackupPolicyDetails);
+                    }
                 }
                 else
                 {
                     var jobresult = StorSimpleClient.CreateBackupPolicyAsync(deviceId, newConfig);
-                    WriteObject(ToAsyncJobMessage(jobresult, "add"));
+                    HandleAsyncJobResponse(jobresult, "add");
                 }
             }
-            catch (CloudException exception)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(exception);
+                this.HandleException(exception);
             }
         }
         private void ProcessParameters()
@@ -64,7 +69,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
             deviceId = StorSimpleClient.GetDeviceId(DeviceName);
             if (deviceId == null)
             {
-                WriteObject(Resources.NotFoundMessageDevice);
+                WriteVerbose(Resources.NotFoundMessageDevice);
             }
 
             ProcessAddSchedules();

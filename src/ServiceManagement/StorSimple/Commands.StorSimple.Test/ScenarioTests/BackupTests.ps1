@@ -26,6 +26,21 @@ function Generate-Name ($prefix)
 
 <#
 .SYNOPSIS
+Polls for a job to finish, and returns the JobStatus object
+#>
+function Wait-Job ($jobId)
+{
+    do {
+        Start-Sleep 3 #sleep for 3sec
+        $jobStatus = Get-AzureStorSimpleJob -InstanceId $jobId
+        $result = $jobStatus.TaskResult
+    } while($result -eq [Microsoft.WindowsAzure.Management.StorSimple.Models.TaskResult]"InProgress")
+    $jobStatus
+}
+
+
+<#
+.SYNOPSIS
 Gets device name to use for the test
 #>
 function Get-DeviceName ()
@@ -561,7 +576,7 @@ function Test-GetPaginatedBackup
 
     for($i = 0; $i -lt $totalBackupCount; $i++)
     {
-        Remove-AzureStorSimpleDeviceBackup -DeviceName $deviceName -BackupId $allBackups[$i] -Force -WaitForComplete
+        Remove-AzureStorSimpleDeviceBackup -DeviceName $deviceName -BackupId $allBackups[$i].InstanceId -Force -WaitForComplete
     }
 
     Remove-AzureStorSimpleDeviceBackupPolicy -DeviceName $deviceName -BackupPolicyId $bpId -Force -WaitForComplete

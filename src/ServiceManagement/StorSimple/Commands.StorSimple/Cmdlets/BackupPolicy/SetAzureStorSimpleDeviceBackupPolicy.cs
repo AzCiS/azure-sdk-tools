@@ -49,26 +49,39 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         private UpdateBackupPolicyConfig updateConfig = null;
         public override void ExecuteCmdlet()
         {
-            updateConfig = new UpdateBackupPolicyConfig();
-            ProcessParameters();
-
-            updateConfig.InstanceId = BackupPolicyId;
-            updateConfig.Name = BackupPolicyName;
-            updateConfig.IsPolicyRenamed = false;
-            updateConfig.BackupSchedulesToBeAdded = schedulesToAdd;
-            updateConfig.BackupSchedulesToBeUpdated = schedulesToUpdate;
-            updateConfig.BackupSchedulesToBeDeleted = scheduleIdsTodelete;
-            updateConfig.VolumeIds = volumeIdsToUpdate;
-
-            if (WaitForComplete.IsPresent)
+            try
             {
-                var JobStatusInfo = StorSimpleClient.UpdateBackupPolicy(deviceId, BackupPolicyId, updateConfig);
-                WriteObject(JobStatusInfo);
+                updateConfig = new UpdateBackupPolicyConfig();
+                ProcessParameters();
+
+                updateConfig.InstanceId = BackupPolicyId;
+                updateConfig.Name = BackupPolicyName;
+                updateConfig.IsPolicyRenamed = false;
+                updateConfig.BackupSchedulesToBeAdded = schedulesToAdd;
+                updateConfig.BackupSchedulesToBeUpdated = schedulesToUpdate;
+                updateConfig.BackupSchedulesToBeDeleted = scheduleIdsTodelete;
+                updateConfig.VolumeIds = volumeIdsToUpdate;
+
+                if (WaitForComplete.IsPresent)
+                {
+                    var JobStatusInfo = StorSimpleClient.UpdateBackupPolicy(deviceId, BackupPolicyId, updateConfig);
+                    HandleSyncJobResponse(JobStatusInfo, "update");
+                    if(JobStatusInfo.TaskResult == TaskResult.Succeeded)
+                    {
+                        var updatedBackupPolicy = StorSimpleClient.GetBackupPolicyByName(deviceId, BackupPolicyName);
+                        WriteObject(updatedBackupPolicy.BackupPolicyDetails);
+                    }
+                }
+                else
+                {
+                    var jobresult = StorSimpleClient.UpdateBackupPolicyAsync(deviceId, BackupPolicyId, updateConfig);
+                    HandleAsyncJobResponse(jobresult, "Update");
+                }
             }
-            else
+
+            catch(Exception exception)
             {
-                var jobresult = StorSimpleClient.UpdateBackupPolicyAsync(deviceId, BackupPolicyId, updateConfig);
-                WriteObject(ToAsyncJobMessage(jobresult, "Update"));
+                this.HandleException(exception);
             }
         }
 
@@ -78,7 +91,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
             deviceId = StorSimpleClient.GetDeviceId(DeviceName);
             if (deviceId == null)
             {
-                WriteObject(Resources.NotFoundMessageDevice);
+                WriteVerbose(Resources.NotFoundMessageDevice);
             }
 
             ProcessAddSchedules();

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using Microsoft.WindowsAzure.Commands.StorSimple.Properties;
 using System.Management.Automation;
 
@@ -24,16 +24,24 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         /// </summary>
         public override void ExecuteCmdlet()
         {
-            var status = StorSimpleClient.SetResourceContext(resourceName);
-            if (status.Equals(Resources.NotFoundMessageResource))
+            try
             {
-                this.WriteObject(status);
+                var status = StorSimpleClient.SetResourceContext(resourceName);
+                if (status.Equals(Resources.NotFoundMessageResource))
+                {
+                    this.WriteVerbose(status);
+                }
+                else
+                {
+                    this.WriteVerbose(status);
+                    var currentContext = StorSimpleClient.GetResourceContext();
+                    this.WriteObject(currentContext);
+                }
             }
-            else
+
+            catch(Exception exception)
             {
-                this.WriteObject(status);
-                var currentContext = StorSimpleClient.GetResourceContext();
-                this.WriteObject(currentContext);    
+                this.HandleException(exception);
             }
         }         
     }

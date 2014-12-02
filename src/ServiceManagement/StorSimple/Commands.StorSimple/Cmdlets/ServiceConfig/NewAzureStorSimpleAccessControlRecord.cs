@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 using System.Management.Automation;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Management.StorSimple.Models;
@@ -58,17 +59,23 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (WaitForComplete.IsPresent)
                 {
                     var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                    WriteObject(jobStatus);
+                    HandleSyncJobResponse(jobStatus, "create");
+                    if(jobStatus.TaskResult == TaskResult.Succeeded)
+                    {
+                        var createdAcr = StorSimpleClient.GetAllAccessControlRecords()
+                                            .Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase));
+                        WriteObject(createdAcr);
+                    }
                 }
                 else
                 {
                     var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                    WriteVerbose(ToAsyncJobMessage(jobResponse, "create"));
+                    HandleAsyncJobResponse(jobResponse, "create");
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }
