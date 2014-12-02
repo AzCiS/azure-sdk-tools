@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     FromDateTime.ToString(),
                     ToDateTime.ToString(), Skip.ToString(), First ==null? null: First.ToString());
                 WriteObject(backupList.BackupSetsList, true);
-                WriteVerbose("# of backups returned : " + backupList.BackupSetsList.Count);
+                WriteVerbose(String.Format(Resources.BackupsReturnedCount, backupList.BackupSetsList.Count));
                 if (backupList.NextPageUri != null 
                     && backupList.NextPageStartIdentifier!="1")
                 {
@@ -85,9 +85,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     WriteVerbose(Resources.BackupNoMorePagesMessage);
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
             if (deviceId == null)
             {
-                WriteObject(Resources.NotFoundMessageDevice);
+                WriteVerbose(Resources.NotFoundMessageDevice);
             }
             if(First<0)
                 throw new ArgumentException(Resources.FirstParameterInvalidMessage);

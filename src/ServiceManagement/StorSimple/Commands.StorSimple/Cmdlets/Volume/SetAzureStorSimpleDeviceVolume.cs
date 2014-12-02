@@ -80,18 +80,20 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (WaitForComplete.IsPresent)
                 {
                     var jobstatus = StorSimpleClient.UpdateVolume(deviceId, diskDetails.InstanceId, diskDetails);
-                    WriteObject(jobstatus);
+                    HandleSyncJobResponse(jobstatus, "update");
+                    var updatedVolume = StorSimpleClient.GetVolumeByName(deviceId, VolumeName);
+                    WriteObject(updatedVolume.VirtualDiskInfo);
                 }
                 else
                 {
                     var jobresult = StorSimpleClient.UpdateVolumeAsync(deviceId, diskDetails.InstanceId, diskDetails);
 
-                    WriteVerbose(ToAsyncJobMessage(jobresult, "update"));
+                    HandleAsyncJobResponse(jobresult, "update");
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
 

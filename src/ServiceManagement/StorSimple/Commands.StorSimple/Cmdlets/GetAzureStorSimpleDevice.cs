@@ -81,9 +81,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     WriteObject(deviceInfos, true);
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

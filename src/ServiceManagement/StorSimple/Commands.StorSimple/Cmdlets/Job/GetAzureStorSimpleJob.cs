@@ -17,8 +17,16 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
         public override void ExecuteCmdlet()
         {
-            var jobStatus = StorSimpleClient.GetJobStatus(InstanceId);
-            this.WriteObject(jobStatus);
+            try
+            {
+                var jobStatus = StorSimpleClient.GetJobStatus(InstanceId);
+                this.WriteObject(jobStatus);
+            }
+
+            catch(Exception exception)
+            {
+                this.HandleException(exception);
+            }
         }
     }
 }

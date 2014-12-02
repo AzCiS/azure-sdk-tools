@@ -40,9 +40,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     WriteObject(acr);
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }
