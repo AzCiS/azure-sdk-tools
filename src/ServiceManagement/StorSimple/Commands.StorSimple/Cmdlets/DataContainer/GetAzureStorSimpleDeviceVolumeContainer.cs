@@ -29,7 +29,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
                 if (deviceid == null)
                 {
-                    WriteVerbose(Resources.NotFoundMessageDevice);
+                    WriteObject(Resources.NotFoundMessageDevice);
                     return;
                 }
 

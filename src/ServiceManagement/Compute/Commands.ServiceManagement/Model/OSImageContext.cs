@@ -37,5 +37,7 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
         public virtual Uri PrivacyUri { get; set; }
         public virtual string RecommendedVMSize { get; set; }
         public virtual string PublisherName { get; set; }
+        public virtual string IOType { get; set; }
+        public virtual bool? ShowInGui { get; set; }
     }
 }

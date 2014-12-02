@@ -53,6 +53,10 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
 
         LogEntryType AzureTableTraceLevel { get; set; }
 
+        bool? AzureBlobTraceEnabled { get; set; }
+
+        LogEntryType AzureBlobTraceLevel { get; set; }
+
         ManagedPipelineMode? ManagedPipelineMode { get; set; }
 
         bool? WebSocketsEnabled { get; set; }
@@ -63,7 +67,9 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
 
         List<RoutingRule> RoutingRules { get; set; }
 
-        bool ? Use32BitWorkerProcess { get; set; }
+        bool? Use32BitWorkerProcess { get; set; }
+
+        string AutoSwapSlotName { get; set; }
     }
 
     public class SiteWithConfig : ISite, ISiteConfig
@@ -75,7 +81,6 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
         private DiagnosticsSettings DiagnosticsSettings { get; set; }
 
         public WebsiteInstance[] Instances { get; set; }
-
 
         public SiteWithConfig()
         {
@@ -93,7 +98,7 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
             AppSettings = new Hashtable();
             DiagnosticsSettings = new DiagnosticsSettings();
             Instances = new WebsiteInstance[0];
-        
+
             if (SiteConfig.AppSettings != null)
             {
                 foreach (var setting in SiteConfig.AppSettings)
@@ -243,10 +248,10 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
             set { Site.RepositorySiteName = value; }
         }
 
-        public string Owner
+        public SkuOptions? Sku
         {
-            get { return Site.Owner; }
-            set { Site.Owner = value; }
+            get { return Site.Sku; }
+            set { Site.Sku = value; }
         }
 
         public UsageState UsageState
@@ -285,18 +290,6 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
             set { Site.AvailabilityState = value; }
         }
 
-        public Certificate[] SSLCertificates
-        {
-            get { return Site.SSLCertificates; }
-            set { Site.SSLCertificates = value; }
-        }
-
-        public string SiteMode
-        {
-            get { return Site.SiteMode; }
-            set { Site.SiteMode = value; }
-        }
-
         public HostNameSslStates HostNameSslStates
         {
             get { return Site.HostNameSslStates; }
@@ -325,6 +318,18 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
         {
             get { return DiagnosticsSettings.AzureTableTraceLevel; }
             set { DiagnosticsSettings.AzureTableTraceLevel = value; }
+        }
+
+        public bool? AzureBlobTraceEnabled
+        {
+            get { return DiagnosticsSettings.AzureBlobTraceEnabled; }
+            set { DiagnosticsSettings.AzureBlobTraceEnabled = value; }
+        }
+
+        public LogEntryType AzureBlobTraceLevel
+        {
+            get { return DiagnosticsSettings.AzureBlobTraceLevel; }
+            set { DiagnosticsSettings.AzureBlobTraceLevel = value; }
         }
 
         public ManagedPipelineMode? ManagedPipelineMode
@@ -361,6 +366,24 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
         {
             get { return SiteConfig.Use32BitWorkerProcess; }
             set { SiteConfig.Use32BitWorkerProcess = value; }
+        }
+
+        public string AutoSwapSlotName
+        {
+            get { return SiteConfig.AutoSwapSlotName; }
+            set { SiteConfig.AutoSwapSlotName = value; }
+        }
+
+        public IList<string> SlotStickyAppSettingNames
+        {
+            get { return SiteConfig.SlotStickyAppSettingNames; }
+            set { SiteConfig.SlotStickyAppSettingNames = value; }
+        }
+
+        public IList<string> SlotStickyConnectionStringNames
+        {
+            get { return SiteConfig.SlotStickyConnectionStringNames; }
+            set { SiteConfig.SlotStickyConnectionStringNames = value; }
         }
     }
 
@@ -424,5 +447,14 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntitie
 
         [DataMember(IsRequired = false)]
         public bool? Use32BitWorkerProcess { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public string AutoSwapSlotName { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public IList<string> SlotStickyAppSettingNames { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public IList<string> SlotStickyConnectionStringNames { get; set; }
     }
 }

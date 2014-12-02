@@ -41,7 +41,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 deviceid = StorSimpleClient.GetDeviceId(DeviceName);
                 if (deviceid == null)
                 {
-                    WriteVerbose(Resources.NotFoundMessageDevice);
+                    WriteObject(Resources.NotFoundMessageDevice);
                     return;
                 }
 
@@ -64,6 +64,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid, dc);
+                    WriteObject(jobstatus);
                     WriteVerbose(ToAsyncJobMessage(jobstatus, "create"));
 
                 }
