@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Management.Automation;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
@@ -8,8 +8,16 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
     {
         public override void ExecuteCmdlet()
         {
-            var currentContext = StorSimpleClient.GetResourceContext();
-            this.WriteObject(currentContext);
+            try
+            {
+                var currentContext = StorSimpleClient.GetResourceContext();
+                this.WriteObject(currentContext);
+            }
+
+            catch(Exception exception)
+            {
+                this.HandleException(exception);
+            }
         }
     }
 }

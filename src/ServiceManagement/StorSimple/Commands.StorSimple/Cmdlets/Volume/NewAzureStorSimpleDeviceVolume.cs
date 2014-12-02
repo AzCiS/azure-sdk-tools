@@ -85,18 +85,23 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Volume
                 if (WaitForComplete.IsPresent)
                 {
                     var jobstatus = StorSimpleClient.CreateVolume(deviceid, virtualDiskToCreate); ;
-                    WriteObject(jobstatus);
+                    HandleSyncJobResponse(jobstatus, "create");
+                    if(jobstatus.TaskResult == TaskResult.Succeeded)
+                    {
+                        var createdVolume = StorSimpleClient.GetVolumeByName(deviceid, VolumeName);
+                        WriteObject(createdVolume.VirtualDiskInfo);
+                    }
                 }
 
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateVolumeAsync(deviceid, virtualDiskToCreate); ;
-                    WriteVerbose(ToAsyncJobMessage(jobstatus, "create"));
+                    HandleAsyncJobResponse(jobstatus, "create");
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

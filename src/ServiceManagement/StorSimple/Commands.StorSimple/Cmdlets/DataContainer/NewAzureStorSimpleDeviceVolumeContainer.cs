@@ -58,20 +58,29 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (WaitForComplete.IsPresent)
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainer(deviceid, dc);
-                    WriteObject(jobstatus);
+                    HandleSyncJobResponse(jobstatus, "create");
+                    if(jobstatus.TaskResult == TaskResult.Succeeded)
+                    {
+                        var createdDataContainer = StorSimpleClient.GetDataContainer(deviceid, VolumeContainerName);
+                        WriteObject(createdDataContainer.DataContainerInfo);
+                    }
                 }
 
                 else
                 {
                     var jobstatus = StorSimpleClient.CreateDataContainerAsync(deviceid, dc);
+<<<<<<< HEAD
                     WriteObject(jobstatus);
                     WriteVerbose(ToAsyncJobMessage(jobstatus, "create"));
+=======
+                    HandleAsyncJobResponse(jobstatus, "create");
+>>>>>>> 618837084a46d2e1e7afd3a881b9379d7ab9157b
 
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

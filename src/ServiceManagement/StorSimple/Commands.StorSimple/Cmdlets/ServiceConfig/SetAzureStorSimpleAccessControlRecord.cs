@@ -68,17 +68,23 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (WaitForComplete.IsPresent)
                 {
                     var jobStatus = StorSimpleClient.ConfigureService(serviceConfig);
-                    WriteObject(jobStatus);
+                    HandleSyncJobResponse(jobStatus, "update");
+                    if(jobStatus.TaskResult == TaskResult.Succeeded)
+                    {
+                        var updatedAcr = StorSimpleClient.GetAllAccessControlRecords()
+                                            .Where(x => x.Name.Equals(ACRName, StringComparison.InvariantCultureIgnoreCase));
+                        WriteObject(updatedAcr);
+                    }
                 }
                 else
                 {
                     var jobResponse = StorSimpleClient.ConfigureServiceAsync(serviceConfig);
-                    WriteVerbose(ToAsyncJobMessage(jobResponse, "update"));
+                    HandleAsyncJobResponse(jobResponse, "update");
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

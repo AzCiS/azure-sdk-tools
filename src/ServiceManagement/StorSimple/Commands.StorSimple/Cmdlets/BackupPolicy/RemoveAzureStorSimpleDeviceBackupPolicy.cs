@@ -51,18 +51,18 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                       if (WaitForComplete.IsPresent)
                       {
                           var deleteJobStatusInfo = StorSimpleClient.DeleteBackupPolicy(deviceId, backupPolicyIdFinal);
-                          WriteObject(deleteJobStatusInfo);
+                          HandleSyncJobResponse(deleteJobStatusInfo, "remove");
                       }
                       else
                       {
                           var jobresult = StorSimpleClient.DeleteBackupPolicyAsync(deviceId, backupPolicyIdFinal);
-                          WriteObject(ToAsyncJobMessage(jobresult, "remove"));
+                          HandleAsyncJobResponse(jobresult, "remove");
                       }
                   });
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
             if (deviceId == null)
             {
-                WriteObject(Resources.NotFoundMessageDevice);
+                WriteVerbose(Resources.NotFoundMessageDevice);
             }
             switch (ParameterSetName)
             {

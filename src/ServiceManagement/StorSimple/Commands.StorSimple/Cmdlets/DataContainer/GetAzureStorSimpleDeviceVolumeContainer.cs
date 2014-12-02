@@ -36,17 +36,26 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 if (VolumeContainerName == null)
                 {
                     var dataContainerList = StorSimpleClient.GetAllDataContainers(deviceid);
+                    WriteVerbose(String.Format(Resources.ReturnedCountDataContainerMessage, dataContainerList.DataContainers.Count));
                     WriteObject(dataContainerList.DataContainers);
                 }
                 else
                 {
                     var dataContainer = StorSimpleClient.GetDataContainer(deviceid, VolumeContainerName);
+                    if(dataContainer != null && dataContainer.DataContainerInfo != null)
+                    {
+                        WriteVerbose(String.Format(Resources.FoundDataContainerMessage, VolumeContainerName));
+                    }
+                    else
+                    {
+                        WriteVerbose(String.Format(Resources.NotFoundDataContainerMessage, VolumeContainerName));
+                    }
                     WriteObject(dataContainer.DataContainerInfo);
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

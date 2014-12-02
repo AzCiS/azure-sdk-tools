@@ -88,7 +88,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to # of backups policies returned : {0}.
+        ///   Looks up a localized string similar to # of backup policies returned : {0}.
         /// </summary>
         internal static string BackupPoliciesReturnedCount {
             get {
@@ -115,6 +115,33 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # of backups returned : {0}.
+        /// </summary>
+        internal static string BackupsReturnedCount {
+            get {
+                return ResourceManager.GetString("BackupsReturnedCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call to service with RequestId: {0} failed..
+        /// </summary>
+        internal static string CloudExceptionMessage {
+            get {
+                return ResourceManager.GetString("CloudExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} operation failed, please check the job status for more details..
+        /// </summary>
+        internal static string FailureMessageCompleteJob {
+            get {
+                return ResourceManager.GetString("FailureMessageCompleteJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} job failed to submit. .
         /// </summary>
         internal static string FailureMessageSubmitJob {
@@ -129,6 +156,24 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         internal static string FirstParameterInvalidMessage {
             get {
                 return ResourceManager.GetString("FirstParameterInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume container with name: {0} is found..
+        /// </summary>
+        internal static string FoundDataContainerMessage {
+            get {
+                return ResourceManager.GetString("FoundDataContainerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume with name: {0} is found..
+        /// </summary>
+        internal static string FoundVolumeMessage {
+            get {
+                return ResourceManager.GetString("FoundVolumeMessage", resourceCulture);
             }
         }
         
@@ -214,6 +259,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Volume container with name: {0} is not found..
+        /// </summary>
+        internal static string NotFoundDataContainerMessage {
+            get {
+                return ResourceManager.GetString("NotFoundDataContainerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified access control record does not exist..
         /// </summary>
         internal static string NotFoundMessageACR {
@@ -255,6 +309,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         internal static string NotFoundMessageVirtualDisk {
             get {
                 return ResourceManager.GetString("NotFoundMessageVirtualDisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume with name: {0} is not found..
+        /// </summary>
+        internal static string NotFoundVolumeMessage {
+            get {
+                return ResourceManager.GetString("NotFoundVolumeMessage", resourceCulture);
             }
         }
         
@@ -367,6 +430,24 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # of volume containers returned: {0}.
+        /// </summary>
+        internal static string ReturnedCountDataContainerMessage {
+            get {
+                return ResourceManager.GetString("ReturnedCountDataContainerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # of volumes returned: {0}.
+        /// </summary>
+        internal static string ReturnedCountVolumeMessage {
+            get {
+                return ResourceManager.GetString("ReturnedCountVolumeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parameter Skip cannot be &lt;0.
         /// </summary>
         internal static string SkipParameterInvalidMessage {
@@ -403,6 +484,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} operation completed successfully..
+        /// </summary>
+        internal static string SuccessMessageCompleteJob {
+            get {
+                return ResourceManager.GetString("SuccessMessageCompleteJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Context set successfully for the given resource name..
         /// </summary>
         internal static string SuccessMessageSetResourceContext {
@@ -417,6 +507,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Properties {
         internal static string SuccessMessageSubmitJob {
             get {
                 return ResourceManager.GetString("SuccessMessageSubmitJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network error occurred, RequestId: {0}..
+        /// </summary>
+        internal static string WebExceptionMessage {
+            get {
+                return ResourceManager.GetString("WebExceptionMessage", resourceCulture);
             }
         }
     }

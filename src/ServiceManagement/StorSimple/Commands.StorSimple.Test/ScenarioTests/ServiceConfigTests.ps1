@@ -26,6 +26,15 @@ function Generate-Name ($prefix)
 
 <#
 .SYNOPSIS
+Sets context to default resource
+#>
+function Set-DefaultResource
+{
+    $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
+}
+
+<#
+.SYNOPSIS
 Tests create, get and delete of ACR.
 #>
 function Test-CreateGetDeleteAccessControlRecord
@@ -35,7 +44,7 @@ function Test-CreateGetDeleteAccessControlRecord
     $iqn = Generate-Name("IQN")
 
     #Pre-req
-    $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
+    Set-DefaultResource
     
     # Test
     New-AzureStorSimpleAccessControlRecord -Name $acrName -iqn $iqn -WaitForComplete
@@ -57,7 +66,7 @@ function Test-CreateUpdateDeleteAccessControlRecord
     $iqn = Generate-Name("IQN")
 
     #Pre-req
-    $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
+    Set-DefaultResource
     
     # Test
     New-AzureStorSimpleAccessControlRecord -Name $acrName -iqn $iqn -WaitForComplete
@@ -83,7 +92,7 @@ function Test-CreateGetDeleteStorageAccountCredential
     $storageAccountKey = ""
 
     #Pre-req
-    $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
+    Set-DefaultResource
     
     # Test
     New-AzureStorSimpleStorageAccountCredential -Name $stoargeAccountName -Key $storageAccountKey -UseSSL $true -WaitForComplete
@@ -105,7 +114,7 @@ function Test-CreateUpdateDeleteStorageAccountCredential
     $storageAccountSecondaryKey = ""
 
     #Pre-req
-    $selectedResource = Select-AzureStorSimpleResource -ResourceName OneSDK-Resource
+    Set-DefaultResource
     
     # Test
     New-AzureStorSimpleStorageAccountCredential -Name $stoargeAccountName -Key $storageAccountKey -UseSSL $true -WaitForComplete

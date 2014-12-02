@@ -39,17 +39,26 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 {
                     case StorSimpleCmdletParameterSet.IdentifyByParentObject:
                         var volumeInfoList = StorSimpleClient.GetAllVolumesFordataContainer(deviceId, VolumeContainer.InstanceId);
+                        WriteVerbose(string.Format(Resources.ReturnedCountVolumeMessage, volumeInfoList.ListofVirtualDisks.Count));
                         WriteObject(volumeInfoList.ListofVirtualDisks);
                         break;
                     case StorSimpleCmdletParameterSet.IdentifyByName:
                         var volumeInfo = StorSimpleClient.GetVolumeByName(deviceId, VolumeName);
+                        if(volumeInfo != null && volumeInfo.VirtualDiskInfo != null)
+                        {
+                            WriteVerbose(String.Format(Resources.FoundVolumeMessage, VolumeName));
+                        }
+                        else
+                        {
+                            WriteVerbose(String.Format(Resources.NotFoundVolumeMessage, VolumeName));
+                        }
                         WriteObject(volumeInfo.VirtualDiskInfo);
                         break;
                 }
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }

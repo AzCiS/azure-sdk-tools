@@ -43,17 +43,17 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                  if (WaitForComplete.IsPresent)
                  {
                      var JobStatusInfo = StorSimpleClient.DoBackup(deviceId, BackupPolicyId, backupNowRequest);
-                     WriteObject(JobStatusInfo);
+                     HandleSyncJobResponse(JobStatusInfo, "start");
                  }
                  else
                  {
                      var jobresult = StorSimpleClient.DoBackupAsync(deviceId, BackupPolicyId, backupNowRequest);
-                     WriteObject(ToAsyncJobMessage(jobresult, "start"));
+                     HandleAsyncJobResponse(jobresult, "start");
                  }
              }
-             catch (CloudException cloudException)
+             catch (Exception exception)
              {
-                 StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                 this.HandleException(exception);
              }
          }
 
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 
             if (deviceId == null)
             {
-                WriteObject(Resources.NotFoundMessageDevice);
+                WriteVerbose(Resources.NotFoundMessageDevice);
             }
 
              BackupType backupTypeSelected = Management.StorSimple.Models.BackupType.Invalid;

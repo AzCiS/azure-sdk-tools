@@ -14,9 +14,9 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                 var serviceList = StorSimpleClient.GetAllResources();
                 this.WriteObject(serviceList, true);
             }
-            catch (CloudException cloudException)
+            catch (Exception exception)
             {
-                StorSimpleClient.ThrowCloudExceptionDetails(cloudException);
+                this.HandleException(exception);
             }
         }
     }
