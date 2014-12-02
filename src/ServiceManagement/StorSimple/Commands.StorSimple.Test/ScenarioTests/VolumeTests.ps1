@@ -218,6 +218,3 @@ function Test-VolumeAsync
     $jobStatus = Remove-AzureStorSimpleAccessControlRecord -Name $acrName -Force -WaitForComplete  -ErrorAction SilentlyContinue
     echo "Existing the test"
 }
-
-Test-VolumeSync
-Test-VolumeAsync

@@ -118,7 +118,3 @@ function Test-VolumeContainerSync_RepetitiveDCName
     $jobStatus = $dcToUse| Remove-AzureStorSimpleDeviceVolumeContainer -DeviceName $deviceName -Force -WaitForComplete  -ErrorAction SilentlyContinue   
     echo "Exiting test"
 }
-
-Test-VolumeContainerSync
-Test-VolumeContainerAsync
-Test-VolumeContainerSync_RepetitiveDCName
