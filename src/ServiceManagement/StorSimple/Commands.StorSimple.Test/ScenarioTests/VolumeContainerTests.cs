@@ -27,7 +27,7 @@ namespace Microsoft.Azure.Commands.StorSimple.Test.ScenarioTests
 
         [Fact]
         [Trait("StorSimpleCmdlets", "VolumeContainer")]
-        public void Test-VolumeContainerSync_RepetitiveDCName()
+        public void TestVolumeContainerSync_RepetitiveDCName()
         {
             RunPowerShellTest("Test-VolumeContainerSync_RepetitiveDCName");
         }
