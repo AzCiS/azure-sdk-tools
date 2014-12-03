@@ -31,7 +31,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         [ValidateNotNullOrEmpty]
         public int BandWidthRate { get; set; }
 
-        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
+        [Parameter(Position = 4, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerEncryptionEnabled)]
+        [ValidateNotNullOrEmpty]
+        public bool? EncryptionEnabled { get; set; }
+
+        [Parameter(Position = 5, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageDataContainerEncryptionkey)]
+        [ValidateNotNullOrEmpty]
+        public string EncryptionKey { get; set; }
+
+        [Parameter(Position = 6, Mandatory = false, HelpMessage = StorSimpleCmdletHelpMessage.HelpMessageWaitTillComplete)]
         public SwitchParameter WaitForComplete { get; set; }
         public override void ExecuteCmdlet()
         {
@@ -45,12 +53,18 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                     return;
                 }
 
+                if(EncryptionEnabled == true && EncryptionKey == null)
+                {
+                    throw new ArgumentNullException("EncryptionKey");
+                }
+
                 var dc = new DataContainerRequest
                 {
                     IsDefault = false,
                     Name = VolumeContainerName,
                     BandwidthRate = BandWidthRate,
-                    IsEncryptionEnabled = false,
+                    IsEncryptionEnabled = EncryptionEnabled ?? false,
+                    EncryptionKey = EncryptionKey,
                     VolumeCount = 0,
                     PrimaryStorageAccountCredential = PrimaryStorageAccountCredential
                 };
