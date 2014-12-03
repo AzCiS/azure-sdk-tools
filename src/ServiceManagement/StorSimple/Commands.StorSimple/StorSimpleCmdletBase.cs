@@ -75,10 +75,10 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
             WriteVerbose(msg);
         }
 
-        internal virtual void HandleException(Exception ex)
+        internal virtual void HandleException(Exception exception)
         {
             ErrorRecord errorRecord = null;
-
+            var ex = exception;
             do
             {
                 Type exType = ex.GetType();
@@ -134,7 +134,7 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple
 
             if(errorRecord == null)
             {
-                errorRecord = new ErrorRecord(ex, string.Empty, ErrorCategory.NotSpecified, null);
+                errorRecord = new ErrorRecord(exception, string.Empty, ErrorCategory.NotSpecified, null);
             }
 
             WriteError(errorRecord);

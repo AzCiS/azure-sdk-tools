@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Management.StorSimple.Models;
 using System.Collections.Generic;
 using System.Net;
+using Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets.Library;
 
 namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
 {
@@ -39,6 +40,15 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
         {
             try
             {
+                //TODO: Remove
+                IKeyManager keyManager = new LocalKeyStoreManager();
+                keyManager.PersistKey("JovQDqP1KyWdh4m3mYkdzQ==", "onesdk.dat");
+                //end TODO
+
+                String encryptedSecret = null;
+                StorSimpleCryptoManager storSimpleCryptoManager = new StorSimpleCryptoManager(this);
+                storSimpleCryptoManager.EncryptSecretWithRakPub(StorageAccountKey, out encryptedSecret);
+
                 var serviceConfig = new ServiceConfiguration()
                 {
                     AcrChangeList = new AcrChangeList(),
@@ -48,14 +58,12 @@ namespace Microsoft.WindowsAzure.Commands.StorSimple.Cmdlets
                         {
                             new StorageAccountCredential()
                             {
-                                CloudType = CloudType.Azure,
-                                Hostname = string.Empty,
-                                Login = string.Empty,
-                                Password = StorageAccountKey,
+                                CloudType = CloudType.Azure,        //TODO:
+                                Hostname = "blob.core.windows.net", //TODO:
+                                Login = StorageAccountName,
+                                Password = encryptedSecret,
                                 UseSSL = UseSSL,
-                                VolumeCount = 0,
-                                Name = StorageAccountName,
-                                PasswordEncryptionCertThumbprint = string.Empty
+                                Name = StorageAccountName
                             },
                         },
                         Deleted = new List<string>(),
